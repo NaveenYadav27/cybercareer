@@ -1,0 +1,1699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShadowXLab — Connected Career Simulator</title>
+<link rel="canonical" href="https://cybercareer.shadowxlab.com/">
+<style>
+:root{--bg:#f4f5f7;--card:#fff;--card2:#fafafa;--ink:#101828;--muted:#667085;--line:#d9dde3;--red:#b42318;--red2:#7a271a;--soft:#fff4f2;--green:#067647;--amber:#b54708;--nav:#0f1720;--shadow:0 8px 24px rgba(16,24,40,.07)}
+[data-theme="dark"]{--bg:#0b0f16;--card:#131a24;--card2:#171f2b;--ink:#e6e9ef;--muted:#8a94a6;--line:#28313f;--red:#f04438;--red2:#fda29b;--soft:#241a19;--green:#32d583;--amber:#fdb022;--nav:#0a0e14;--shadow:0 8px 24px rgba(0,0,0,.35)}
+body{transition:background .15s,color .15s}
+.metric,.panel,.case,.stage,.top,.btn,.choice,.month,.artifact,.qa,.badgecard,.ioc-tile,.casehero,.field input,.field textarea,.field select{transition:background .15s,border-color .15s,color .15s}
+.themetoggle{border:1px solid var(--line);background:var(--card);width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-size:14px;padding:0}
+.themetoggle:hover{border-color:var(--red)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}
+.side{background:var(--nav);color:#fff;padding:14px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{display:flex;align-items:center;gap:10px;padding:5px 7px 20px}
+.logo{width:38px;height:38px;background:#fff;color:var(--red);border-radius:10px;display:grid;place-items:center;font-weight:900}
+.brand b{display:block}.brand small{color:#98a2b3;font-size:9px}
+.navtitle{font-size:9px;color:#98a2b3;text-transform:uppercase;letter-spacing:.12em;margin:15px 8px 6px}
+.nav button{width:100%;text-align:left;border:0;background:transparent;color:#d0d5dd;padding:9px 10px;border-radius:7px;margin:2px 0}
+.nav button.active,.nav button:hover{background:#252f3d;color:#fff}
+.nav button .lockdot{float:right;font-size:9px;color:#f97066}
+.sidebox{margin-top:16px;border:1px solid #344054;background:#182230;border-radius:10px;padding:11px}
+.sidebox b{font-size:10px}.sidebox p{font-size:10px;color:#98a2b3;margin:5px 0 9px}
+main{min-width:0}
+.top{height:62px;background:var(--card);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:10}
+.crumb{font-size:11px;color:var(--muted)}.crumb b{color:var(--ink)}
+.user{display:flex;align-items:center;gap:8px;font-size:11px}
+.avatar{width:29px;height:29px;border-radius:50%;background:#fee4e2;color:var(--red);display:grid;place-items:center;font-weight:800}
+.wrap{max-width:1550px;margin:auto;padding:22px}
+.view{display:none}.view.active{display:block}
+.hero{background:linear-gradient(120deg,#fff,#fff5f2);border:1px solid #ebc9c4;border-radius:17px;padding:25px;display:flex;justify-content:space-between;gap:18px;box-shadow:var(--shadow);flex-wrap:wrap}
+.hero h1{font-size:29px;line-height:1.14;margin:7px 0}
+.hero p{max-width:850px;color:var(--muted);margin:0}
+.badge{display:inline-block;background:#fee4e2;color:var(--red);border-radius:99px;padding:4px 8px;font-size:9px;font-weight:850;letter-spacing:.06em;text-transform:uppercase}
+.badge.ok{background:#ecfdf3;color:var(--green)}
+.badge.locked{background:#eaecf0;color:#475467}
+.actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--card);padding:9px 13px;border-radius:8px;font-weight:750}
+.btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.btn.primary:hover{background:var(--red2)}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn.primary:disabled{background:var(--card2);border-color:var(--line);color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:14px 0}
+.metric,.panel,.case,.stage{background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:var(--shadow)}
+.metric{padding:12px}.metric small{font-size:10px;color:var(--muted)}
+.metric strong{display:block;font-size:21px;margin:2px 0}
+.metric em{font-style:normal;font-size:9px;color:var(--green);font-weight:700}
+.head{display:flex;justify-content:space-between;align-items:end;margin:20px 0 9px;flex-wrap:wrap;gap:8px}
+.head h2{font-size:18px;margin:0}.head p{font-size:11px;color:var(--muted);margin:2px 0 0}
+.flow{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.node{font-size:9px;font-weight:800;background:var(--card2);border:1px solid var(--line);padding:6px 8px;border-radius:7px}
+.node.done{background:#ecfdf3;border-color:#75e0a3;color:var(--green)}
+.arrow{color:#98a2b3}
+.panel{padding:15px}
+.cases{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.case{padding:14px;cursor:pointer}
+.case:hover{border-color:#aeb5bf;transform:translateY(-1px)}
+.case.islocked{cursor:not-allowed;opacity:.55}
+.code{font-size:9px;color:var(--muted);font-weight:800}
+.case h3{font-size:15px;margin:5px 0}.case p{font-size:11px;color:var(--muted);min-height:34px;margin:0}
+.tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}
+.tag{font-size:9px;border:1px solid var(--line);padding:3px 6px;border-radius:99px;color:#475467}
+.journey{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.stage{padding:9px;text-align:center}.stage b{display:block;font-size:9px}.stage span{font-size:8px;color:var(--muted)}
+.stage.done{border-color:#75e0a3;background:#ecfdf3}.stage.done b{color:var(--green)}
+.casehero{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:16px;display:flex;justify-content:space-between;gap:14px;box-shadow:var(--shadow);flex-wrap:wrap}
+.casehero h1{font-size:22px;margin:5px 0}.casehero p{margin:0;color:var(--muted)}
+.sev{font-size:9px;background:#fee4e2;color:var(--red);padding:5px 8px;border-radius:99px;font-weight:850}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);margin-top:12px;overflow:auto}
+.tabs button{border:0;background:transparent;color:var(--muted);padding:9px 11px;font-weight:750;white-space:nowrap}
+.tabs button.active{color:var(--red);border-bottom:2px solid var(--red)}
+.tab{display:none}.tab.active{display:block}
+.two{display:grid;grid-template-columns:1.3fr .7fr;gap:11px;margin-top:11px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.four{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.detailgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:7px}
+.detail{padding:8px;background:var(--card2);border:1px solid var(--line);border-radius:7px}
+.detail small{display:block;color:var(--muted);font-size:8px}.detail b{font-size:10px}
+.muted{color:var(--muted)}
+.console{border:1px solid #273244;border-radius:8px;overflow:hidden}
+.consolebar{background:#202938;color:#d0d5dd;padding:7px 9px;font-size:9px;display:flex;justify-content:space-between}
+.consolebody{background:#101828;color:#d0d5dd;padding:10px;min-height:150px;font:10px/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}
+.cheatsheet{margin-top:14px;padding-top:12px;border-top:1px dashed var(--line)}
+.cheatsheet summary{cursor:pointer;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);list-style:none}
+.cheatsheet summary::-webkit-details-marker{display:none}
+.cheatsheet summary::before{content:"▸ ";display:inline-block;transition:transform .15s}
+.cheatsheet[open] summary::before{transform:rotate(90deg)}
+.cheatsheet-body{margin-top:10px;display:grid;gap:10px}
+.cheat-tool{border:1px solid var(--line);border-radius:8px;padding:9px 10px;background:var(--card2)}
+.cheat-tool .cheat-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.cheat-tool b{font-size:11.5px}
+.cheat-tool .cheat-tag{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.cheat-tool p{margin:3px 0 6px;font-size:10.5px;color:var(--muted)}
+.cheat-cmd{background:#101828;color:#7ce2b0;border-radius:6px;padding:6px 8px;font:10px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;overflow-x:auto;white-space:pre-wrap}
+.consolebody input{width:78%;background:transparent;border:0;outline:0;color:#fff;font:inherit}
+.cmd{color:#7ce2b0}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:10px}
+th,td{padding:7px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{background:var(--card2);color:var(--muted)}
+.choice{width:100%;text-align:left;background:var(--card);border:1px solid var(--line);padding:10px;border-radius:7px;margin:4px 0;font-size:11px}
+.choice:hover{border-color:#b42318;background:#fffafa}
+.choice.good{background:#ecfdf3;border-color:#75e0a3;color:#05603a}
+.choice.bad{background:#fef3f2;border-color:#fda29b;color:#b42318}
+.feedback{display:none;padding:10px;background:var(--card2);border:1px solid var(--line);border-radius:8px;margin-top:8px;font-size:11px}
+.feedback.show{display:block}
+.progress{height:7px;background:#eaecf0;border-radius:99px;overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--red);transition:.35s}
+.riskbox{background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:11px}
+.score{font-size:28px;font-weight:900}
+.critical{color:var(--red)}.high{color:var(--amber)}.medium{color:var(--amber)}.low{color:var(--green)}
+.field{margin-bottom:8px}
+.field label{display:block;color:var(--muted);font-size:8px;font-weight:800;margin-bottom:3px}
+.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:7px;padding:7px;background:var(--card)}
+.field textarea{min-height:82px;resize:vertical}
+.timeline{border-left:2px solid #d0d5dd;padding-left:14px}
+.event{position:relative;margin:0 0 13px}
+.event:before{content:"";position:absolute;left:-19px;top:4px;width:7px;height:7px;border-radius:50%;background:var(--red)}
+.event b{font-size:10px}.event span{display:block;font-size:10px;color:var(--muted)}
+.road{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.month{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:13px}
+.month.focus{border-color:var(--red);box-shadow:0 0 0 2px #fee4e2}
+.month b{font-size:9px;color:var(--red)}.month h3{margin:5px 0}
+.month ul{margin:0;padding-left:16px;font-size:10px;color:var(--muted)}
+.artifact{padding:13px;border:1px solid var(--line);border-radius:9px;background:var(--card)}
+.artifact h4{margin:5px 0}.artifact p{font-size:10px;color:var(--muted);margin:3px 0}
+.reveal{background:#101828;color:#fff;border-radius:14px;padding:23px}
+.reveal h1{font-size:27px;margin:5px 0}.reveal p{color:#cbd5e1}
+.reveal .detail{background:#182230;border-color:#344054;color:#fff}
+.reveal .detail small{color:#98a2b3}.reveal .detail b{color:#fff}
+.toast{display:none;position:fixed;right:18px;bottom:18px;background:#101828;color:#fff;padding:10px 13px;border-radius:8px;font-size:11px;z-index:50;box-shadow:var(--shadow)}
+.toast.show{display:block}
+.lockbox{border:1px dashed var(--line);border-radius:11px;padding:22px;text-align:center;background:var(--card2)}
+.lockbox b{display:block;margin-bottom:6px}
+.evidencetable td small{color:var(--muted)}
+.rolecard{padding:15px}
+.daylife{margin-top:12px;padding-top:12px;border-top:1px dashed var(--line)}
+.daylife ul{margin:6px 0 0;padding-left:16px;font-size:11px;color:var(--muted)}
+.daylife ul li{margin:3px 0}
+.daylife-toggle{margin-top:10px;font-size:11px}
+.daylife-toggle summary{cursor:pointer;font-weight:600;color:var(--red);list-style:none}
+.daylife-toggle summary::-webkit-details-marker{display:none}
+.daylife-toggle summary::before{content:"▸ ";display:inline-block;transition:transform .15s}
+.daylife-toggle[open] summary::before{transform:rotate(90deg)}
+.daylife-toggle ul{margin:8px 0 0;padding-left:16px;color:var(--muted)}
+.daylife-toggle ul li{margin:4px 0}
+.matchpill{font-size:11px;padding:4px 10px;border-radius:99px;font-weight:850}
+.matchpill.strong{background:#ecfdf3;color:var(--green)}
+.matchpill.target{background:#fff4e5;color:var(--amber)}
+.matchpill.explore{background:#eff4ff;color:#3538cd}
+.matchpill.developing{background:#fee4e2;color:var(--red)}
+.matchpill.foundation{background:#eaecf0;color:#475467}
+[data-theme="dark"] .hero{background:linear-gradient(120deg,#131a24,#241a19);border-color:#3a2422}
+[data-theme="dark"] .badge{background:#3a2422;color:#f97066}
+[data-theme="dark"] .badge.ok{background:#0f2e22;color:#32d583}
+[data-theme="dark"] .badge.locked{background:#1f2733;color:#98a2b3}
+[data-theme="dark"] .sev{background:#3a2422;color:#f97066}
+[data-theme="dark"] .matchpill.strong{background:#0f2e22;color:#32d583}
+[data-theme="dark"] .matchpill.target{background:#3a2c14;color:#fdb022}
+[data-theme="dark"] .matchpill.explore{background:#1a2140;color:#8da2fb}
+[data-theme="dark"] .matchpill.developing{background:#3a2422;color:#f97066}
+[data-theme="dark"] .matchpill.foundation{background:#1f2733;color:#98a2b3}
+[data-theme="dark"] .choice.good{background:#0f2e22;border-color:#1c6b48;color:#32d583}
+[data-theme="dark"] .choice.bad{background:#3a2422;border-color:#7a271a;color:#f97066}
+[data-theme="dark"] .node.done{background:#0f2e22;border-color:#1c6b48;color:#32d583}
+[data-theme="dark"] .stage.done{background:#0f2e22;border-color:#1c6b48}
+[data-theme="dark"] .month.focus{box-shadow:0 0 0 2px #3a2422}
+[data-theme="dark"] .wireshark-table tbody tr:nth-child(odd){background:#171f2b}
+[data-theme="dark"] .wireshark-table tbody tr:hover{background:#1a2140}
+[data-theme="dark"] .zap-risktag.high{background:#3a2422;color:#f97066}
+[data-theme="dark"] .zap-risktag.low{background:#3a2c14;color:#fdb022}
+[data-theme="dark"] .zap-risktag.info{background:#1f2733;color:#98a2b3}
+[data-theme="dark"] .notable-sev.high{background:#3a2422;color:#f97066}
+[data-theme="dark"] .notable-sev.med{background:#3a2c14;color:#fdb022}
+[data-theme="dark"] .avatar{background:#3a2422}
+[data-theme="dark"] .kw{background:#171f2b}
+.skillrow{display:flex;justify-content:space-between;font-size:10px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.disclaimer{font-size:10px;color:var(--muted);border-top:1px solid var(--line);padding-top:9px;margin-top:11px}
+.qa{border:1px solid var(--line);border-radius:9px;padding:12px;margin-bottom:10px;background:var(--card)}
+.qa b{display:block;font-size:12px;margin-bottom:6px}
+.searchlinks{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.searchlinks a{font-size:10px;border:1px solid var(--line);padding:6px 9px;border-radius:7px;color:var(--ink);text-decoration:none}
+.searchlinks a:hover{border-color:var(--red);color:var(--red)}
+.kwlist{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.kw{font-size:9px;background:#f2f4f7;border:1px solid var(--line);border-radius:99px;padding:4px 8px}
+.xprank{color:#fff;font-size:13px;font-weight:850;margin:2px 0 6px}
+.xpbar-track{height:8px;background:#344054;border-radius:99px;overflow:hidden}
+.xpbar-fill{display:block;height:100%;width:0;background:linear-gradient(90deg,#fda29b,#b42318);transition:.4s}
+.badgegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.badgecard{border:1px solid var(--line);border-radius:11px;padding:12px;text-align:center;background:var(--card);transition:.2s}
+.badgecard.locked{opacity:.4;filter:grayscale(1)}
+.badgecard .bicon{font-size:26px;display:block;margin-bottom:6px}
+.badgecard b{display:block;font-size:11px}
+.badgecard span{display:block;font-size:9px;color:var(--muted);margin-top:3px}
+.xptoast b{color:#fda29b}
+.bulletbox{background:var(--card2);border:1px solid var(--line);border-radius:9px;padding:12px}
+.bulletbox ul{margin:0;padding-left:18px}
+.bulletbox li{margin:6px 0;font-size:12px}
+.copybar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.checklist label{display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:7px 0;border-bottom:1px dashed var(--line)}
+.checklist input{margin-top:3px}
+.toolempty{padding:16px;text-align:center;color:var(--muted);font-size:12px}
+.wireshark-table{font:10px/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+.wireshark-table td,.wireshark-table th{white-space:nowrap}
+.wireshark-table tbody tr:nth-child(odd){background:#f6f7fa}
+.wireshark-table tbody tr:hover{background:#eef2ff}
+.splunk-kpi{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.kpi-tile{background:#0b1220;color:#fff;border-radius:9px;padding:11px}
+.kpi-tile small{color:#94a3b8;font-size:9px;display:block}
+.kpi-tile b{font-size:19px;display:block;margin-top:2px}
+.splunk-search{background:#0b1220;color:#7ce2b0;border-radius:8px;padding:9px;font:10px/1.6 ui-monospace,SFMono-Regular,Consolas,monospace;margin:8px 0}
+.notable-sev{font-size:9px;padding:2px 7px;border-radius:99px;font-weight:800}
+.notable-sev.high{background:#fee4e2;color:var(--red)}
+.notable-sev.med{background:#fff4e5;color:var(--amber)}
+.zap-alert{padding:9px 10px;border-left:4px solid #98a2b3;border-radius:6px;margin-bottom:7px;font-size:11px;background:var(--card2)}
+.zap-alert.high{border-left-color:var(--red)}
+.zap-alert.low{border-left-color:var(--amber)}
+.zap-alert.info{border-left-color:#98a2b3}
+.zap-risktag{font-size:8px;font-weight:850;padding:2px 6px;border-radius:99px;text-transform:uppercase;margin-right:6px}
+.zap-risktag.high{background:#fee4e2;color:var(--red)}
+.zap-risktag.low{background:#fff4e5;color:var(--amber)}
+.zap-risktag.info{background:#eaecf0;color:#475467}
+.ioc-tile{padding:10px;border:1px solid var(--line);border-radius:8px;margin-bottom:8px;background:var(--card)}
+.ioc-tile b{display:block;font-size:11px;font-family:ui-monospace,monospace}
+.ioc-tile span{font-size:10px;color:var(--red);font-weight:800}
+.control-map{padding:11px;background:var(--card2);border:1px solid var(--line);border-radius:9px;margin-bottom:8px}
+.control-map small{display:block;color:var(--muted);font-size:9px}
+.control-map b{font-size:12px}
+@media(max-width:1100px){.badgegrid{grid-template-columns:repeat(2,1fr)}.splunk-kpi{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:1100px){.metrics{grid-template-columns:repeat(3,1fr)}.cases,.road{grid-template-columns:repeat(2,1fr)}.journey{grid-template-columns:repeat(4,1fr)}.four{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:800px){.app{grid-template-columns:1fr}.side{height:auto;position:relative}.nav{display:flex;overflow:auto}.navtitle{display:none}.nav button{white-space:nowrap}.hero,.casehero{display:block}.actions{margin-top:12px}.metrics,.cases,.road,.three,.two,.four{grid-template-columns:1fr}.wrap{padding:12px}}
+@keyframes fadeIn{to{opacity:1}}
+</style>
+<script>(function(){try{var t=localStorage.getItem('sxlV8Theme');if(!t){t=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<div class="app">
+<aside class="side">
+<div class="brand"><div class="logo">SX</div><div><b>ShadowXLab</b><small>Connected Career Simulator</small></div></div>
+<div class="navtitle">Experience</div>
+<div class="nav">
+<button class="active" data-nav="home" onclick="go('home')">▦ Career Simulator</button>
+<button data-nav="cases" onclick="go('cases')">◉ FinBank Enterprise</button>
+<button data-nav="evidence" onclick="go('evidence')">◆ Career Portfolio</button>
+<button data-nav="roadmap" onclick="go('roadmap')">⌁ 4-Month Roadmap</button>
+<button data-nav="jobs" onclick="go('jobs')">◈ Job Opportunities</button>
+<button data-nav="report" onclick="go('report')">▤ Career Report</button>
+<button data-nav="toolkit" onclick="go('toolkit')">✎ Career Toolkit</button>
+</div>
+<div class="navtitle">Live Workspaces</div>
+<div class="nav">
+<button onclick="openStage('eh')">01 Ethical Hacking</button>
+<button onclick="openStage('vapt')">02 VAPT</button>
+<button onclick="openStage('attack')">03 Controlled Attack</button>
+<button onclick="openStage('soc')">04 SOC Investigation</button>
+<button onclick="openStage('grc')">05 GRC / Risk</button>
+</div>
+<div class="sidebox"><b>ONE CONNECTED CASE</b><p>FinBank Customer Portal. Every stage consumes the evidence the previous stage produced.</p><button class="btn primary" style="width:100%;padding:7px" onclick="openStage('eh')">Start the Exercise</button></div>
+<div class="sidebox"><b>RESET</b><p>Clear all progress and evidence for this browser.</p><button class="btn" style="width:100%;padding:7px" onclick="resetAll()">Reset Simulator</button></div>
+<div class="sidebox"><b>YOUR RANK</b><div class="xprank" id="xpRankLabel">Trainee</div><div class="xpbar-track"><span class="xpbar-fill" id="xpBar"></span></div><p id="xpDetail" style="margin-top:6px">0 XP</p></div>
+</aside>
+<main>
+<header class="top"><div class="crumb"><b>ShadowXLab</b> / FinBank Connected Career Simulator</div><div class="user"><button class="themetoggle" id="themeToggle" onclick="toggleTheme()" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button><button class="btn" style="padding:6px 10px;font-size:11px" onclick="resetAll()">↺ New Session</button> Candidate <span class="avatar">CD</span></div></header>
+<div class="wrap">
+
+<section id="home" class="view active">
+<div class="hero">
+<div><span class="badge">Connected enterprise case • FinBank</span><h1>Experience one real cybersecurity workflow, end to end.</h1><p>You work one connected FinBank case across five professional roles. Every action you take produces evidence. Every stage consumes the evidence the previous stage produced. Nothing here is decorative — if a button exists, it changes real state.</p></div>
+<div class="actions"><button class="btn primary" onclick="openStage('eh')">Start the Exercise</button><button class="btn" onclick="go('cases')">View the Enterprise Case</button></div>
+</div>
+<div class="metrics">
+<div class="metric"><small>Enterprise</small><strong>FinBank</strong><em>FB-WEB-01 / 10.10.20.15</em></div>
+<div class="metric"><small>Stages</small><strong>5</strong><em>EH · VAPT · Attack · SOC · GRC</em></div>
+<div class="metric"><small>Evidence items</small><strong id="mEvidence">0</strong><em>generated by you</em></div>
+<div class="metric"><small>Overall capability</small><strong id="mCapability">0%</strong><em>from demonstrated work</em></div>
+<div class="metric"><small>Best role match</small><strong id="mBestRole">—</strong><em id="mBestRolePct">0%</em></div>
+</div>
+
+<div class="panel" style="margin-top:10px">
+<div style="display:flex;justify-content:space-between;gap:10px;align-items:end;flex-wrap:wrap">
+<div><span class="badge">Capability engine</span><h3 style="margin:6px 0 2px">Your demonstrated capability</h3><p class="muted">Every score below is computed from actions you actually performed — not attendance, not memorization.</p></div>
+</div>
+<div class="three" style="margin-top:10px;grid-template-columns:repeat(6,1fr)">
+<div class="detail"><small>TECHNICAL</small><b id="capTechnical">0%</b><div class="progress"><i id="capTechnicalBar"></i></div></div>
+<div class="detail"><small>INVESTIGATION</small><b id="capInvestigation">0%</b><div class="progress"><i id="capInvestigationBar"></i></div></div>
+<div class="detail"><small>EVIDENCE HANDLING</small><b id="capEvidenceHandling">0%</b><div class="progress"><i id="capEvidenceHandlingBar"></i></div></div>
+<div class="detail"><small>RISK THINKING</small><b id="capRiskThinking">0%</b><div class="progress"><i id="capRiskThinkingBar"></i></div></div>
+<div class="detail"><small>DECISION QUALITY</small><b id="capDecisionQuality">0%</b><div class="progress"><i id="capDecisionQualityBar"></i></div></div>
+<div class="detail"><small>COMMUNICATION</small><b id="capCommunication">0%</b><div class="progress"><i id="capCommunicationBar"></i></div></div>
+</div>
+</div>
+
+<div class="head"><div><h2>Connected case chain</h2><p>Your work in one stage becomes the input for the next.</p></div><div><span id="chainStatus" class="sev">NOT STARTED</span></div></div>
+<div class="panel"><div class="flow">
+<span class="node" id="chainEH">01 EH • DISCOVER</span><span class="arrow">→</span>
+<span class="node" id="chainVAPT">02 VAPT • VULN-001</span><span class="arrow">→</span>
+<span class="node" id="chainAttack">03 ATTACK • TELEMETRY</span><span class="arrow">→</span>
+<span class="node" id="chainSOC">04 SOC • INC-1042</span><span class="arrow">→</span>
+<span class="node" id="chainGRC">05 GRC • RISK-001</span>
+</div></div>
+
+<div class="head"><div><h2>The five professional roles</h2><p>Open a workspace. Each one is locked until its required evidence exists.</p></div></div>
+<div class="cases" id="stageCards"></div>
+
+<div class="panel" style="margin-top:12px;background:#101828;color:#fff;border-color:#101828">
+<h3 style="margin-top:0">Where this leads</h3>
+<p style="color:#cbd5e1">One connected case → demonstrated capability → role matching → a personalized four-month roadmap → interview-ready evidence.</p>
+<div class="flow">
+<span class="node">PERFORM</span><span class="arrow">→</span><span class="node">EVIDENCE</span><span class="arrow">→</span><span class="node">CAPABILITY</span><span class="arrow">→</span><span class="node">ROLE MATCH</span><span class="arrow">→</span><span class="node">ROADMAP</span><span class="arrow">→</span><span class="node">CAREER REPORT</span>
+</div>
+<div style="margin-top:12px"><button class="btn primary" onclick="go('jobs')">See My Job Opportunity Roadmap</button></div>
+</div>
+
+<div class="head"><div><h2>Achievements</h2><p>Unlocked as you actually perform each stage — not for showing up.</p></div><div id="xpSummary" class="sev" style="background:#eaecf0;color:#475467">0 XP</div></div>
+<div class="badgegrid" id="badgeShelf"></div>
+</section>
+
+<section id="cases" class="view">
+<div class="head"><div><h2>FinBank Enterprise Case</h2><p>All five stages operate on the same connected environment.</p></div></div>
+<div class="panel"><h3>Primary asset</h3><div class="detailgrid">
+<div class="detail"><small>HOST</small><b>FB-WEB-01</b></div>
+<div class="detail"><small>ADDRESS</small><b>10.10.20.15</b></div>
+<div class="detail"><small>APPLICATION</small><b>Customer Portal (port 8080)</b></div>
+<div class="detail"><small>SCOPE</small><b>10.10.20.0/24 — authorized training range</b></div>
+</div>
+<p class="muted" style="margin-top:10px">This is a fictional, isolated FinBank training environment. No real hosts, credentials, or public IP addresses are involved at any stage.</p>
+</div>
+<div class="cases" style="margin-top:10px" id="caseGrid"></div>
+</section>
+
+<section id="evidence" class="view">
+<div class="head"><div><h2>Career Evidence Portfolio</h2><p>Everything you can discuss in a technical interview, automatically collected as you work.</p></div><button class="btn" onclick="go('report')">View Career Report</button></div>
+<div class="panel"><div class="tablewrap"><table id="evidenceTable">
+<thead><tr><th>ID</th><th>Stage</th><th>Timestamp</th><th>Action</th><th>Result</th><th>Asset</th><th>Severity</th><th>Decision</th></tr></thead>
+<tbody id="evidenceBody"></tbody>
+</table></div><div id="evidenceEmpty" class="lockbox" style="display:none;margin-top:10px"><b>Your evidence locker is empty.</b><span class="muted">Open a workspace and run discover, scan, inspect and enum-web to generate your first evidence.</span></div></div>
+</section>
+
+<section id="roadmap" class="view">
+<div class="head"><div><h2>Four-Month Career Roadmap</h2><p>Personalized against your current capability gaps.</p></div></div>
+<div id="roadmapFocus" class="panel" style="margin-bottom:10px"></div>
+<div class="road" id="roadmapGrid"></div>
+</section>
+
+<section id="jobs" class="view">
+<div class="head"><div><h2>My Job Opportunity Roadmap</h2><p>What you can do, what job roles use it, and what you still need — based on your demonstrated capability.</p></div></div>
+<div class="panel" id="readinessBanner" style="margin-bottom:10px"></div>
+<div id="jobFeatured" class="panel" style="margin-bottom:10px"></div>
+<div class="head"><div><h2>All target roles</h2><p>Ranked by your current match. This is a training indicator, not a job offer or guarantee.</p></div></div>
+<div id="roleGrid" class="three"></div>
+<div class="panel" style="margin-top:10px"><h3>Job search guidance</h3><p class="muted">Search using role keywords rather than waiting for a listing that matches exactly. These are search destinations, not live vacancies we control.</p><div class="kwlist" id="searchKeywords"></div><div class="searchlinks">
+<a href="https://www.linkedin.com/jobs/" target="_blank" rel="noopener">LinkedIn Jobs</a>
+<a href="https://www.naukri.com/" target="_blank" rel="noopener">Naukri</a>
+<a href="https://www.indeed.com/" target="_blank" rel="noopener">Indeed</a>
+<a href="https://www.google.com/search?q=cybersecurity+SOC+analyst+careers" target="_blank" rel="noopener">Company career pages</a>
+</div>
+<p class="disclaimer">ShadowXLab does not list, broker or guarantee job vacancies. Readiness is a training indicator, not an employment guarantee.</p>
+</div>
+</section>
+
+<section id="workspace" class="view">
+<div id="caseHeader" class="casehero"></div>
+<div class="tabs">
+<button class="active" data-tab="overview" onclick="tab('overview')">Case</button>
+<button data-tab="tools" onclick="tab('tools')">Working Console</button>
+<button data-tab="decision" onclick="tab('decision')">Mentor Decision</button>
+</div>
+<div class="panel" id="mentorBar" style="margin-top:11px;border-left:4px solid var(--red);background:#fffaf9">
+<span class="badge">ShadowXLab Mentor Engine</span>
+<b id="mentorTitle" style="display:block;margin-top:5px">Your mentor is watching your reasoning.</b>
+<span id="mentorText" class="muted">Start with the case. I will tell you what the evidence means, what a professional considers next, and which job skill you just demonstrated.</span>
+</div>
+<div id="tab-overview" class="tab active"></div>
+<div id="tab-tools" class="tab"></div>
+<div id="tab-decision" class="tab"></div>
+</section>
+
+<section id="report" class="view">
+<div class="reveal">
+<span class="badge">ShadowXLab Career Readiness Report</span>
+<h1 id="reportHeadline">You just performed one connected cybersecurity workflow.</h1>
+<p>Overall capability, role matches and roadmap below are computed entirely from the actions you took in this session.</p>
+<div id="reportGrid" class="four" style="margin-top:8px"></div>
+</div>
+<div id="reportResetCard" class="panel" style="margin-top:10px"></div>
+<div class="head"><div><h2>Strengths &amp; development areas</h2></div></div>
+<div class="two" id="reportStrengths"></div>
+<div class="head"><div><h2>Recommended target roles</h2></div></div>
+<div class="three" id="reportRoles"></div>
+<div class="head"><div><h2>Your personalized 4-month roadmap</h2></div></div>
+<div class="road" id="reportRoadmap"></div>
+<div class="head"><div><h2>Career-gap positioning</h2></div></div>
+<div class="panel"><p class="muted">A gap in your work history is not disqualifying if you can show a deliberate transition: previous experience → structured learning → hands-on labs → current demonstrated capability → target role. Use your evidence portfolio below as the proof.</p></div>
+<div class="head"><div><h2>Evidence portfolio</h2><p>These are the items you can walk an interviewer through.</p></div></div>
+<div id="reportPortfolio" class="panel"></div>
+<div class="panel" style="margin-top:10px"><h3>Next action</h3><p id="reportNextAction" class="muted"></p>
+<p class="disclaimer">This report reflects demonstrated capability in a training simulation. It is not a guarantee of a job offer, interview outcome, placement, or salary.</p>
+</div>
+</section>
+
+<section id="toolkit" class="view">
+<div class="head"><div><h2>Career Toolkit</h2><p>Generated entirely from your own case work — nothing here is a template with your name dropped in.</p></div></div>
+
+<div class="panel">
+<div class="copybar"><h3 style="margin:0">Resume bullet points</h3><button class="btn" onclick="copyToolkitText('toolkitBullets','resume bullets')">Copy All</button></div>
+<p class="muted" style="font-size:11px">Written from the actual stages you completed. Complete more of the case and regenerate for stronger bullets.</p>
+<div id="toolkitBullets" class="bulletbox"></div>
+</div>
+
+<div class="panel" style="margin-top:10px">
+<div class="copybar"><h3 style="margin:0">LinkedIn summary</h3><button class="btn" onclick="copyToolkitText('toolkitLinkedIn','LinkedIn summary')">Copy</button></div>
+<div id="toolkitLinkedIn" class="bulletbox"></div>
+</div>
+
+<div class="two" style="margin-top:10px">
+<div class="panel"><h3>Interview prep checklist</h3><p class="muted" style="font-size:11px">Talking points pulled from your own evidence — check them off as you can explain each one out loud.</p>
+<div id="toolkitChecklist" class="checklist"></div>
+</div>
+<div class="panel"><h3>Skill gap tracker</h3><p class="muted" style="font-size:11px">Same capability engine as your Career Report, focused on what to practice next.</p>
+<div id="toolkitSkillGaps"></div>
+</div>
+</div>
+</section>
+
+</div></main></div><div id="toast" class="toast"></div>
+
+<script>
+/* ============================================================
+   SHADOWXLAB CONNECTED CAREER SIMULATOR — STATE ENGINE
+   ============================================================ */
+const ASSET = {
+  ip:"10.10.20.15", host:"FB-WEB-01", app:"FinBank Customer Portal",
+  services:[{port:22,name:"SSH"},{port:80,name:"HTTP"},{port:443,name:"HTTPS"},{port:8080,name:"Customer Portal"}]
+};
+
+function defaultState(){
+  return {
+    eh:{discoveredHosts:false, scanned:false, inspected:false, wappalyzed:false, niktoed:false, gobustered:false, enumerated:false},
+    vapt:{endpointSelected:false, inspected:false, zapRun:false, testId:null, unauthorized:null, finding:null},
+    attack:{run:false, events:[]},
+    soc:{correlated:false, iocLookup:false, confidence:null, classification:null, containment:null, reasoning:"", incident:null},
+    grc:{risk:null},
+    evidenceLocker:[],
+    evCounter:1,
+    capability:{technical:0,investigation:0,evidenceHandling:0,riskThinking:0,decisionQuality:0,communication:0},
+    gamification:{xp:0, badges:[]}
+  };
+}
+function loadState(){
+  try{
+    const raw = JSON.parse(localStorage.getItem("sxlV8State"));
+    if(raw && raw.eh && raw.vapt && raw.soc){
+      if(!raw.gamification) raw.gamification = {xp:0, badges:[]};
+      if(raw.vapt.zapRun===undefined) raw.vapt.zapRun = false;
+      if(raw.soc.iocLookup===undefined) raw.soc.iocLookup = false;
+      if(raw.eh.wappalyzed===undefined) raw.eh.wappalyzed = false;
+      if(raw.eh.niktoed===undefined) raw.eh.niktoed = false;
+      if(raw.eh.gobustered===undefined) raw.eh.gobustered = false;
+      return raw;
+    }
+  }catch(e){}
+  return defaultState();
+}
+let STATE = loadState();
+
+function nowStr(){const d=new Date();return d.toISOString().replace('T',' ').slice(0,19)+" UTC"}
+function toast(t){const x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),2400)}
+
+/* ============================================================
+   GAMIFICATION — XP, RANK, BADGES
+   ============================================================ */
+const BADGES = [
+  {id:"scope", icon:"🧭", label:"Scope Confirmed", desc:"Ran discover inside the authorized FinBank range."},
+  {id:"surface", icon:"🗺️", label:"Surface Mapped", desc:"Completed the full Ethical Hacking sequence."},
+  {id:"firstblood", icon:"🎯", label:"First Blood", desc:"Created VULN-001."},
+  {id:"redteam", icon:"⚔️", label:"Red Team Validated", desc:"Ran the controlled attack validation."},
+  {id:"commander", icon:"🚨", label:"Incident Commander", desc:"Created INC-1042."},
+  {id:"threathunter", icon:"🔎", label:"Threat Hunter", desc:"Looked up IOC reputation during the SOC investigation."},
+  {id:"riskowner", icon:"📊", label:"Risk Owner", desc:"Logged RISK-001."},
+  {id:"closed", icon:"🏆", label:"FinBank Case Closed", desc:"Completed all five connected stages."}
+];
+const RANKS = [
+  {min:0, label:"Trainee"},
+  {min:20, label:"Associate Analyst"},
+  {min:50, label:"Analyst"},
+  {min:90, label:"Senior Analyst"},
+  {min:140, label:"Lead Analyst"},
+  {min:190, label:"Principal Analyst"}
+];
+function rankInfo(xp){
+  let current = RANKS[0];
+  for(const r of RANKS){ if(xp>=r.min) current=r; }
+  const idx = RANKS.indexOf(current);
+  const next = RANKS[idx+1] || null;
+  return {label:current.label, next, xp};
+}
+function awardXP(amount, badgeId, badgeLabel){
+  if(!STATE.gamification) STATE.gamification = {xp:0, badges:[]};
+  STATE.gamification.xp += amount;
+  if(badgeId && !STATE.gamification.badges.includes(badgeId)){
+    STATE.gamification.badges.push(badgeId);
+    setTimeout(()=>toast("🏅 Badge unlocked: "+badgeLabel+" (+"+amount+" XP)"), 250);
+  } else if(amount>0){
+    setTimeout(()=>toast("+"+amount+" XP"), 250);
+  }
+}
+function checkFullCompletionBadge(){
+  if(ehComplete() && vaptComplete() && attackComplete() && socComplete() && grcComplete()){
+    if(STATE.gamification && !STATE.gamification.badges.includes("closed")){
+      awardXP(20, "closed", "FinBank Case Closed");
+    }
+  }
+}
+
+
+function addEvidence(stage,action,result,opts){
+  opts = opts||{};
+  const id = stage.toUpperCase()+"-EV-"+String(STATE.evCounter).padStart(3,"0");
+  STATE.evCounter++;
+  STATE.evidenceLocker.push({
+    id, timestamp:nowStr(), stage:stage.toUpperCase(), action, result,
+    asset:opts.asset||ASSET.host, severity:opts.severity||"—",
+    decision:opts.decision||"—", source:opts.source||"Candidate"
+  });
+  return id;
+}
+
+function save(){
+  localStorage.setItem("sxlV8State", JSON.stringify(STATE));
+  computeCapability();
+  renderAll();
+}
+function resetAll(){
+  if(!confirm("This clears all evidence and progress on this device. Continue?"))return;
+  localStorage.removeItem("sxlV8State");
+  STATE = defaultState();
+  save();
+  go("home");
+  toast("Simulator reset.");
+}
+
+function ehComplete(){return STATE.eh.discoveredHosts && STATE.eh.scanned && STATE.eh.inspected && STATE.eh.wappalyzed && STATE.eh.niktoed && STATE.eh.gobustered && STATE.eh.enumerated}
+function vaptComplete(){return !!STATE.vapt.finding}
+function attackComplete(){return STATE.attack.run}
+function socComplete(){return !!STATE.soc.incident}
+function grcComplete(){return !!STATE.grc.risk}
+
+const STAGE_LOCKS = {
+  eh: {locked:()=>false, reason:""},
+  vapt: {locked:()=>!ehComplete(), reason:"Complete Ethical Hacking (discover → scan → inspect 8080 → enum-web) to hand off the Customer Portal endpoint to VAPT."},
+  attack: {locked:()=>!vaptComplete(), reason:"Create VULN-001 in the VAPT workspace before running a controlled attack validation."},
+  soc: {locked:()=>!attackComplete(), reason:"Run the controlled attack validation to generate telemetry before the SOC can investigate."},
+  grc: {locked:()=>!socComplete(), reason:"Create INC-1042 in the SOC workspace before GRC can assess business risk."}
+};
+
+/* ============================================================
+   STAGE 1 — ETHICAL HACKING
+   ============================================================ */
+function ehCommand(raw){
+  const q=(raw||"").trim().toLowerCase();
+  const out=document.getElementById("ehOut");
+  if(!out)return;
+  if(!q){out.textContent="Enter a command: discover, scan "+ASSET.ip+", inspect 8080, wappalyzer, nikto, gobuster, enum-web";return}
+  if(q.startsWith("discover")){
+    STATE.eh.discoveredHosts=true;
+    out.textContent = "DISCOVERY — authorized scope 10.10.20.0/24\n"+ASSET.ip+"  "+ASSET.host+"   UP\n10.10.20.21  FB-AUTH-01     UP\n10.10.20.30  FB-LOG-01      UP\n\nScope check: all discovered hosts are inside the authorized FinBank training range.";
+    addEvidence("EH","discover","Host discovery within authorized scope; identified "+ASSET.host+" among 3 live hosts.",{asset:"10.10.20.0/24"});
+    awardXP(5, "scope", "Scope Confirmed");
+  } else if(q.startsWith("scan") || q.startsWith("services") || q.startsWith("nmap")){
+    if(!STATE.eh.discoveredHosts){out.textContent="Run 'discover' first to identify hosts inside the authorized scope.";return}
+    STATE.eh.scanned=true;
+    out.textContent = "Starting Nmap 7.94 ( https://nmap.org ) at training scan\nNmap scan report for "+ASSET.host+" ("+ASSET.ip+")\nHost is up (0.0021s latency).\nNot shown: 996 closed tcp ports (reset)\n\nPORT     STATE SERVICE\n22/tcp   open  ssh\n80/tcp   open  http\n443/tcp  open  https\n8080/tcp open  http-proxy — unidentified application\n\nNmap done: 1 IP address (1 host up) scanned in 4.21 seconds\n\nObservation: four services active. Port 8080 needs inspection to determine business purpose.";
+    addEvidence("EH","nmap -p- "+ASSET.ip,"Service enumeration on "+ASSET.host+": ports 22, 80, 443, 8080 open.",{asset:ASSET.host,source:"Nmap 7.94"});
+    awardXP(5);
+  } else if(q.startsWith("inspect")){
+    if(!STATE.eh.scanned){out.textContent="Scan the asset before inspecting a specific service.";return}
+    STATE.eh.inspected=true;
+    out.textContent = "INSPECT — "+ASSET.ip+":8080\nHTTP/1.1 200 OK\nServer: FinBank-App/2.1\nTitle: FinBank Customer Portal — Sign In\n\nObservation: port 8080 hosts the FinBank Customer Portal, an authenticated customer-facing application.";
+    addEvidence("EH","inspect 8080","Identified port 8080 as the FinBank Customer Portal application.",{asset:ASSET.host});
+    awardXP(5);
+  } else if(q.startsWith("wappalyzer") || q.startsWith("whatweb")){
+    if(!STATE.eh.inspected){out.textContent="Inspect port 8080 before fingerprinting its technology stack.";return}
+    STATE.eh.wappalyzed=true;
+    out.textContent = "Wappalyzer — Technology Profile for "+ASSET.ip+":8080\n----------------------------------------------------\nWeb Server      FinBank-App/2.1 (custom)\nBackend         Node.js (Express-style routing inferred)\nFrontend        React\nSession         Cookie-based (session=standard_user_1001)\nAPI             REST — /api/customer/records/{id}\n\nObservation: a REST API exposing numeric resource ids is a common pattern for object-level authorization bugs — worth prioritizing in VAPT.";
+    addEvidence("EH","wappalyzer "+ASSET.ip+":8080","Technology fingerprint identified a REST API with numeric resource ids — a common BOLA risk pattern.",{asset:ASSET.host,source:"Wappalyzer"});
+    awardXP(5);
+  } else if(q.startsWith("nikto")){
+    if(!STATE.eh.wappalyzed){out.textContent="Fingerprint the technology stack with wappalyzer before running a web server scan.";return}
+    STATE.eh.niktoed=true;
+    out.textContent = "- Nikto v2.5.0\n---------------------------------------------------------------------\n+ Target IP:          "+ASSET.ip+"\n+ Target Port:        8080\n+ Start Time:         training scan\n---------------------------------------------------------------------\n+ Server: FinBank-App/2.1\n+ /api/customer/records/{id}: Numeric identifier in path — verify server-side authorization on object access (no automated confirmation, manual test required).\n+ Cookie session created without the HttpOnly flag.\n+ No CSRF token observed on state-changing requests — review SameSite/CSRF protections.\n+ 1 host(s) tested\n---------------------------------------------------------------------\n\nObservation: Nikto flags the numeric-ID pattern as worth manual authorization testing — this is exactly what VAPT will validate.";
+    addEvidence("EH","nikto -h "+ASSET.ip+":8080","Web server scan flagged the numeric record-id pattern as an authorization risk worth manual testing.",{asset:ASSET.host,source:"Nikto v2.5.0"});
+    awardXP(5);
+  } else if(q.startsWith("gobuster")){
+    if(!STATE.eh.niktoed){out.textContent="Run nikto before brute-forcing directories on the application.";return}
+    STATE.eh.gobustered=true;
+    out.textContent = "===============================================================\nGobuster v3.6\nby OJ Reeves & Christian Mehlmauer\n===============================================================\n[+] Url:          http://"+ASSET.ip+":8080\n[+] Method:       GET\n[+] Threads:      10\n[+] Wordlist:     common.txt\n[+] Status codes: 200,204,301,302,307,401,403\n===============================================================\n/api                  (Status: 301) [--> /api/]\n/api/customer         (Status: 301) [--> /api/customer/]\n/api/customer/records (Status: 200) [Size: 842]\n/admin                (Status: 403)\n===============================================================\nFinished\n===============================================================\n\nObservation: confirms /api/customer/records exists and is reachable.";
+    addEvidence("EH","gobuster dir","Directory brute force confirmed /api/customer/records is reachable.",{asset:ASSET.host,source:"Gobuster v3.6"});
+    awardXP(5);
+  } else if(q.startsWith("enum")){
+    if(!STATE.eh.gobustered){out.textContent="Run gobuster before enumerating the application in detail.";return}
+    STATE.eh.enumerated=true;
+    out.textContent = "ENUM-WEB — Customer Portal\nDiscovered endpoint: GET /api/customer/records/{id}\nAuthentication: session token required\nObservation: endpoint accepts a numeric record ID. Server-side authorization model not yet verified.\n\nThis attack surface is now available to the VAPT stage.";
+    addEvidence("EH","enum-web","Discovered endpoint /api/customer/records/{id} on the Customer Portal.",{asset:ASSET.host,decision:"Forward to VAPT"});
+    awardXP(10, "surface", "Surface Mapped");
+  } else {
+    out.textContent = "Unknown command. Try: discover, scan "+ASSET.ip+", inspect 8080, wappalyzer, nikto, gobuster, enum-web";
+    return;
+  }
+  save();
+  checkFullCompletionBadge();
+  refreshEHControls();
+  if(ehComplete()) toast("Ethical Hacking complete. Endpoint handed off to VAPT.");
+}
+function ehButtonsHTML(){
+  return `
+  <button class="btn" onclick="ehCommand('discover')" ${STATE.eh.discoveredHosts?'disabled':''} title="${STATE.eh.discoveredHosts?'Already run':''}">${STATE.eh.discoveredHosts?'✓ ':''}1. discover</button>
+  <button class="btn" onclick="ehCommand('scan ${ASSET.ip}')" ${!STATE.eh.discoveredHosts||STATE.eh.scanned?'disabled':''} title="${!STATE.eh.discoveredHosts?'Run discover first':STATE.eh.scanned?'Already run':''}">${STATE.eh.scanned?'✓ ':!STATE.eh.discoveredHosts?'🔒 ':''}2. nmap scan</button>
+  <button class="btn" onclick="ehCommand('inspect 8080')" ${!STATE.eh.scanned||STATE.eh.inspected?'disabled':''} title="${!STATE.eh.scanned?'Run nmap scan first':STATE.eh.inspected?'Already run':''}">${STATE.eh.inspected?'✓ ':!STATE.eh.scanned?'🔒 ':''}3. inspect 8080</button>
+  <button class="btn" onclick="ehCommand('wappalyzer')" ${!STATE.eh.inspected||STATE.eh.wappalyzed?'disabled':''} title="${!STATE.eh.inspected?'Inspect port 8080 first':STATE.eh.wappalyzed?'Already run':''}">${STATE.eh.wappalyzed?'✓ ':!STATE.eh.inspected?'🔒 ':''}4. wappalyzer</button>
+  <button class="btn" onclick="ehCommand('nikto')" ${!STATE.eh.wappalyzed||STATE.eh.niktoed?'disabled':''} title="${!STATE.eh.wappalyzed?'Run wappalyzer first':STATE.eh.niktoed?'Already run':''}">${STATE.eh.niktoed?'✓ ':!STATE.eh.wappalyzed?'🔒 ':''}5. nikto</button>
+  <button class="btn" onclick="ehCommand('gobuster')" ${!STATE.eh.niktoed||STATE.eh.gobustered?'disabled':''} title="${!STATE.eh.niktoed?'Run nikto first':STATE.eh.gobustered?'Already run':''}">${STATE.eh.gobustered?'✓ ':!STATE.eh.niktoed?'🔒 ':''}6. gobuster</button>
+  <button class="btn primary" onclick="ehCommand('enum-web')" ${!STATE.eh.gobustered||STATE.eh.enumerated?'disabled':''} title="${!STATE.eh.gobustered?'Run gobuster first':STATE.eh.enumerated?'Already run':''}">${STATE.eh.enumerated?'✓ ':!STATE.eh.gobustered?'🔒 ':''}7. enum-web</button>
+  `;
+}
+function ehChecklistHTML(){
+  return `
+  <div class="detailgrid">
+  <div class="detail"><small>1. DISCOVER</small><b>${STATE.eh.discoveredHosts?"✓ Done":"Pending"}</b></div>
+  <div class="detail"><small>2. NMAP SCAN</small><b>${STATE.eh.scanned?"✓ Done":"Pending"}</b></div>
+  <div class="detail"><small>3. INSPECT 8080</small><b>${STATE.eh.inspected?"✓ Done":"Pending"}</b></div>
+  <div class="detail"><small>4. WAPPALYZER</small><b>${STATE.eh.wappalyzed?"✓ Done":"Pending"}</b></div>
+  <div class="detail"><small>5. NIKTO</small><b>${STATE.eh.niktoed?"✓ Done":"Pending"}</b></div>
+  <div class="detail"><small>6. GOBUSTER</small><b>${STATE.eh.gobustered?"✓ Done":"Pending"}</b></div>
+  <div class="detail"><small>7. ENUM-WEB</small><b>${STATE.eh.enumerated?"✓ Done":"Pending"}</b></div>
+  </div>
+  <p class="muted" style="margin-top:8px">${ehComplete()?"Full recon evidence is complete and available to VAPT.":"Complete all seven steps in order to hand this attack surface to VAPT."}</p>
+  ${ehComplete()?'<button class="btn primary" onclick="openStage(\'vapt\')">Continue to VAPT →</button>':''}
+  `;
+}
+function refreshEHControls(){
+  const btns = document.getElementById("ehActions");
+  const chk = document.getElementById("ehChecklist");
+  if(btns) btns.innerHTML = ehButtonsHTML();
+  if(chk) chk.innerHTML = ehChecklistHTML();
+}
+function ehCheatsheetHTML(){
+  return `<details class="cheatsheet"><summary>Tool cheatsheet — Nmap · Wappalyzer · Nikto · Gobuster</summary>
+  <div class="cheatsheet-body">
+  <div class="cheat-tool"><div class="cheat-head"><b>Nmap</b><span class="cheat-tag">Port / service scanner</span></div>
+  <p>Discovers live hosts and identifies open ports and running services on a target.</p>
+  <div class="cheat-cmd">nmap -sV -p- ${ASSET.ip}
+nmap -sV -p 22,80,443,8080 ${ASSET.ip}</div></div>
+  <div class="cheat-tool"><div class="cheat-head"><b>Wappalyzer</b><span class="cheat-tag">Technology fingerprinting</span></div>
+  <p>Identifies the web server, backend framework, frontend framework and other technologies a site is built on. WhatWeb is a common CLI alternative.</p>
+  <div class="cheat-cmd">whatweb -a 3 http://${ASSET.ip}:8080</div></div>
+  <div class="cheat-tool"><div class="cheat-head"><b>Nikto</b><span class="cheat-tag">Web server vulnerability scanner</span></div>
+  <p>Flags outdated software, dangerous files, missing security headers and other common web server misconfigurations.</p>
+  <div class="cheat-cmd">nikto -h ${ASSET.ip} -p 8080</div></div>
+  <div class="cheat-tool"><div class="cheat-head"><b>Gobuster</b><span class="cheat-tag">Directory / file brute-forcer</span></div>
+  <p>Brute-forces directory and file names to surface endpoints that aren't linked anywhere in the visible UI.</p>
+  <div class="cheat-cmd">gobuster dir -u http://${ASSET.ip}:8080 -w /usr/share/wordlists/dirb/common.txt</div></div>
+  </div></details>`;
+}
+function buildEH(){
+  document.getElementById("tab-tools").innerHTML = `
+  <div class="two">
+  <div class="panel"><h3>Recon Tools — Nmap · Wappalyzer · Nikto · Gobuster</h3>
+  <div class="detailgrid">
+  <div class="detail"><small>AUTHORIZATION</small><b>ACTIVE</b></div>
+  <div class="detail"><small>SCOPE</small><b>10.10.20.0/24</b></div>
+  </div>
+  <div class="console" style="margin-top:8px"><div class="consolebar"><span>SHADOWX-RECON / TRAINING</span><span>ISOLATED</span></div>
+  <div class="consolebody"><div><span class="cmd">$</span> <input id="ehInput" placeholder="discover / scan ${ASSET.ip} / inspect 8080 / wappalyzer / nikto / gobuster / enum-web" onkeydown="if(event.key==='Enter')ehCommand(this.value)"></div>
+  <pre id="ehOut" style="white-space:pre-wrap">Run 'discover' to begin.</pre></div></div>
+  <div class="actions" id="ehActions" style="margin-top:7px">${ehButtonsHTML()}</div>
+  <p class="muted" style="font-size:9px;margin-top:6px">Console output follows the format of the real tools so it reads like what you'll actually run on the job. Nothing here touches a real network — the target is a fictional, isolated training asset.</p>
+  ${ehCheatsheetHTML()}
+  </div>
+  <div class="panel"><h3>Stage checklist</h3>
+  <div id="ehChecklist">${ehChecklistHTML()}</div>
+  </div></div>`;
+}
+
+/* ============================================================
+   STAGE 2 — VAPT
+   ============================================================ */
+function vaptSelectEndpoint(){
+  STATE.vapt.endpointSelected=true;
+  addEvidence("VAPT","select-endpoint","Selected GET /api/customer/records/{id} for authorization testing.",{asset:ASSET.host});
+  awardXP(5);
+  save(); buildVAPT();
+}
+function vaptInspectRequest(){
+  if(!STATE.vapt.endpointSelected){toast("Select the endpoint first.");return}
+  STATE.vapt.inspected=true;
+  addEvidence("VAPT","inspect-request","Inspected authenticated request as standard_user (own record id 1001).",{asset:ASSET.host});
+  awardXP(5);
+  save(); buildVAPT();
+}
+function vaptTestOutputHTML(){
+  if(STATE.vapt.testId==null) return "Run the workflow in order: send to Repeater → inspect request → run ZAP scan → send a test id.";
+  const own = 1001, test = STATE.vapt.testId;
+  if(STATE.vapt.unauthorized){
+    return `<b class="critical">UNAUTHORIZED ACCESS CONFIRMED</b><pre style="white-space:pre-wrap;background:#111827;color:#d0d5dd;padding:9px;border-radius:7px;font-size:9px;margin-top:6px">REQUEST: GET /api/customer/records/${test}  (session: standard_user, own id ${own})\nEXPECTED: 403 Forbidden\nOBSERVED: 200 OK — returned synthetic customer record ${test}\n\nResult: the server-side authorization check is missing. standard_user retrieved a record that does not belong to them.</pre>`;
+  }
+  return `<b>NO BOUNDARY CROSSED</b><pre style="white-space:pre-wrap;background:#111827;color:#d0d5dd;padding:9px;border-radius:7px;font-size:9px;margin-top:6px">REQUEST: GET /api/customer/records/${test}  (session: standard_user, own id ${own})\nEXPECTED: 200 OK\nOBSERVED: 200 OK — returned own record\n\nResult: this is the user's own record. Try an id other than ${own} to test the authorization boundary.</pre>`;
+}
+function vaptSubmitTest(){
+  if(!STATE.vapt.inspected){toast("Inspect the request before submitting a controlled test.");return}
+  if(!STATE.vapt.zapRun){toast("Run the OWASP ZAP active scan before submitting a manual test.");return}
+  const own = 1001;
+  const input = document.getElementById("vaptTestId");
+  const test = parseInt(input.value,10);
+  if(!test){toast("Enter a numeric record id to test.");return}
+  STATE.vapt.testId = test;
+  STATE.vapt.unauthorized = (test !== own);
+  if(STATE.vapt.unauthorized){
+    addEvidence("VAPT","submit-test "+test,"Confirmed unauthorized access to another customer's synthetic record ("+test+").",{asset:ASSET.host,decision:"Escalate to finding"});
+    awardXP(10);
+  } else {
+    addEvidence("VAPT","submit-test "+test,"Test used the user's own record id; no authorization boundary was crossed.",{asset:ASSET.host,decision:"Retest with a different id"});
+  }
+  save(); buildVAPT();
+}
+function vaptCreateFinding(){
+  if(STATE.vapt.unauthorized!==true){toast("Validate unauthorized access (test an id other than 1001) before creating a finding.");return}
+  const like=+document.getElementById("vLike").value, imp=+document.getElementById("vImpact").value;
+  const riskScore = like*imp;
+  const sev = riskScore>=20?"Critical":riskScore>=12?"High":riskScore>=6?"Medium":"Low";
+  const finding = {
+    id:"VULN-001",
+    title:"Broken Object Level Authorization — Customer Records API",
+    asset:ASSET.host,
+    endpoint:"GET /api/customer/records/{id}",
+    evidence:"standard_user (own id 1001) retrieved record "+STATE.vapt.testId+" via /api/customer/records/"+STATE.vapt.testId+". Expected 403 Forbidden, observed 200 OK.",
+    impact:"Any authenticated customer can enumerate and read other customers' records by changing the numeric id in the URL.",
+    likelihood:like, impactScore:imp, riskScore, severity:sev,
+    cvssReasoning:"Likelihood "+like+"/5 × Impact "+imp+"/5 = "+riskScore+"/25 ("+sev+"). Low attack complexity, no special privileges required beyond a standard authenticated session, direct exposure of another customer's data.",
+    recommendation:"Enforce server-side authorization on every request to /api/customer/records/{id}, verifying the session owner matches the requested record id. Add automated authorization tests to CI.",
+    businessImpact:"Unauthorized disclosure of customer financial data; regulatory exposure and loss of customer trust for FinBank."
+  };
+  STATE.vapt.finding = finding;
+  addEvidence("VAPT","create-finding VULN-001","Created finding VULN-001: Broken Object Level Authorization on /api/customer/records/{id}.",{asset:ASSET.host,severity:sev,decision:"Escalate to controlled attack validation"});
+  awardXP(25, "firstblood", "First Blood");
+  checkFullCompletionBadge();
+  save(); buildVAPT();
+  toast("VULN-001 created. Available to the Controlled Attack stage.");
+}
+function zapActiveScan(){
+  if(!STATE.vapt.inspected){toast("Inspect the request in Repeater first, then run the ZAP scan.");return}
+  STATE.vapt.zapRun = true;
+  addEvidence("VAPT","zap-active-scan","OWASP ZAP active scan flagged /api/customer/records/{id} as a suspected Broken Access Control issue (confidence: Medium — requires manual confirmation).",{asset:ASSET.host,severity:"Medium (unconfirmed)",source:"OWASP ZAP 2.15",decision:"Manually confirm via Repeater"});
+  awardXP(5);
+  save(); buildVAPT();
+}
+function vaptCheatsheetHTML(){
+  return `<details class="cheatsheet"><summary>Tool cheatsheet — Burp Suite · OWASP ZAP</summary>
+  <div class="cheatsheet-body">
+  <div class="cheat-tool"><div class="cheat-head"><b>Burp Suite — Repeater</b><span class="cheat-tag">Manual request testing</span></div>
+  <p>Intercepts a request via the Burp proxy, then lets you edit and resend it repeatedly to probe how the server responds — exactly how you validate an authorization boundary by hand.</p>
+  <div class="cheat-cmd">Proxy tab → intercept request → right-click → "Send to Repeater"
+Edit the target field (e.g. record id) → click Send → compare response</div></div>
+  <div class="cheat-tool"><div class="cheat-head"><b>OWASP ZAP</b><span class="cheat-tag">Automated web app scanner</span></div>
+  <p>Runs an automated active scan against the application and flags likely issues by pattern — a starting point, not proof. Findings still need manual confirmation.</p>
+  <div class="cheat-cmd">zap-cli quick-scan --self-contained -o "-config api.disablekey=true" http://${ASSET.ip}:8080</div></div>
+  </div></details>`;
+}
+function zapPanelHTML(){
+  if(!STATE.vapt.zapRun){
+    return `<div class="panel" style="margin-top:10px"><h3>3. OWASP ZAP — Active Scan</h3><p class="muted" style="font-size:11px">Run the automated scan before submitting your manual test — ZAP flags suspects, it doesn't confirm them, which is exactly why the manual Repeater step still matters.</p><button class="btn" onclick="zapActiveScan()" ${!STATE.vapt.inspected?'disabled':''} title="${!STATE.vapt.inspected?'Inspect the request first':''}">${!STATE.vapt.inspected?'🔒 ':''}Run Active Scan</button></div>`;
+  }
+  return `<div class="panel" style="margin-top:10px"><h3>OWASP ZAP — Active Scan Alerts</h3>
+  <div class="zap-alert high"><span class="zap-risktag high">High</span><b>Broken Access Control</b> — /api/customer/records/{id}<br><span class="muted">Confidence: Medium. Automated scanners can't confirm object-level authorization — that's what your manual Repeater test is for.</span></div>
+  <div class="zap-alert low"><span class="zap-risktag low">Low</span><b>Missing Anti-CSRF Tokens</b> — Customer Portal forms</div>
+  <div class="zap-alert info"><span class="zap-risktag info">Info</span><b>Session Cookie Without HttpOnly Flag</b></div>
+  </div>`;
+}
+function buildVAPT(){
+  if(STAGE_LOCKS.vapt.locked()){
+    document.getElementById("tab-tools").innerHTML = `<div class="lockbox"><b>VAPT is locked</b><span class="muted">${STAGE_LOCKS.vapt.reason}</span><div style="margin-top:10px"><button class="btn primary" onclick="openStage('eh')">Go to Ethical Hacking</button></div></div>`;
+    return;
+  }
+  if(STATE.vapt.finding){
+    const f = STATE.vapt.finding;
+    document.getElementById("tab-tools").innerHTML = `<div class="two">
+    <div class="panel"><h3>VULN-001 — ${f.title}</h3>
+    <div class="detailgrid">
+    <div class="detail"><small>ASSET</small><b>${f.asset}</b></div>
+    <div class="detail"><small>ENDPOINT</small><b>${f.endpoint}</b></div>
+    <div class="detail"><small>SEVERITY</small><b class="${f.severity.toLowerCase()}">${f.severity}</b></div>
+    <div class="detail"><small>RISK SCORE</small><b>${f.riskScore}/25</b></div>
+    </div>
+    <p style="margin-top:8px"><b>Evidence</b></p>
+    <pre style="white-space:pre-wrap;background:#111827;color:#d0d5dd;padding:9px;border-radius:7px;font-size:9px">${f.evidence}</pre>
+    <p><b>CVSS-style reasoning:</b> ${f.cvssReasoning}</p>
+    <p><b>Recommendation:</b> ${f.recommendation}</p>
+    <p><b>Business impact:</b> ${f.businessImpact}</p>
+    <button class="btn primary" onclick="openStage('attack')">Continue to Controlled Attack →</button>
+    ${zapPanelHTML()}
+    ${vaptCheatsheetHTML()}
+    </div>
+    <div class="panel"><h3>Finding chain</h3><div class="flow"><span class="node done">EH ENDPOINT</span><span class="arrow">→</span><span class="node done">TEST</span><span class="arrow">→</span><span class="node done">VULN-001</span><span class="arrow">→</span><span class="node">ATTACK</span></div></div>
+    </div>`;
+    return;
+  }
+  document.getElementById("tab-tools").innerHTML = `<div class="two">
+  <div class="panel"><h3>Burp Suite — Repeater</h3>
+  <div class="actions" style="margin-bottom:8px">
+  <button class="btn" onclick="vaptSelectEndpoint()" ${STATE.vapt.endpointSelected?'disabled':''}>1. Send to Repeater ${STATE.vapt.endpointSelected?'✓':''}</button>
+  <button class="btn" onclick="vaptInspectRequest()" ${!STATE.vapt.endpointSelected||STATE.vapt.inspected?'disabled':''}>2. Inspect Request ${STATE.vapt.inspected?'✓':''}</button>
+  </div>
+  ${zapPanelHTML()}
+  <div class="burp-pane" style="margin-top:10px">
+  <div class="detailgrid" style="grid-template-columns:1fr 1fr">
+  <div>
+  <small class="muted" style="font-size:9px">REQUEST</small>
+  <pre style="white-space:pre-wrap;background:#111827;color:#7ce2b0;padding:9px;border-radius:7px;font-size:9px;margin-top:4px">GET /api/customer/records/<input id="vaptTestId" type="number" placeholder="1002" style="width:60px;background:#1f2937;color:#fda29b;border:1px solid #374151;border-radius:4px;padding:1px 4px" ${!STATE.vapt.zapRun?'disabled':''}> HTTP/1.1
+Host: ${ASSET.host.toLowerCase()}.finbank.training
+Cookie: session=standard_user_1001
+Accept: application/json</pre>
+  <button class="btn primary" style="margin-top:6px" onclick="vaptSubmitTest()" ${!STATE.vapt.zapRun?'disabled':''} title="${!STATE.vapt.zapRun?'Run the ZAP active scan first':''}">${!STATE.vapt.zapRun?'🔒 ':''}4. Send ▶</button>
+  </div>
+  <div>
+  <small class="muted" style="font-size:9px">RESPONSE</small>
+  <div id="vaptTestOut" style="margin-top:4px;background:#111827;padding:9px;border-radius:7px;min-height:96px" class="muted">${vaptTestOutputHTML()}</div>
+  </div>
+  </div>
+  </div>
+  ${vaptCheatsheetHTML()}
+  </div>
+  <div class="panel"><h3>5. Create Finding</h3>
+  <div class="field"><label>LIKELIHOOD</label><select id="vLike">${[1,2,3,4,5].map(x=>`<option ${x===4?'selected':''}>${x}</option>`).join("")}</select></div>
+  <div class="field"><label>IMPACT</label><select id="vImpact">${[1,2,3,4,5].map(x=>`<option ${x===5?'selected':''}>${x}</option>`).join("")}</select></div>
+  <button class="btn primary" onclick="vaptCreateFinding()" ${STATE.vapt.unauthorized!==true?'disabled':''} title="${STATE.vapt.unauthorized!==true?'Confirm unauthorized access first':''}">${STATE.vapt.unauthorized!==true?'🔒 ':''}Create VULN-001</button>
+  <p class="muted" style="margin-top:8px">${STATE.vapt.unauthorized===true?"Unauthorized access confirmed. You can create the finding now.":"You must confirm unauthorized access first."}</p>
+  <p class="muted" style="font-size:9px;margin-top:10px">Request/response panel styled after Burp Suite Repeater so the workflow matches what you'll use on the job. Endpoint id is the only editable field — your own record id is 1001.</p>
+  ${zapPanelHTML()}
+  </div></div>`;
+}
+
+/* ============================================================
+   STAGE 3 — CONTROLLED ATTACK
+   ============================================================ */
+function runControlledAttack(){
+  if(!STATE.vapt.finding){toast("VULN-001 must exist before running validation.");return}
+  STATE.attack.run = true;
+  STATE.attack.events = [
+    {id:"EVENT-001", type:"Authentication anomaly", ts:"02:11:04–02:13:02", asset:"finance01 / FIN-WS-04", detail:"Repeated authentication attempts for user finance01 from 185.44.21.8, followed by a success."},
+    {id:"EVENT-002", type:"Unauthorized synthetic object access", ts:"02:13:45", asset:ASSET.host, detail:"Session for finance01 issued repeated requests to /api/customer/records/{id} with sequential ids — matches VULN-001."},
+    {id:"EVENT-003", type:"DNS anomaly", ts:"02:13:50", asset:"FIN-WS-04", detail:"FIN-WS-04 resolved an unfamiliar domain (login-example.training) shortly after authentication."},
+    {id:"EVENT-004", type:"Endpoint anomaly", ts:"02:15:09", asset:"FIN-WS-04", detail:"Process browser.exe on FIN-WS-04 initiated outbound connections consistent with automated record enumeration."}
+  ];
+  STATE.attack.events.forEach(e=>{
+    addEvidence("ATTACK", e.id, e.type+": "+e.detail, {asset:e.asset, decision:"Forward to SOC", source:"ShadowXLab Telemetry Engine"});
+  });
+  awardXP(20, "redteam", "Red Team Validated");
+  checkFullCompletionBadge();
+  save(); buildAttack();
+  toast("Controlled validation complete. Telemetry available to SOC.");
+}
+const WIRESHARK_ROWS = {
+  "EVENT-001":{src:"185.44.21.8", dst:"FB-AUTH-01 (10.10.20.21)", proto:"TLSv1.2", len:571, info:"Client Hello, repeated auth attempts for finance01"},
+  "EVENT-002":{src:"FIN-WS-04", dst:ASSET.host+" ("+ASSET.ip+")", proto:"HTTP", len:842, info:"GET /api/customer/records/1002 → 200 OK"},
+  "EVENT-003":{src:"FIN-WS-04", dst:"8.8.8.8", proto:"DNS", len:78, info:"Standard query A login-example.training"},
+  "EVENT-004":{src:"FIN-WS-04", dst:"185.44.21.8", proto:"TCP", len:66, info:"44231 → 443 [SYN] browser.exe outbound"}
+};
+function buildAttack(){
+  if(STAGE_LOCKS.attack.locked()){
+    document.getElementById("tab-tools").innerHTML = `<div class="lockbox"><b>Controlled Attack is locked</b><span class="muted">${STAGE_LOCKS.attack.reason}</span><div style="margin-top:10px"><button class="btn primary" onclick="openStage('vapt')">Go to VAPT</button></div></div>`;
+    return;
+  }
+  if(!STATE.attack.run){
+    document.getElementById("tab-tools").innerHTML = `<div class="panel"><h3>Metasploit — msfconsole</h3>
+    <p class="muted">VULN-001 has been validated. Run a controlled validation against the fictional FinBank training environment to generate the telemetry SOC will investigate. No real systems are touched.</p>
+    <div class="console" style="margin-top:8px"><div class="consolebar"><span>msfconsole / TRAINING</span><span>ISOLATED</span></div>
+    <div class="consolebody" style="color:#7ce2b0">msf6 > use auxiliary/scanner/http/finbank_bola_validate<br>
+    [*] Module options configured<br>
+    msf6 auxiliary(scanner/http/finbank_bola_validate) > set RHOSTS ${ASSET.ip}<br>
+    RHOSTS => ${ASSET.ip}<br>
+    msf6 auxiliary(scanner/http/finbank_bola_validate) > set VULN VULN-001<br>
+    VULN => VULN-001<br>
+    msf6 auxiliary(scanner/http/finbank_bola_validate) > run</div></div>
+    <button class="btn primary" style="margin-top:8px" onclick="runControlledAttack()">▶ run</button></div>`;
+    return;
+  }
+  document.getElementById("tab-tools").innerHTML = `<div class="panel"><h3>Metasploit — msfconsole</h3>
+  <div class="console"><div class="consolebar"><span>msfconsole / TRAINING</span><span>COMPLETE</span></div>
+  <div class="consolebody" style="color:#7ce2b0">msf6 auxiliary(scanner/http/finbank_bola_validate) > run<br>
+  [*] Sending controlled validation requests to ${ASSET.ip}...<br>
+  ${STATE.attack.events.map(e=>"[+] "+e.id+" — "+e.type).join("<br>")}<br>
+  [*] Auxiliary module execution completed</div></div>
+  </div>
+
+  <div class="head" style="margin-top:14px"><div><h3 style="margin:0">Generated telemetry</h3></div></div>
+  <div class="panel"><div class="tablewrap"><table><thead><tr><th>Event</th><th>Type</th><th>Time</th><th>Asset</th><th>Detail</th></tr></thead><tbody>
+  ${STATE.attack.events.map(e=>`<tr><td><b>${e.id}</b></td><td>${e.type}</td><td>${e.ts}</td><td>${e.asset}</td><td style="white-space:normal;min-width:280px">${e.detail}</td></tr>`).join("")}
+  </tbody></table></div></div>
+
+  <div class="head" style="margin-top:14px"><div><h3 style="margin:0">Wireshark — packet capture</h3><p class="muted" style="font-size:11px">Same four events, read as network traffic.</p></div></div>
+  <div class="panel"><div class="tablewrap"><table class="wireshark-table"><thead><tr><th>No.</th><th>Time</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Length</th><th>Info</th></tr></thead><tbody>
+  ${STATE.attack.events.map((e,i)=>{const r=WIRESHARK_ROWS[e.id]||{src:e.asset,dst:ASSET.host,proto:"TCP",len:64,info:e.detail};
+  return `<tr><td>${i+1}</td><td>${e.ts.split("–")[0]}</td><td>${r.src}</td><td>${r.dst}</td><td>${r.proto}</td><td>${r.len}</td><td style="white-space:normal;min-width:260px">${r.info}</td></tr>`;}).join("")}
+  </tbody></table></div>
+  <button class="btn primary" style="margin-top:10px" onclick="openStage('soc')">Continue to SOC →</button>
+  </div>`;
+}
+
+/* ============================================================
+   STAGE 4 — SOC
+   ============================================================ */
+function socCorrelate(){
+  if(!STATE.attack.run){toast("No telemetry available yet.");return}
+  STATE.soc.correlated = true;
+  STATE.soc.confidence = "HIGH";
+  addEvidence("SOC","correlate-events","Correlated EVENT-001 (auth anomaly) + EVENT-002 (application authorization anomaly) + EVENT-004 (endpoint anomaly) → HIGH CONFIDENCE incident.",{asset:"finance01 / FIN-WS-04",decision:"HIGH confidence"});
+  awardXP(10);
+  save(); buildSOC();
+}
+function socClassify(val){
+  if(!STATE.soc.correlated){toast("Correlate the events first.");return}
+  if(!STATE.soc.iocLookup){toast("Look up the IOC reputation before classifying this incident.");return}
+  STATE.soc.classification = val;
+  awardXP(5);
+  save(); buildSOC();
+}
+function socCreateIncident(){
+  if(!STATE.soc.correlated){toast("Correlate events first.");return}
+  if(!STATE.soc.classification){toast("Classify true positive or false positive first.");return}
+  const containment = document.getElementById("socContainment").value;
+  const reasoning = document.getElementById("socReasoning").value.trim();
+  if(!containment){toast("Select a containment action.");return}
+  if(!reasoning || reasoning.split(/\s+/).length<6){toast("Add at least a short sentence of analyst reasoning before creating the incident.");return}
+  STATE.soc.containment = containment;
+  STATE.soc.reasoning = reasoning;
+  const tp = STATE.soc.classification==="true_positive";
+  const incident = {
+    id:"INC-1042",
+    timeline: STATE.attack.events.map(e=>e.ts+" — "+e.type+": "+e.detail),
+    indicators:["src 185.44.21.8","domain login-example.training","user finance01","host FIN-WS-04","endpoint /api/customer/records/{id}"],
+    affectedAsset: ASSET.host+" / FIN-WS-04",
+    affectedIdentity:"finance01",
+    evidence: STATE.attack.events.map(e=>e.id),
+    severity: tp?"HIGH":"LOW",
+    confidence: STATE.soc.confidence,
+    analystReasoning: reasoning,
+    containment, status: tp?"CONTAINED — MONITORING":"CLOSED — FALSE POSITIVE"
+  };
+  STATE.soc.incident = incident;
+  addEvidence("SOC","create-incident INC-1042","Created INC-1042: "+incident.status+". Containment: "+containment+".",{asset:incident.affectedAsset,severity:incident.severity,decision:incident.status});
+  awardXP(30, "commander", "Incident Commander");
+  checkFullCompletionBadge();
+  save(); buildSOC();
+  toast("INC-1042 created. Available to GRC.");
+}
+function parseHHMMSS(str){
+  const parts = (str||"").trim().split(":").map(Number);
+  if(parts.length!==3 || parts.some(isNaN)) return null;
+  return parts[0]*3600 + parts[1]*60 + parts[2];
+}
+function formatDuration(sec){
+  if(sec==null) return "—";
+  const m = Math.floor(sec/60), s = sec%60;
+  return m+"m "+s+"s";
+}
+function computeSOCKPIs(){
+  const d = STATE.soc;
+  const events = STATE.attack.events;
+  let timeToCorrelate = null;
+  if(events.length){
+    const first = parseHHMMSS((events[0].ts||"").split("–")[0]);
+    const last = parseHHMMSS(events[events.length-1].ts);
+    if(first!=null && last!=null) timeToCorrelate = Math.max(0, last-first);
+  }
+  const evidenceCount = STATE.evidenceLocker.filter(e=>e.stage==="SOC"||e.stage==="ATTACK").length;
+  return {
+    notableEvents: events.length,
+    correlationStatus: d.correlated ? "Correlated" : "Pending",
+    confidence: d.confidence || "Pending",
+    timeToCorrelate: formatDuration(timeToCorrelate),
+    classification: d.classification==="true_positive" ? "True Positive" : d.classification==="false_positive" ? "False Positive" : "Pending",
+    containment: d.containment || "Not yet applied",
+    openIncidents: d.incident ? (d.incident.status.startsWith("CONTAINED")?1:0) : 0,
+    evidenceCount
+  };
+}
+const NOTABLE_URGENCY = {"Authentication anomaly":"med","Unauthorized synthetic object access":"high","DNS anomaly":"med","Endpoint anomaly":"high"};
+function socLookupIOCs(){
+  if(!STATE.attack.run){toast("No telemetry available yet — run the controlled attack validation first.");return}
+  STATE.soc.iocLookup = true;
+  addEvidence("SOC","ioc-lookup","Threat intelligence lookup: 185.44.21.8 and login-example.training both returned malicious reputation results.",{asset:"finance01 / FIN-WS-04",source:"Threat Intel Lookup",decision:"Supports true-positive classification"});
+  awardXP(10, "threathunter", "Threat Hunter");
+  save(); buildSOC();
+}
+function iocPanelHTML(){
+  if(!STATE.attack.run){
+    return `<div class="panel" style="margin-top:10px"><h3>2. Threat Intelligence — IOC Lookup</h3><p class="muted" style="font-size:11px">Once telemetry exists, look up the reputation of the observed indicators.</p></div>`;
+  }
+  if(!STATE.soc.iocLookup){
+    return `<div class="panel" style="margin-top:10px"><h3>2. Threat Intelligence — IOC Lookup</h3><p class="muted" style="font-size:11px">Check the reputation of the IP and domain observed in this incident before classifying it.</p><button class="btn" onclick="socLookupIOCs()" ${!STATE.soc.correlated?'disabled':''} title="${!STATE.soc.correlated?'Correlate events first':''}">${!STATE.soc.correlated?'🔒 ':''}Look Up Reputation</button></div>`;
+  }
+  return `<div class="panel" style="margin-top:10px"><h3>Threat Intelligence — IOC Lookup Results</h3>
+  <div class="ioc-tile"><b>185.44.21.8</b><span>MALICIOUS</span><p class="muted" style="font-size:10px;margin:4px 0 0">Flagged by 14/89 reputation feeds as suspicious hosting infrastructure previously associated with credential-stuffing activity.</p></div>
+  <div class="ioc-tile"><b>login-example.training</b><span>MALICIOUS</span><p class="muted" style="font-size:10px;margin:4px 0 0">Newly registered domain, flagged for patterns consistent with credential-phishing lookalike domains.</p></div>
+  <p class="muted" style="font-size:9px">Both indicators support treating this as a true positive rather than a false alarm.</p>
+  </div>`;
+}
+function socCheatsheetHTML(){
+  return `<details class="cheatsheet"><summary>Tool cheatsheet — Splunk SPL · Threat Intel Lookup</summary>
+  <div class="cheatsheet-body">
+  <div class="cheat-tool"><div class="cheat-head"><b>Splunk (SPL)</b><span class="cheat-tag">SIEM search & correlation</span></div>
+  <p>Correlates identity, application and endpoint logs by common fields (user, host, time window) to confirm whether separate alerts are actually one incident.</p>
+  <div class="cheat-cmd">index=finbank (sourcetype=auth OR sourcetype=app OR sourcetype=edr)
+(user=finance01 OR dest="FIN-WS-04")
+| stats count by event_type | where count>=3</div></div>
+  <div class="cheat-tool"><div class="cheat-head"><b>Threat Intel Lookup</b><span class="cheat-tag">IOC reputation</span></div>
+  <p>Checks an IP or domain against known-threat feeds (VirusTotal, AbuseIPDB) before deciding whether an alert is a true or false positive.</p>
+  <div class="cheat-cmd">curl -s "https://www.virustotal.com/api/v3/ip_addresses/185.44.21.8" \\
+  -H "x-apikey: $VT_API_KEY"</div></div>
+  </div></details>`;
+}
+function buildSOC(){
+  if(STAGE_LOCKS.soc.locked()){
+    document.getElementById("tab-tools").innerHTML = `<div class="lockbox"><b>SOC is locked</b><span class="muted">${STAGE_LOCKS.soc.reason}</span><div style="margin-top:10px"><button class="btn primary" onclick="openStage('attack')">Go to Controlled Attack</button></div></div>`;
+    return;
+  }
+  const d = STATE.soc;
+  const k = computeSOCKPIs();
+  document.getElementById("tab-tools").innerHTML = `
+  <div class="panel"><h3>Splunk ES — Security Posture</h3>
+  <div class="splunk-kpi">
+  <div class="kpi-tile"><small>NOTABLE EVENTS</small><b>${k.notableEvents}</b></div>
+  <div class="kpi-tile"><small>CORRELATION STATUS</small><b style="font-size:14px">${k.correlationStatus}</b></div>
+  <div class="kpi-tile"><small>DETECTION CONFIDENCE</small><b style="font-size:14px">${k.confidence}</b></div>
+  <div class="kpi-tile"><small>TIME TO CORRELATE</small><b style="font-size:14px">${k.timeToCorrelate}</b></div>
+  <div class="kpi-tile"><small>CLASSIFICATION</small><b style="font-size:14px">${k.classification}</b></div>
+  <div class="kpi-tile"><small>CONTAINMENT</small><b style="font-size:12px">${k.containment}</b></div>
+  <div class="kpi-tile"><small>OPEN INCIDENTS</small><b>${k.openIncidents}</b></div>
+  <div class="kpi-tile"><small>EVIDENCE COLLECTED</small><b>${k.evidenceCount}</b></div>
+  </div>
+  <div class="splunk-search">index=finbank (sourcetype=auth OR sourcetype=app OR sourcetype=edr) (user=finance01 OR dest="FIN-WS-04")<br>| stats count by event_type | where count&gt;=3</div>
+  <div class="tablewrap"><table><thead><tr><th>Time</th><th>Notable Event</th><th>Urgency</th><th>Status</th></tr></thead><tbody>
+  ${STATE.attack.events.length ? STATE.attack.events.map(e=>`<tr><td>${e.ts}</td><td>${e.type}</td><td><span class="notable-sev ${NOTABLE_URGENCY[e.type]||'med'}">${NOTABLE_URGENCY[e.type]==='high'?'HIGH':'MEDIUM'}</span></td><td>${d.incident?'Closed':d.correlated?'Under Review':'New'}</td></tr>`).join("") : `<tr><td colspan="4" class="muted">No notable events yet — run the controlled attack validation first.</td></tr>`}
+  </tbody></table></div>
+  ${socCheatsheetHTML()}
+  </div>
+
+  <div class="two" style="margin-top:10px">
+  <div class="panel"><h3>Incident Review</h3>
+  <div class="detailgrid"><div class="detail"><small>USER</small><b>finance01</b></div><div class="detail"><small>HOST</small><b>FIN-WS-04</b></div><div class="detail"><small>EVENTS</small><b>${STATE.attack.events.length}</b></div><div class="detail"><small>CONFIDENCE</small><b>${d.confidence||"Not yet correlated"}</b></div></div>
+  <div class="actions" style="margin:10px 0">
+  <button class="btn" onclick="socCorrelate()" ${d.correlated?'disabled':''}>1. Run Search — Correlate Events ${d.correlated?'✓':''}</button>
+  </div>
+  ${iocPanelHTML()}
+  <div class="field" style="margin-top:10px"><label>3. CLASSIFICATION</label>
+  <div class="actions">
+  <button class="btn ${d.classification==='true_positive'?'primary':''}" onclick="socClassify('true_positive')" ${!d.iocLookup?'disabled':''} title="${!d.iocLookup?'Look up IOC reputation first':''}">${!d.iocLookup?'🔒 ':''}True Positive</button>
+  <button class="btn ${d.classification==='false_positive'?'primary':''}" onclick="socClassify('false_positive')" ${!d.iocLookup?'disabled':''} title="${!d.iocLookup?'Look up IOC reputation first':''}">${!d.iocLookup?'🔒 ':''}False Positive</button>
+  </div></div>
+  <div class="field"><label>4. CONTAINMENT ACTION</label><select id="socContainment" ${!d.classification?'disabled':''}>
+  <option value="">Select an action</option>
+  <option value="Reset finance01 credentials and force re-authentication">Reset finance01 credentials and force re-authentication</option>
+  <option value="Isolate FIN-WS-04 pending forensic review">Isolate FIN-WS-04 pending forensic review</option>
+  <option value="Increase monitoring on finance01 and FIN-WS-04 without disruption">Increase monitoring without disruption</option>
+  <option value="No action — evidence supports false positive">No action — evidence supports false positive</option>
+  </select></div>
+  <div class="field"><label>5. ANALYST REASONING</label><textarea id="socReasoning" ${!d.classification?'disabled':''} placeholder="Explain why this classification and containment action is justified by the correlated evidence.">${d.reasoning||''}</textarea></div>
+  <button class="btn primary" onclick="socCreateIncident()" ${d.incident?'disabled':''} title="${!d.classification?'Classify the incident first':''}">${d.incident?'INC-1042 Created ✓':(!d.classification?'🔒 ':'')+'Create INC-1042'}</button>
+  ${d.incident?'<button class="btn" style="margin-top:6px" onclick="openStage(\'grc\')">Continue to GRC →</button>':''}
+  </div>
+  <div class="panel"><h3>Raw telemetry</h3>
+  <pre style="white-space:pre-wrap;background:#111827;color:#d0d5dd;padding:10px;border-radius:7px;font:9px/1.6 ui-monospace">${STATE.attack.events.map(e=>e.id+" — "+e.type+" — "+e.detail).join("\\n\\n")}</pre>
+  ${d.incident?`<h3>INC-1042</h3><div class="detailgrid"><div class="detail"><small>SEVERITY</small><b>${d.incident.severity}</b></div><div class="detail"><small>STATUS</small><b>${d.incident.status}</b></div></div>`:''}
+  </div>
+  </div>`;
+}
+
+/* ============================================================
+   STAGE 5 — GRC
+   ============================================================ */
+function grcCompute(){
+  const l=+document.getElementById("gLike").value, i=+document.getElementById("gImpact").value;
+  const s=l*i, label = s>=20?"CRITICAL":s>=12?"HIGH":s>=6?"MEDIUM":"LOW";
+  const box=document.getElementById("grcRiskBox");
+  if(box) box.innerHTML = `<div class="score">${s}/25</div><p><b class="${label.toLowerCase()}">${label}</b></p><p class="muted">Inherent risk = Likelihood ${l} × Impact ${i}.</p>`;
+}
+function grcSaveRisk(){
+  if(!STATE.soc.incident){toast("Create the SOC incident before assessing risk.");return}
+  const treatment=document.getElementById("gTreatment").value;
+  const owner=document.getElementById("gOwner").value.trim();
+  const control=document.getElementById("gControl").value.trim();
+  const priority=document.getElementById("gPriority").value;
+  const due=document.getElementById("gDate").value;
+  const like=+document.getElementById("gLike").value, imp=+document.getElementById("gImpact").value;
+  if(!owner||!control||!due){toast("Complete owner, control and target date before saving.");return}
+  const inherent = like*imp;
+  const residualLikelihood = treatment==="Mitigate" ? Math.max(1,like-2) : treatment==="Transfer" ? Math.max(1,like-1) : like;
+  const residual = residualLikelihood*imp;
+  const risk = {
+    id:"RISK-001", incident:"INC-1042", vulnerability:"VULN-001",
+    threat:"Unauthorized access to customer financial records via broken object-level authorization",
+    businessImpact: STATE.vapt.finding.businessImpact,
+    inherentRisk:inherent, treatment, owner, control, priority, dueDate:due,
+    residualLikelihood, residualImpact:imp, residualRisk:residual
+  };
+  STATE.grc.risk = risk;
+  addEvidence("GRC","create-risk RISK-001","Created RISK-001. Treatment: "+treatment+". Inherent "+inherent+"/25 → residual "+residual+"/25.",{asset:ASSET.host,severity:inherent>=20?"Critical":inherent>=12?"High":"Medium",decision:treatment});
+  awardXP(30, "riskowner", "Risk Owner");
+  checkFullCompletionBadge();
+  save(); buildGRC();
+  toast("RISK-001 saved. Available to the Career Toolkit and Career Report.");
+}
+function buildGRC(){
+  if(STAGE_LOCKS.grc.locked()){
+    document.getElementById("tab-tools").innerHTML = `<div class="lockbox"><b>GRC is locked</b><span class="muted">${STAGE_LOCKS.grc.reason}</span><div style="margin-top:10px"><button class="btn primary" onclick="openStage('soc')">Go to SOC</button></div></div>`;
+    return;
+  }
+  if(STATE.grc.risk){
+    const r = STATE.grc.risk;
+    document.getElementById("tab-tools").innerHTML = `<div class="two">
+    <div class="panel"><h3>RISK-001</h3>
+    <div class="detailgrid">
+    <div class="detail"><small>INCIDENT</small><b>${r.incident}</b></div>
+    <div class="detail"><small>VULNERABILITY</small><b>${r.vulnerability}</b></div>
+    <div class="detail"><small>TREATMENT</small><b>${r.treatment}</b></div>
+    <div class="detail"><small>OWNER</small><b>${r.owner}</b></div>
+    <div class="detail"><small>PRIORITY</small><b>${r.priority}</b></div>
+    <div class="detail"><small>TARGET DATE</small><b>${r.dueDate}</b></div>
+    </div>
+    <p style="margin-top:8px"><b>Threat:</b> ${r.threat}</p>
+    <p><b>Business impact:</b> ${r.businessImpact}</p>
+    <p><b>Control:</b> ${r.control}</p>
+    <p><b>Inherent risk:</b> ${r.inherentRisk}/25 → <b>Residual risk:</b> ${r.residualRisk}/25</p>
+    <button class="btn primary" onclick="go('report')">View Career Report →</button>
+    </div>
+    <div class="panel"><h3>Risk chain</h3><div class="flow"><span class="node done">INCIDENT</span><span class="arrow">→</span><span class="node done">THREAT</span><span class="arrow">→</span><span class="node done">RISK-001</span><span class="arrow">→</span><span class="node">REPORT</span></div>
+    <h3 style="margin-top:14px">Control framework mapping</h3>
+    <div class="control-map"><small>NIST CSF 2.0</small><b>PR.AA-05</b><p class="muted" style="font-size:10px;margin:3px 0 0">Access permissions and authorizations are managed, incorporating the principles of least privilege and separation of duties.</p></div>
+    <div class="control-map"><small>ISO/IEC 27001:2022</small><b>A.8.3</b><p class="muted" style="font-size:10px;margin:3px 0 0">Information access restriction — access to information and application system functions is restricted per the access control policy.</p></div>
+    <p class="muted" style="font-size:9px">Mapping shown for orientation to how real GRC teams document control coverage — not a substitute for a full compliance assessment.</p>
+    </div>
+    </div>`;
+    return;
+  }
+  document.getElementById("tab-tools").innerHTML = `<div class="two">
+  <div class="panel"><h3>ShadowXLab Risk Engine — Risk Register</h3>
+  <div class="detailgrid">
+  <div class="detail"><small>ASSET</small><b>Customer data</b></div>
+  <div class="detail"><small>THREAT</small><b>Unauthorized access (VULN-001)</b></div>
+  <div class="detail"><small>SOURCE INCIDENT</small><b>INC-1042</b></div>
+  <div class="detail"><small>CONTROL GAP</small><b>Missing server-side authorization check</b></div>
+  </div>
+  <div class="four" style="margin-top:8px">
+  <div class="field"><label>LIKELIHOOD</label><select id="gLike" onchange="grcCompute()">${[1,2,3,4,5].map(x=>`<option ${x===4?'selected':''}>${x}</option>`).join("")}</select></div>
+  <div class="field"><label>IMPACT</label><select id="gImpact" onchange="grcCompute()">${[1,2,3,4,5].map(x=>`<option ${x===5?'selected':''}>${x}</option>`).join("")}</select></div>
+  <div class="field"><label>OWNER</label><input id="gOwner" value="Application Engineering + IAM"></div>
+  <div class="field"><label>PRIORITY</label><select id="gPriority"><option>P1 — Immediate</option><option>P2 — This sprint</option><option>P3 — This quarter</option></select></div>
+  </div>
+  <div class="field"><label>TREATMENT</label><select id="gTreatment"><option>Mitigate</option><option>Transfer</option><option>Accept</option><option>Avoid</option></select></div>
+  <div class="field"><label>TARGET DATE</label><input id="gDate" type="date"></div>
+  <div class="field"><label>CONTROL</label><textarea id="gControl">Enforce server-side authorization checks on /api/customer/records/{id} for every request, and add automated authorization regression tests to CI.</textarea></div>
+  <button class="btn primary" onclick="grcSaveRisk()">Save Risk Treatment (RISK-001)</button>
+  </div>
+  <div class="panel"><h3>Risk calculation</h3><div id="grcRiskBox" class="riskbox"></div></div>
+  </div>`;
+  grcCompute();
+}
+
+/* ============================================================
+   MENTOR DECISION TAB (per-stage professional decision check)
+   ============================================================ */
+const STAGE_META = {
+  eh:{code:"EH-001",track:"ETHICAL HACKING",role:"Authorized Security Tester",severity:"MEDIUM",title:"Exposed Web Surface",
+    subtitle:"Map the authorized FinBank training network and hand off a defensible attack-surface finding.",
+    story:"FinBank has authorized an assessment of its isolated training network. Your first responsibility is not exploitation — it is proving what is in scope, discovering the attack surface, and preserving evidence.",
+    question:"What must be established before technical testing begins?",
+    choices:[["Authorization, scope, permitted targets and allowed actions","good"],["The fastest available exploit","bad"],["A public website to compare against","bad"]],
+    mentorGood:"Professional testing begins with authorization and scope. Technical skill without boundaries is not professional practice.",
+    skill:"Attack Surface Management"},
+  vapt:{code:"VAPT-002",track:"VAPT",role:"VAPT Analyst",severity:"CRITICAL",title:"Broken Access Control",
+    subtitle:"Prove a simulated authorization failure and turn it into a professional finding.",
+    story:"The Customer Portal contains synthetic customer records. A standard user should not be able to retrieve another account's record. Your task is to validate the control failure, assess risk and recommend remediation.",
+    question:"What makes a VAPT finding professionally defensible?",
+    choices:[["Technical evidence + asset + impact + risk rating + actionable remediation","good"],["Using the most advanced scanner available","bad"],["Calling every access issue Critical by default","bad"]],
+    mentorGood:"A professional finding connects proof to business impact and gives the owner a remediation that can be retested.",
+    skill:"Web Application Security Testing"},
+  attack:{code:"ATK-003",track:"CONTROLLED ATTACK",role:"Attack Simulation Operator",severity:"HIGH",title:"Controlled Validation",
+    subtitle:"Turn a validated finding into the telemetry a SOC actually has to work with.",
+    story:"VULN-001 is real, but a finding on paper is not the same as evidence a SOC can detect. A controlled, authorized validation generates the telemetry that proves the exposure is exploitable in practice.",
+    question:"Why validate a finding with a controlled attack instead of only writing it up?",
+    choices:[["It produces the telemetry SOC needs to build real detection and response capability","good"],["It looks more impressive in a report","bad"],["It replaces the need for a written finding","bad"]],
+    mentorGood:"Controlled validation closes the gap between 'this is theoretically exploitable' and 'this is what it looks like when it happens.'",
+    skill:"Attack Simulation & Detection Engineering"},
+  soc:{code:"SOC-004",track:"SOC",role:"SOC Analyst L1/L2",severity:"HIGH",title:"Credential & Application Compromise",
+    subtitle:"Correlate telemetry and make a defensible containment decision.",
+    story:"Identity, application and endpoint telemetry all point toward finance01. Correlate the evidence before deciding whether this is a real compromise and what to do about it.",
+    question:"What should the SOC analyst do first?",
+    choices:[["Correlate identity, application and endpoint evidence to validate the hypothesis","good"],["Disable every employee account","bad"],["Ignore it because the authentication ultimately succeeded","bad"]],
+    mentorGood:"Strong SOC reasoning validates the hypothesis with multiple evidence sources before choosing the least disruptive effective containment.",
+    skill:"Security Incident Investigation"},
+  grc:{code:"GRC-005",track:"GRC",role:"GRC / Risk Analyst",severity:"HIGH",title:"Customer Data Risk",
+    subtitle:"Translate a technical incident into accountable business risk and treatment.",
+    story:"INC-1042 is technical. The business needs to know what it means: asset, threat, vulnerability, impact, owner, treatment and residual risk.",
+    question:"What is the strongest GRC response to a confirmed technical incident?",
+    choices:[["Define owner, treatment, control, priority, target date and residual risk","good"],["Tell SOC to 'monitor harder'","bad"],["Ignore it because no financial loss has been confirmed yet","bad"]],
+    mentorGood:"GRC creates accountability around risk: ownership, a concrete control, a deadline and a measured residual risk.",
+    skill:"Risk Assessment & Treatment"}
+};
+let currentStage = null;
+function buildDecision(){
+  const m = STAGE_META[currentStage];
+  document.getElementById("tab-decision").innerHTML = `<div class="two">
+  <div class="panel"><span class="badge">Mentor decision</span><h3>${m.question}</h3>
+  <div id="decisionChoices">${m.choices.map((c,i)=>`<button class="choice" data-kind="${c[1]}" onclick="decision(this)">${c[0]}</button>`).join("")}</div>
+  <div id="decisionFeedback" class="feedback"></div></div>
+  <div class="panel"><h3>Why this matters</h3><p class="muted">${m.mentorGood}</p><h3>Job skill demonstrated</h3><span class="badge">${m.skill}</span></div>
+  </div>`;
+}
+function decision(btn){
+  const all = document.querySelectorAll("#decisionChoices .choice");
+  const f = document.getElementById("decisionFeedback");
+  const m = STAGE_META[currentStage];
+  all.forEach(x=>x.disabled=true);
+  if(btn.dataset.kind==="good"){
+    btn.classList.add("good");
+    f.className="feedback show";
+    f.innerHTML = "<b>Professional decision accepted.</b><p>"+m.mentorGood+"</p>";
+    document.getElementById("mentorTitle").textContent = "Mentor: professional reasoning demonstrated";
+    document.getElementById("mentorText").textContent = "You just demonstrated "+m.skill+". This is the reasoning pattern the four-month program repeats across increasingly independent cases.";
+  } else {
+    btn.classList.add("bad");
+    f.className="feedback show";
+    f.innerHTML = "<b>Mentor challenge: reconsider your reasoning.</b><p>Look for the option that uses evidence, respects scope and produces a defensible professional outcome. Ask: what do I know, what do I still need to prove, and what is the business impact?</p>";
+  }
+}
+
+/* ============================================================
+   WORKSPACE / STAGE NAVIGATION
+   ============================================================ */
+function openStage(k){
+  currentStage = k;
+  const m = STAGE_META[k];
+  document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+  document.getElementById("workspace").classList.add("active");
+  document.querySelectorAll("[data-nav]").forEach(x=>x.classList.remove("active"));
+  document.getElementById("mentorTitle").textContent = "Mentor briefing: "+m.role;
+  document.getElementById("mentorText").textContent = "Work through the console step by step. I will tell you what each result means and why the next role needs it.";
+  document.getElementById("caseHeader").innerHTML = `<div><span class="badge">${m.code} • ${m.track}</span><h1>${m.title}</h1><p>${m.subtitle}</p></div><div><span class="sev">${m.severity}</span><p class="muted" style="text-align:right">${m.role}</p></div>`;
+  document.getElementById("tab-overview").innerHTML = `<div class="panel"><h3>Situation</h3><p class="muted">${m.story}</p></div>`;
+  if(k==="eh") buildEH();
+  else if(k==="vapt") buildVAPT();
+  else if(k==="attack") buildAttack();
+  else if(k==="soc") buildSOC();
+  else if(k==="grc") buildGRC();
+  buildDecision();
+  tab("overview");
+  scrollTo(0,0);
+}
+function tab(name){
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.tab===name));
+  document.querySelectorAll("#workspace .tab").forEach(t=>t.classList.remove("active"));
+  document.getElementById("tab-"+name).classList.add("active");
+}
+
+/* ============================================================
+   CAPABILITY ENGINE
+   ============================================================ */
+function textScore(text, minWordsForFull){
+  if(!text) return 0;
+  const words = text.trim().split(/\s+/).filter(Boolean).length;
+  if(!words) return 0;
+  return Math.min(100, Math.round(20 + (words/(minWordsForFull||12))*80));
+}
+function computeCapability(){
+  const eh=STATE.eh, v=STATE.vapt, s=STATE.soc, g=STATE.grc;
+  const ehDepth = [eh.discoveredHosts,eh.scanned,eh.inspected,eh.enumerated].filter(Boolean).length/4*100;
+  const technical = Math.round(ehDepth*0.4 + (v.finding?100:0)*0.6);
+
+  const socDepth = [s.correlated,!!s.classification,!!s.containment,!!s.incident].filter(Boolean).length/4*100;
+  const investigation = Math.round(socDepth);
+
+  const evCount = STATE.evidenceLocker.length;
+  const evidenceHandling = Math.round(Math.min(100, evCount*7));
+
+  let riskThinking = 0;
+  if(g.risk){
+    riskThinking = 60;
+    riskThinking += g.risk.treatment==="Mitigate" ? 25 : 12;
+    riskThinking += g.risk.residualRisk < g.risk.inherentRisk ? 15 : 0;
+    riskThinking = Math.min(100, riskThinking);
+  }
+
+  let decisionPts=0;
+  if(v.unauthorized===true) decisionPts++;
+  if(s.classification==="true_positive") decisionPts++;
+  if(g.risk && g.risk.treatment==="Mitigate") decisionPts++;
+  const decisionQuality = Math.round((decisionPts/3)*100);
+
+  // Communication is grounded in the analyst reasoning and risk-control write-ups the
+  // candidate actually authored during SOC and GRC — not a separate interview.
+  const communication = Math.round(textScore(s.reasoning, 14)*0.5 + textScore(g.risk?g.risk.control:"", 14)*0.5);
+
+  STATE.capability = {technical, investigation, evidenceHandling, riskThinking, decisionQuality, communication};
+  return STATE.capability;
+}
+function overallCapability(){
+  const c=STATE.capability;
+  const vals=[c.technical,c.investigation,c.evidenceHandling,c.riskThinking,c.decisionQuality,c.communication];
+  return Math.round(vals.reduce((a,b)=>a+b,0)/vals.length);
+}
+function readinessLevel(pct){
+  if(pct>=85) return {label:"STRONG READINESS", cls:"strong"};
+  if(pct>=75) return {label:"JOB TARGETING", cls:"target"};
+  if(pct>=60) return {label:"ROLE EXPLORATION", cls:"explore"};
+  if(pct>=40) return {label:"DEVELOPING", cls:"developing"};
+  return {label:"FOUNDATION", cls:"foundation"};
+}
+
+/* ============================================================
+   JOB ROLE DATASET + DYNAMIC MATCHING
+   ============================================================ */
+const ROLE_LAB_MAP = {
+  technical:["Networking fundamentals","Linux essentials","Attack surface mapping","VAPT fundamentals"],
+  investigation:["SOC correlation lab","Incident timeline building","Alert triage"],
+  evidenceHandling:["Evidence documentation standards","Chain-of-custody practice"],
+  riskThinking:["Risk assessment lab","Controls & GRC fundamentals","Business impact analysis"],
+  decisionQuality:["Scenario decision drills","Containment decision lab"],
+  communication:["Executive reporting","Incident explanation practice","Mock CISO briefings"]
+};
+const ROLES = [
+  {name:"SOC Analyst L1", exp:"0–1 yr", weights:{investigation:.35,evidenceHandling:.2,decisionQuality:.15,communication:.15,technical:.1,riskThinking:.05},
+   resp:"Triage alerts, investigate suspicious activity, escalate confirmed incidents.", tools:"SIEM, EDR, ticketing", phase:"Month 2 — SOC & Defensive Operations",
+   day:["Start shift by reviewing overnight SIEM alerts and the handover log","Triage 20–40 alerts, closing false positives with documented reasoning","Escalate confirmed suspicious activity to L2 with evidence attached","Update tickets and write a clean handover note before shift ends"]},
+  {name:"SOC Analyst L2", exp:"1–3 yr", weights:{investigation:.3,decisionQuality:.25,evidenceHandling:.15,technical:.15,riskThinking:.1,communication:.05},
+   resp:"Lead investigations, tune detections, own containment decisions.", tools:"SIEM, SOAR, threat intel platforms", phase:"Month 2 — SOC & Defensive Operations",
+   day:["Review tickets escalated from L1 and prioritize by business impact","Lead a deep-dive investigation, correlating identity, endpoint and app telemetry","Tune or write a detection rule based on a missed or noisy alert","Own the containment decision on a confirmed incident and brief the team"]},
+  {name:"Junior VAPT Analyst", exp:"0–1 yr", weights:{technical:.35,evidenceHandling:.25,decisionQuality:.2,communication:.1,investigation:.05,riskThinking:.05},
+   resp:"Perform authorized assessments, validate findings, write reports.", tools:"Burp Suite, Nmap, manual testing", phase:"Month 3 — Ethical Hacking & VAPT",
+   day:["Confirm scope and rules of engagement for today's authorized test","Validate automated scan results against manual testing in Burp Suite","Write up findings with evidence, business impact and remediation steps","Retest a previously reported finding to confirm it was actually fixed"]},
+  {name:"Penetration Testing Trainee", exp:"0 yr", weights:{technical:.4,decisionQuality:.25,evidenceHandling:.15,investigation:.1,communication:.05,riskThinking:.05},
+   resp:"Assist senior testers with recon, enumeration and evidence capture.", tools:"Nmap, Burp Suite, recon tooling", phase:"Month 3 — Ethical Hacking & VAPT",
+   day:["Shadow a senior tester through recon and enumeration on an in-scope target","Run assigned reconnaissance tools and log the raw output","Capture evidence — screenshots, request/response pairs — for the day's findings","Debrief with the senior tester on what the evidence does and doesn't prove"]},
+  {name:"Vulnerability Management Analyst", exp:"0–2 yr", weights:{technical:.25,riskThinking:.25,evidenceHandling:.2,communication:.15,decisionQuality:.1,investigation:.05},
+   resp:"Track, prioritize and drive remediation of vulnerabilities across the estate.", tools:"Vulnerability scanners, ticketing, risk registers", phase:"Month 3 — Ethical Hacking & VAPT",
+   day:["Pull the latest scan results and triage new vulnerabilities by severity","Map CVEs to owned assets and assign remediation tickets to system owners","Chase overdue remediation items and update the risk register","Report weekly remediation SLA metrics to management"]},
+  {name:"Cybersecurity Analyst", exp:"0–2 yr", weights:{investigation:.2,technical:.2,riskThinking:.2,evidenceHandling:.15,decisionQuality:.15,communication:.1},
+   resp:"General security operations spanning monitoring, assessment and reporting.", tools:"SIEM, vulnerability scanners, GRC tooling", phase:"Month 1 — Foundation",
+   day:["Check overnight monitoring alerts and open items across SOC and vuln queues","Support a scan review or a control assessment, depending on the day's needs","Document findings and update the relevant tracker or dashboard","Join a cross-team sync to align on open security work"]},
+  {name:"GRC Analyst", exp:"0–2 yr", weights:{riskThinking:.4,communication:.25,evidenceHandling:.15,decisionQuality:.1,technical:.05,investigation:.05},
+   resp:"Maintain risk register, run control assessments, support audits.", tools:"GRC platforms, risk registers, spreadsheets", phase:"Month 4 — GRC, Interview & Capstone",
+   day:["Review and update entries in the risk register against current status","Run a control assessment interview with a system or process owner","Draft or update policy and procedure documentation for review","Pull together evidence for an upcoming audit or compliance deadline"]},
+  {name:"Risk & Compliance Analyst", exp:"0–2 yr", weights:{riskThinking:.45,communication:.2,decisionQuality:.15,evidenceHandling:.1,technical:.05,investigation:.05},
+   resp:"Assess regulatory and business risk, track treatment plans to closure.", tools:"Risk registers, compliance frameworks", phase:"Month 4 — GRC, Interview & Capstone",
+   day:["Assess a newly reported risk against the organization's risk framework","Track existing treatment plans and flag ones falling behind schedule","Map a regulatory requirement to current controls and note gaps","Report risk posture changes to the risk committee or management"]},
+  {name:"Security Operations Analyst", exp:"0–2 yr", weights:{investigation:.3,evidenceHandling:.2,decisionQuality:.2,technical:.15,communication:.1,riskThinking:.05},
+   resp:"Monitor enterprise telemetry and coordinate incident response.", tools:"SIEM, EDR, case management", phase:"Month 2 — SOC & Defensive Operations",
+   day:["Monitor enterprise telemetry dashboards for anomalies through the shift","Coordinate with IT and application teams during an active investigation","Document the incident timeline and actions taken in case management","Contribute notes to the post-incident review"]},
+  {name:"Blue Team Analyst", exp:"0–2 yr", weights:{investigation:.3,technical:.2,decisionQuality:.2,evidenceHandling:.15,communication:.1,riskThinking:.05},
+   resp:"Defend against and investigate simulated and real adversary activity.", tools:"SIEM, EDR, MITRE ATT&CK mapping", phase:"Month 2 — SOC & Defensive Operations",
+   day:["Investigate flagged adversary-simulation or real alert activity","Map observed behavior to MITRE ATT&CK techniques","Recommend or implement a detection or control improvement from the finding","Join a purple-team debrief to discuss detection gaps"]}
+];
+function matchRole(role, cap){
+  let pct=0;
+  Object.entries(role.weights).forEach(([k,w])=>{ pct += (cap[k]||0)*w; });
+  return Math.round(pct);
+}
+function roleGaps(role, cap){
+  return Object.entries(role.weights)
+    .filter(([k,w])=>w>=0.15 && (cap[k]||0)<60)
+    .map(([k])=>k);
+}
+function dimLabel(k){
+  return {technical:"Technical Reasoning",investigation:"Investigation",evidenceHandling:"Evidence Handling",riskThinking:"Risk Thinking",decisionQuality:"Decision Quality",communication:"Communication"}[k]||k;
+}
+function rankedRoles(){
+  const cap = STATE.capability;
+  return ROLES.map(r=>({role:r, match:matchRole(r,cap), gaps:roleGaps(r,cap)})).sort((a,b)=>b.match-a.match);
+}
+
+/* ============================================================
+   4-MONTH ROADMAP — PERSONALIZED
+   ============================================================ */
+const BASE_MONTHS = [
+  {n:"MONTH 1",title:"Cybersecurity Foundation",focusDim:"technical",items:["Networking","Linux & Windows","Security fundamentals","Attack surface","Logs","Basic scripting"],outcome:"Understand enterprise environments.",targets:"SOC L1 · Cybersecurity Analyst Trainee"},
+  {n:"MONTH 2",title:"SOC + Defensive Operations",focusDim:"investigation",items:["SIEM","Log analysis","Detection & correlation","Incident response","Threat intel","MITRE ATT&CK basics"],outcome:"Investigate security incidents.",targets:"SOC Analyst L1 · Security Operations Analyst · Blue Team Analyst"},
+  {n:"MONTH 3",title:"Ethical Hacking + VAPT",focusDim:"decisionQuality",items:["Reconnaissance","Enumeration","Web security","Vulnerability assessment","Validation & reporting"],outcome:"Perform controlled security assessments.",targets:"Junior VAPT Analyst · Vulnerability Management Analyst"},
+  {n:"MONTH 4",title:"GRC + Interview + Capstone",focusDim:"riskThinking",items:["Risk & controls","Governance & compliance","Business impact","Security reporting","Mock interviews","Enterprise capstone"],outcome:"Explain, defend and communicate cybersecurity decisions.",targets:"GRC Analyst · Risk & Compliance Analyst"}
+];
+function personalizedGaps(){
+  const c = STATE.capability;
+  const order = Object.entries(c).sort((a,b)=>a[1]-b[1]).map(([k])=>k);
+  return order.slice(0,2); // two weakest dimensions
+}
+function roadmapRecommendation(dim){
+  const map = {
+    technical:"Your technical reasoning is your development priority — prioritize networking, Linux, attack-surface labs and VAPT fundamentals.",
+    investigation:"Investigation is a development priority — prioritize SOC correlation labs, incident timelines and alert triage practice.",
+    riskThinking:"Risk thinking is a development priority — prioritize risk assessment, controls and business-impact / GRC labs.",
+    decisionQuality:"Decision quality is a development priority — prioritize scenario decision drills and containment decision labs.",
+    evidenceHandling:"Evidence handling is a development priority — prioritize documentation standards and chain-of-custody practice.",
+    communication:"Communication is a development priority — prioritize executive reporting, incident explanation and mock CISO briefings."
+  };
+  return map[dim];
+}
+
+/* ============================================================
+   RENDER: EVIDENCE LOCKER / PORTFOLIO
+   ============================================================ */
+function renderEvidence(){
+  const body=document.getElementById("evidenceBody"), empty=document.getElementById("evidenceEmpty"), table=document.getElementById("evidenceTable");
+  if(!STATE.evidenceLocker.length){ table.style.display="none"; empty.style.display="block"; return; }
+  table.style.display="table"; empty.style.display="none";
+  body.innerHTML = STATE.evidenceLocker.slice().reverse().map(e=>`<tr>
+  <td><b>${e.id}</b></td><td>${e.stage}</td><td><small>${e.timestamp}</small></td><td>${e.action}</td>
+  <td style="white-space:normal;min-width:260px">${e.result}</td><td>${e.asset}</td><td>${e.severity}</td><td>${e.decision}</td>
+  </tr>`).join("");
+  document.getElementById("mEvidence").textContent = STATE.evidenceLocker.length;
+}
+
+/* ============================================================
+   RENDER: HOME / STAGE CARDS / CHAIN
+   ============================================================ */
+function renderStageCards(){
+  const el1=document.getElementById("stageCards"), el2=document.getElementById("caseGrid");
+  const html = Object.keys(STAGE_META).map(k=>{
+    const m=STAGE_META[k];
+    const locked = STAGE_LOCKS[k] ? STAGE_LOCKS[k].locked() : false;
+    const done = {eh:ehComplete(),vapt:vaptComplete(),attack:attackComplete(),soc:socComplete(),grc:grcComplete()}[k];
+    return `<article class="case ${locked?'islocked':''}" onclick="${locked?`toast('${STAGE_LOCKS[k].reason.replace(/'/g,"\\'")}')`:`openStage('${k}')`}">
+    <div class="code">${m.code} / ${m.track}</div><h3>${m.title} ${done?'✓':''}</h3><p>${m.subtitle}</p>
+    <div class="tags"><span class="tag">${m.role}</span>${locked?'<span class="tag">Locked</span>':''}</div>
+    </article>`;
+  }).join("");
+  if(el1) el1.innerHTML = html;
+  if(el2) el2.innerHTML = html;
+}
+function renderChain(){
+  const map = {chainEH:ehComplete(),chainVAPT:vaptComplete(),chainAttack:attackComplete(),chainSOC:socComplete(),chainGRC:grcComplete()};
+  Object.entries(map).forEach(([id,done])=>{const x=document.getElementById(id); if(x) x.classList.toggle("done",done)});
+  const doneCount = Object.values(map).filter(Boolean).length;
+  const cs=document.getElementById("chainStatus"); if(cs) cs.textContent = doneCount? doneCount+"/5 STAGES COMPLETE" : "NOT STARTED";
+}
+function renderCapabilityBlock(prefix){
+  const c = STATE.capability;
+  Object.entries(c).forEach(([k,v])=>{
+    const label = prefix + k.charAt(0).toUpperCase()+k.slice(1);
+    const x=document.getElementById(label), b=document.getElementById(label+"Bar");
+    if(x) x.textContent = v+"%";
+    if(b) b.style.width = v+"%";
+  });
+}
+
+/* ============================================================
+   RENDER: ROADMAP
+   ============================================================ */
+function renderRoadmap(target){
+  const gaps = personalizedGaps();
+  const focusEl = document.getElementById(target==="report"?"reportRoadmap":"roadmapGrid");
+  const focusBanner = document.getElementById("roadmapFocus");
+  if(focusBanner && target!=="report"){
+    focusBanner.innerHTML = `<span class="badge">Personalized against your capability</span><h3 style="margin:6px 0 2px">Your two development priorities</h3>
+    <p class="muted">${gaps.map(roadmapRecommendation).join(" ")}</p>`;
+  }
+  focusEl.innerHTML = BASE_MONTHS.map(m=>{
+    const isFocus = gaps.includes(m.focusDim);
+    return `<div class="month ${isFocus?'focus':''}"><b>${m.n}${isFocus?' • PRIORITY FOR YOU':''}</b><h3>${m.title}</h3><ul>${m.items.map(i=>`<li>${i}</li>`).join("")}</ul>
+    <p class="muted" style="font-size:10px;margin:6px 0 0">Outcome: ${m.outcome}</p><p class="muted" style="font-size:10px;margin:2px 0 0">Targets: ${m.targets}</p></div>`;
+  }).join("");
+}
+
+/* ============================================================
+   RENDER: JOBS PAGE
+   ============================================================ */
+function renderJobs(){
+  const overall = overallCapability();
+  const lvl = readinessLevel(overall);
+  document.getElementById("readinessBanner").innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+  <div><span class="badge">Overall readiness</span><h3 style="margin:6px 0 2px">${overall}% — <span class="matchpill ${lvl.cls}">${lvl.label}</span></h3><p class="muted">Based on demonstrated actions in this session.</p></div>
+  </div><p class="disclaimer">Readiness is a training indicator, not an employment guarantee.</p>`;
+
+  const ranked = rankedRoles();
+  const top = ranked[0];
+  const cap = STATE.capability;
+  const have = Object.entries(top.role.weights).filter(([k,w])=>w>=0.15 && (cap[k]||0)>=60).map(([k])=>dimLabel(k));
+  const need = top.gaps.map(dimLabel);
+  document.getElementById("jobFeatured").innerHTML = `<span class="badge">Target role</span>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px">
+  <h2 style="margin:6px 0">${top.role.name}</h2><span class="matchpill ${readinessLevel(top.match).cls}">${top.match}% match</span>
+  </div>
+  <div class="two">
+  <div><p><b>You already demonstrated</b></p><ul>${have.length?have.map(h=>`<li>✓ ${h}</li>`).join(""):'<li>Complete more of the connected case to build demonstrated skills.</li>'}</ul>
+  <p><b>Develop next</b></p><ul>${need.length?need.map(n=>`<li>□ ${n}</li>`).join(""):'<li>No major gaps against this role right now.</li>'}</ul></div>
+  <div><p><b>Recommended next labs</b></p><ul>${top.gaps.flatMap(g=>ROLE_LAB_MAP[g]||[]).slice(0,4).map(l=>`<li>${l}</li>`).join("")||'<li>Continue building your case for full recommendations.</li>'}</ul>
+  <p><b>Next career action</b></p><p class="muted">${top.gaps.length? "Complete labs targeting "+need.join(", ")+", then revisit the Career Toolkit and Report." : "Continue building evidence and re-check role match after further stages."}</p></div>
+  </div>
+  <div class="daylife"><p><b>A day in the life — ${top.role.name}</b></p><ul>${top.role.day.map(d=>`<li>${d}</li>`).join("")}</ul></div>`;
+
+  document.getElementById("mBestRole").textContent = top.role.name;
+  document.getElementById("mBestRolePct").textContent = top.match+"% match";
+
+  document.getElementById("roleGrid").innerHTML = ranked.map(({role,match,gaps})=>{
+    const lv = readinessLevel(match);
+    return `<div class="panel rolecard"><div style="display:flex;justify-content:space-between;align-items:start"><h3 style="margin:0 0 4px">${role.name}</h3><span class="matchpill ${lv.cls}">${match}%</span></div>
+    <p class="muted" style="font-size:11px">${role.resp}</p>
+    <div class="skillrow"><span>Experience level</span><b>${role.exp}</b></div>
+    <div class="skillrow"><span>Tools</span><b style="text-align:right">${role.tools}</b></div>
+    <div class="skillrow"><span>Roadmap phase</span><b style="text-align:right">${role.phase}</b></div>
+    <p class="muted" style="font-size:10px;margin-top:8px">Missing: ${gaps.length?gaps.map(dimLabel).join(", "):"none major"}</p>
+    <details class="daylife-toggle"><summary>Day in the life</summary><ul>${role.day.map(d=>`<li>${d}</li>`).join("")}</ul></details>
+    </div>`;
+  }).join("");
+
+  document.getElementById("searchKeywords").innerHTML = ROLES.map(r=>`<span class="kw">"${r.name}"</span>`).join("");
+}
+
+/* ============================================================
+   RENDER: CAREER REPORT
+   ============================================================ */
+function renderReport(){
+  const c = STATE.capability, overall = overallCapability();
+  document.getElementById("reportGrid").innerHTML = Object.entries(c).map(([k,v])=>
+    `<div class="detail"><small>${dimLabel(k).toUpperCase()}</small><b>${v}%</b><div class="progress" style="margin-top:5px"><i style="width:${v}%"></i></div></div>`
+  ).join("") + `<div class="detail"><small>OVERALL CAPABILITY</small><b>${overall}%</b><div class="progress" style="margin-top:5px"><i style="width:${overall}%"></i></div></div>`;
+
+  const fullyDone = ehComplete() && vaptComplete() && attackComplete() && socComplete() && grcComplete();
+  const resetCard = document.getElementById("reportResetCard");
+  if(resetCard){
+    resetCard.innerHTML = fullyDone
+      ? `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div><span class="badge ok">Case complete</span><h3 style="margin:6px 0 2px">Ready for the next candidate?</h3><p class="muted" style="margin:0">This clears all progress and evidence on this device so the next person starts fresh.</p></div><button class="btn primary" onclick="resetAll()">↺ Reset & Start New Session</button></div>`
+      : `<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px"><div><p class="muted" style="margin:0">Running this as a repeated demo? You can reset progress for the next candidate any time.</p></div><button class="btn" onclick="resetAll()">↺ Reset Simulator</button></div>`;
+  }
+
+  const entries = Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  const strongest = entries[0], weakest = entries[entries.length-1];
+  document.getElementById("reportStrengths").innerHTML = `
+  <div class="panel"><h3>Strongest capability</h3><p class="muted">${dimLabel(strongest[0])} — ${strongest[1]}%</p></div>
+  <div class="panel"><h3>Development priority</h3><p class="muted">${dimLabel(weakest[0])} — ${weakest[1]}%. ${roadmapRecommendation(weakest[0])}</p></div>`;
+
+  const ranked = rankedRoles().slice(0,3);
+  document.getElementById("reportRoles").innerHTML = ranked.map(({role,match})=>
+    `<div class="panel"><h3 style="margin:0 0 4px">${role.name}</h3><span class="matchpill ${readinessLevel(match).cls}">${match}% match</span><p class="muted" style="font-size:11px;margin-top:6px">${role.resp}</p></div>`
+  ).join("");
+
+  renderRoadmap("report");
+
+  const locker = STATE.evidenceLocker;
+  document.getElementById("reportPortfolio").innerHTML = locker.length
+    ? `<div class="tablewrap"><table><thead><tr><th>ID</th><th>Stage</th><th>Result</th></tr></thead><tbody>${locker.map(e=>`<tr><td><b>${e.id}</b></td><td>${e.stage}</td><td style="white-space:normal;min-width:300px">${e.result}</td></tr>`).join("")}</tbody></table></div>`
+    : `<p class="muted">No evidence yet — complete the connected case to build your portfolio.</p>`;
+
+  const top = ranked[0];
+  document.getElementById("reportNextAction").textContent = top
+    ? "Target "+top.role.name+" ("+top.match+"% match). Focus your next labs on "+ (top.gaps? top.gaps.map(dimLabel).join(", "):"your weakest capability") +", then revisit the Career Toolkit to refresh this report."
+    : "Complete the connected FinBank case to generate your first role matches.";
+}
+
+/* ============================================================
+   CAREER TOOLKIT — resume bullets, LinkedIn summary, prep checklist, skill gaps
+   ============================================================ */
+function toolkitResumeBullets(){
+  const bullets=[];
+  if(ehComplete()) bullets.push("Performed authorized reconnaissance and service enumeration against an enterprise web asset (FB-WEB-01), identifying an undocumented customer-facing application on a non-standard port.");
+  if(STATE.vapt.finding) bullets.push("Identified and validated a Broken Object Level Authorization vulnerability in a customer-records API; documented risk reasoning and remediation guidance as "+STATE.vapt.finding.id+" ("+STATE.vapt.finding.severity+").");
+  if(STATE.attack.run) bullets.push("Executed a controlled attack validation to generate authentication, application and endpoint telemetry, closing the gap between a written finding and real detectable behavior.");
+  if(STATE.soc.incident) bullets.push("Investigated a multi-source security incident by correlating identity, application and endpoint telemetry, reaching a "+STATE.soc.incident.confidence+"-confidence determination and selecting an evidence-based containment action ("+STATE.soc.incident.id+").");
+  if(STATE.grc.risk) bullets.push("Translated a technical incident into documented business risk with ownership, treatment and residual-risk calculation using a Mitigate / Accept / Transfer / Avoid framework ("+STATE.grc.risk.id+").");
+  if(STATE.grc.risk && STATE.grc.risk.control) bullets.push("Authored a remediation control and analyst reasoning write-up connecting technical evidence to business risk treatment, suitable for stakeholder review.");
+  return bullets;
+}
+function toolkitLinkedInSummary(){
+  const overall = overallCapability();
+  const ranked = rankedRoles();
+  if(overall<=0 || !ranked.length) return null;
+  const top = ranked[0];
+  return "Cybersecurity learner with hands-on, evidence-based experience across ethical hacking, VAPT, SOC investigation and GRC risk management, built through a connected enterprise simulation. Currently targeting "+top.role.name+" roles ("+top.match+"% demonstrated capability match). Comfortable validating vulnerabilities, correlating security telemetry, and translating technical risk into business decisions. Open to opportunities in "+top.role.name+" and related security operations roles.";
+}
+function toolkitTalkingPoints(){
+  const pts=[];
+  if(STATE.vapt.finding) pts.push("Explain "+STATE.vapt.finding.id+" in plain language: what Broken Object Level Authorization is, and why changing a record id exposed someone else's data.");
+  if(STATE.attack.run) pts.push("Explain why you validated the finding with a controlled attack instead of only writing it up.");
+  if(STATE.soc.incident) pts.push("Walk through your SOC correlation logic and why it reached "+STATE.soc.incident.confidence+" confidence.");
+  if(STATE.soc.incident) pts.push("Justify your containment choice: \""+STATE.soc.incident.containment+"\"");
+  if(STATE.grc.risk) pts.push("Explain your GRC treatment decision (\""+STATE.grc.risk.treatment+"\") and how you calculated residual risk.");
+  if(pts.length) pts.push("Be ready to discuss your career transition and the structured learning behind it.");
+  return pts;
+}
+function copyToolkitText(elId, label){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  const text = el.innerText || el.textContent || "";
+  if(!text.trim()){toast("Nothing to copy yet — complete more of the case first.");return}
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(()=>toast("Copied "+label+" to clipboard.")).catch(()=>toast("Couldn't copy automatically — select the text manually."));
+  } else {
+    toast("Couldn't copy automatically — select the text manually.");
+  }
+}
+function renderToolkit(){
+  const bullets = toolkitResumeBullets();
+  const bulletBox = document.getElementById("toolkitBullets");
+  bulletBox.innerHTML = bullets.length
+    ? "<ul>"+bullets.map(b=>"<li>"+b+"</li>").join("")+"</ul>"
+    : `<div class="toolempty">Complete a stage in the connected case (start with Ethical Hacking) to generate your first resume bullet.</div>`;
+
+  const linkedin = toolkitLinkedInSummary();
+  document.getElementById("toolkitLinkedIn").innerHTML = linkedin
+    ? "<p style='margin:0;font-size:12px'>"+linkedin+"</p>"
+    : `<div class="toolempty">Your LinkedIn summary will appear once you have a demonstrated capability score — complete at least one full stage.</div>`;
+
+  const pts = toolkitTalkingPoints();
+  document.getElementById("toolkitChecklist").innerHTML = pts.length
+    ? pts.map((p,i)=>`<label><input type="checkbox"><span>${p}</span></label>`).join("")
+    : `<div class="toolempty">Talking points appear here as you build VULN-001, INC-1042 and RISK-001.</div>`;
+
+  const cap = STATE.capability;
+  const entries = Object.entries(cap).sort((a,b)=>a[1]-b[1]);
+  const box = document.getElementById("toolkitSkillGaps");
+  if(overallCapability()>0){
+    box.innerHTML = entries.map(([k,v])=>`<div class="detail" style="margin-bottom:6px"><small>${dimLabel(k).toUpperCase()}</small><b>${v}%</b><div class="progress" style="margin-top:5px"><i style="width:${v}%"></i></div>${v<60?`<p class="muted" style="font-size:9px;margin-top:5px">Next: ${(ROLE_LAB_MAP[k]||[]).slice(0,2).join(", ")}</p>`:''}</div>`).join("");
+  } else {
+    box.innerHTML = `<div class="toolempty">Your skill gaps will appear here once you've completed at least one stage.</div>`;
+  }
+}
+
+/* ============================================================
+   GLOBAL NAV + BOOT
+   ============================================================ */
+function go(id){
+  document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  document.querySelectorAll("[data-nav]").forEach(x=>x.classList.toggle("active", x.dataset.nav===id));
+  if(id==="evidence") renderEvidence();
+  if(id==="roadmap") renderRoadmap("roadmap");
+  if(id==="jobs") renderJobs();
+  if(id==="report") renderReport();
+  if(id==="cases") renderStageCards();
+  if(id==="toolkit") renderToolkit();
+  renderAll();
+  scrollTo(0,0);
+}
+function renderGamification(){
+  const g = STATE.gamification || {xp:0, badges:[]};
+  const info = rankInfo(g.xp);
+  const rankLabel = document.getElementById("xpRankLabel");
+  const bar = document.getElementById("xpBar");
+  const detail = document.getElementById("xpDetail");
+  if(rankLabel) rankLabel.textContent = info.label;
+  if(detail) detail.textContent = g.xp+" XP" + (info.next ? " · "+(info.next.min-g.xp)+" to "+info.next.label : " · max rank");
+  if(bar){
+    const span = info.next ? (info.next.min - (RANKS[RANKS.indexOf(info.next)-1]?.min||0)) : 40;
+    const into = info.next ? g.xp - (RANKS[RANKS.indexOf(info.next)-1]?.min||0) : span;
+    bar.style.width = Math.min(100, Math.round((into/span)*100))+"%";
+  }
+  const shelf = document.getElementById("badgeShelf");
+  const summary = document.getElementById("xpSummary");
+  if(summary) summary.textContent = g.xp+" XP";
+  if(shelf){
+    shelf.innerHTML = BADGES.map(b=>{
+      const earned = g.badges.includes(b.id);
+      return `<div class="badgecard ${earned?'':'locked'}"><span class="bicon">${b.icon}</span><b>${b.label}</b><span>${earned?b.desc:'Locked'}</span></div>`;
+    }).join("");
+  }
+}
+function renderAll(){
+  document.getElementById("mEvidence").textContent = STATE.evidenceLocker.length;
+  document.getElementById("mCapability").textContent = overallCapability()+"%";
+  renderCapabilityBlock("cap");
+  renderChain();
+  renderStageCards();
+  renderGamification();
+  const ranked = rankedRoles();
+  if(ranked.length){document.getElementById("mBestRole").textContent = ranked[0].role.name; document.getElementById("mBestRolePct").textContent = ranked[0].match+"% match";}
+}
+
+function applyThemeIcon(){
+  const btn = document.getElementById("themeToggle");
+  if(!btn) return;
+  const dark = document.documentElement.getAttribute("data-theme")==="dark";
+  btn.textContent = dark ? "☀️" : "🌙";
+}
+function toggleTheme(){
+  const dark = document.documentElement.getAttribute("data-theme")==="dark";
+  const next = dark ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  try{ localStorage.setItem("sxlV8Theme", next); }catch(e){}
+  applyThemeIcon();
+}
+
+computeCapability();
+renderAll();
+applyThemeIcon();
+</script>
+</body>
+</html>
