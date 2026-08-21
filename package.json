@@ -1,0 +1,22 @@
+{
+  "name": "cybercareer-shadowxlab",
+  "version": "1.0.0",
+  "description": "ShadowXLab Connected Career Simulator - cybercareer.shadowxlab.com",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -l 3000",
+    "dev": "npx serve . -l 3000",
+    "serve": "npx http-server . -p 3000"
+  },
+  "keywords": [
+    "cybersecurity",
+    "vapt",
+    "career-simulator",
+    "shadowxlab",
+    "soc",
+    "ethical-hacking",
+    "grc"
+  ],
+  "author": "ShadowXLab",
+  "license": "MIT"
+}
