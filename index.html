@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ShadowXLab · CyberCareer · VAPT Command Center</title>
+<title>ShadowXLab · CyberCareer · VAPT / PEN-200 Platform</title>
 <link rel="canonical" href="https://cybercareer.shadowxlab.com/">
 <style>
 :root{
@@ -27,17 +27,17 @@ button{font:inherit;cursor:pointer}
  border-right:1px solid var(--line);overflow:auto;transition:.22s ease;
 }
 .sidebar.collapsed{width:0;border-right:0;overflow:hidden}
-.brand{padding:18px 20px;border-bottom:1px solid var(--line);font-weight:900;letter-spacing:.06em;display:flex;align-items:center;gap:10px}
+.brand{padding:18px 20px;border-bottom:1px solid var(--line);font-weight:900;letter-spacing:.06em;display:flex;align-items:center;gap:10px;cursor:pointer}
 .brand img{height:36px;border-radius:6px;object-fit:contain}
 .brand b{color:var(--red)} .brand small{display:block;color:var(--muted);margin-top:2px;letter-spacing:.12em;font-size:9px;font-weight:700}
 .nav-title{padding:16px 20px 6px;color:var(--red);font:800 10px Consolas,monospace;letter-spacing:.16em;text-transform:uppercase}
-.nav a{display:flex;align-items:center;gap:10px;padding:9px 18px;color:var(--muted);font-size:13px;border-left:3px solid transparent;font-weight:600;transition:background .15s,color .15s}
-.nav a:hover,.nav a.active{background:var(--soft);color:var(--ink);border-left-color:var(--red)}
-.nav a span{color:var(--red);font:800 11px Consolas,monospace;min-width:22px}
+.nav button,.nav a{display:flex;align-items:center;gap:10px;padding:9px 18px;color:var(--muted);font-size:13px;border:0;border-left:3px solid transparent;background:transparent;width:100%;text-align:left;font-weight:600;transition:background .15s,color .15s}
+.nav button:hover,.nav button.active,.nav a:hover,.nav a.active{background:var(--soft);color:var(--ink);border-left-color:var(--red)}
+.nav span.badge{color:var(--red);font:800 11px Consolas,monospace;min-width:22px}
 .nav a.sim-nav{background:#fff3f3;border-left-color:var(--red);color:var(--red)}
 [data-theme="dark"] .nav a.sim-nav{background:#2a1515;color:#ff5555}
 
-/* Main & Top Header */
+/* Main Container & Top Header */
 .main{margin-left:292px;min-height:100vh;transition:.22s ease}
 .main.expanded{margin-left:0}
 .top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 94%,transparent);
@@ -47,8 +47,11 @@ backdrop-filter:blur(10px);border-bottom:2px solid var(--red);height:64px;displa
 .top-btn.primary{background:var(--red);border-color:var(--red);color:#fff;font-weight:800}
 .top-btn.primary:hover{background:var(--red-dark);color:#fff;border-color:var(--red-dark)}
 
-/* Content & Hero */
+/* Content Views */
 .content{max-width:1440px;margin:auto;padding:36px 34px 90px}
+.view-panel{display:none}
+.view-panel.active{display:block}
+
 .eyebrow{color:var(--red);font:800 11px Consolas,monospace;letter-spacing:.18em;text-transform:uppercase}
 .hero{display:grid;grid-template-columns:1.35fr .65fr;gap:24px;align-items:stretch}
 h1{font-size:clamp(38px,5vw,68px);line-height:1.02;letter-spacing:-.04em;margin:12px 0 16px}
@@ -65,7 +68,7 @@ h1 em{color:var(--red);font-style:normal}
 .big{font-size:52px;font-weight:900;line-height:1}
 .muted{color:var(--muted)}
 
-/* Metrics & Flow */
+/* Metrics & Learning Flow */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:24px}
 .metric{border:1px solid var(--line);padding:18px;background:var(--panel);border-radius:8px}
 .metric strong{display:block;font-size:32px;line-height:1.1}
@@ -88,48 +91,9 @@ h1 em{color:var(--red);font-style:normal}
 .progress{height:8px;background:var(--soft);margin-top:12px;overflow:hidden;border-radius:4px}
 .progress i{display:block;width:12%;height:100%;background:var(--red)}
 
-/* Module Preview Component */
-.module-preview{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
-.preview-hero{border:1px solid var(--line);background:var(--panel);padding:24px;border-radius:8px}
-.preview-number{font:900 11px Consolas,monospace;color:var(--red);letter-spacing:.16em}
-.preview-title{font-size:34px;line-height:1.08;margin:8px 0;letter-spacing:-.02em}
-.preview-sub{font-size:16px;color:var(--muted);line-height:1.6}
-.preview-tabs{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0 0}
-.preview-tab{border:1px solid var(--line);background:var(--soft);color:var(--muted);padding:9px 13px;font-weight:800;font-size:12px;border-radius:5px}
-.preview-tab.active{border-color:var(--red);background:var(--panel);color:var(--red)}
-.preview-content{border:1px solid var(--line);background:var(--panel);padding:22px;border-radius:8px}
-.preview-content h3{margin-top:0;font-size:22px}
-.concept-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.concept{border:1px solid var(--line);padding:14px;background:var(--soft);border-radius:6px;font-size:13px}
-.concept b{display:block;color:var(--red);font-size:10px;letter-spacing:.1em;margin-bottom:5px;font-family:Consolas,monospace}
-.tool-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.tool{border:1px solid var(--line);padding:14px;border-radius:6px;font-size:13px}
-.tool code{display:block;background:#111;color:#7ce2b0;padding:10px;margin-top:8px;font-size:12px;border-radius:4px;overflow-x:auto;font-family:Consolas,monospace}
-.mission{border-left:4px solid var(--red);padding:15px 17px;background:var(--soft);line-height:1.6;font-size:14px;border-radius:0 6px 6px 0}
-.evidence{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
-.evidence div{border:1px solid var(--line);padding:12px;text-align:center;font-weight:800;font-size:12px;border-radius:5px;background:var(--soft)}
-
-/* Subtopics & PEN-200 Learning Units Layer */
-.subtopic-panel{margin-top:16px;border:1px solid var(--line);background:var(--soft);padding:16px;border-radius:7px}
-.subtopic-head{display:flex;justify-content:space-between;gap:14px;align-items:end;margin-bottom:12px}
-.subtopic-head h3{margin:0;font-size:16px}
-.subtopic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.subtopic-unit{border:1px solid var(--line);background:var(--panel);padding:13px;border-radius:6px}
-.subtopic-unit strong{display:block;color:var(--red);font-size:11px;letter-spacing:.06em;margin-bottom:8px;font-family:Consolas,monospace}
-.subtopic-unit ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.55;font-size:13px}
-.subtopic-unit li{margin:5px 0;cursor:pointer}
-.subtopic-unit li:hover{color:var(--red)}
-.subtopic-source{font-size:11px;color:var(--muted);margin-top:12px}
-
-/* Visual Models & Interactive Scenes */
-.source-scene{margin-bottom:20px;border:1px solid #333;border-radius:10px;background:#101010;color:#fff;overflow:hidden;padding:18px}
-.source-scene-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}.source-scene-icon{font-size:32px}.source-scene-kicker{font:700 10px Consolas,monospace;color:#ff5252;letter-spacing:.16em}.source-scene h3{margin:2px 0;font-size:18px;color:#fff}.source-scene-purpose{color:#bbb;line-height:1.55;margin:0 0 16px;font-size:13px}
-.source-scene-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;align-items:center}.source-scene-node{background:#181818;border:1px solid #444;border-radius:8px;padding:14px 8px;text-align:center;min-height:85px;font-weight:800;font-size:12px;position:relative}.source-scene-node:not(:last-child):after{content:'→';position:absolute;right:-12px;top:28px;color:#ff5252;background:#101010;padding:0 3px;font-size:20px;z-index:2}.source-scene-node b{display:block;color:#ff5252;font:700 10px Consolas,monospace;margin-bottom:6px}
-.source-visual-path{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:18px;overflow-x:auto}.source-visual-step{min-width:180px;border:1px solid var(--line);padding:16px;background:var(--panel);position:relative;color:var(--ink)}.source-visual-step:not(:last-child){border-right:0}.source-visual-step:after{content:'→';position:absolute;right:-14px;top:43%;background:var(--panel);color:var(--red);font-size:20px;z-index:2}.source-visual-step .stepNo{color:var(--red);font:700 10px Consolas,monospace}.source-visual-step h4{font-size:15px;margin:5px 0}.source-visual-step p{font-size:12px;color:var(--muted);margin:0;line-height:1.5}
-
 /* Curriculum Grid */
 .module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.module-card{display:flex;gap:13px;position:relative;border:1px solid var(--line);padding:18px;background:var(--panel);min-height:132px;border-radius:7px}
+.module-card{display:flex;gap:13px;position:relative;border:1px solid var(--line);padding:18px;background:var(--panel);min-height:132px;border-radius:7px;cursor:pointer;color:var(--ink);text-align:left}
 .module-card:hover{border-color:var(--red);transform:translateY(-2px);transition:.15s}
 .module-no{color:var(--red);font:900 15px Consolas,monospace}
 .module-phase{color:var(--red);font:800 10px Consolas,monospace;letter-spacing:.12em;text-transform:uppercase}
@@ -146,15 +110,74 @@ h1 em{color:var(--red);font-style:normal}
 .activity{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:13px 0;gap:15px;font-size:13px}
 .activity:last-child{border-bottom:0}
 
-/* Practical Module Workspaces */
-.module-workspace{display:none;border:1px solid var(--line);background:var(--panel);padding:26px;margin-top:18px;box-shadow:var(--shadow);border-radius:8px}
-.module-workspace.active{display:block}
-.smalllead{font-size:16px!important;max-width:1000px}
-.module-lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:20px}
-.lane{border:1px solid var(--line);padding:16px;background:var(--soft);min-height:140px;border-radius:6px}
-.lane b{display:block;color:var(--red);font:900 10px Consolas,monospace;letter-spacing:.14em;margin-bottom:8px}
-.lane strong{display:block;font-size:16px;margin-bottom:6px}.lane p{color:var(--muted);line-height:1.55;font-size:13px;margin:0}
-.module-footer{display:flex;justify-content:space-between;align-items:center;gap:15px;border-top:1px solid var(--line);margin-top:20px;padding-top:16px;color:var(--muted);font-size:12px}
+/* ============================================================
+   DEDICATED FULL MODULE VIEW STYLES
+   ============================================================ */
+.moduleHero{padding-bottom:24px;border-bottom:1px solid var(--line)}
+.moduleHero h1{font-size:42px;line-height:1.06;margin:10px 0 12px;letter-spacing:-.02em}
+.metaPills{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0 6px}
+.pill{border:1px solid var(--line);background:var(--panel);padding:5px 11px;border-radius:20px;font:11px Consolas,monospace;color:var(--muted)}
+
+.unit-section{margin-top:20px;border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:18px}
+.unit-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.unit-head h3{margin:0;font-size:17px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.unit-card{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:14px}
+.unit-tag{font:800 10px Consolas,monospace;color:var(--red);letter-spacing:.12em;display:block;margin-bottom:6px}
+.unit-card strong{display:block;font-size:14px;margin-bottom:8px}
+.unit-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.55}
+.unit-card li{margin:5px 0;cursor:pointer}
+.unit-card li:hover{color:var(--red)}
+
+.tabBar{display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid var(--line);margin:26px 0 20px}
+.tab{border:1px solid var(--line);border-bottom:0;background:var(--soft);color:var(--muted);padding:11px 16px;border-radius:6px 6px 0 0;cursor:pointer;font-size:13px;font-weight:700}
+.tab.active{background:var(--panel);color:var(--red);font-weight:900;border-top:2px solid var(--red)}
+.tabPanel{display:none}
+.tabPanel.active{display:block}
+
+.learningCards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.learningCard{border:1px solid var(--line);padding:16px;background:var(--panel);border-radius:8px}
+.learningCard .num{color:var(--red);font:700 12px Consolas,monospace;margin-bottom:4px}
+.learningCard h3{margin:4px 0 6px;font-size:16px}
+.learningCard p{margin:0;color:var(--muted);font-size:13.5px}
+
+.detailGoal{border-left:4px solid var(--red);background:var(--soft);padding:14px 18px;margin:12px 0 18px;font-size:14px;border-radius:0 6px 6px 0}
+.visualPath{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:14px;overflow-x:auto}
+.visualStep{min-width:190px;border:1px solid var(--line);padding:18px;background:var(--panel);position:relative}
+.visualStep:not(:last-child){border-right:0}
+.visualStep .stepNo{color:var(--red);font:700 11px Consolas,monospace}
+.visualStep h3{font-size:16px;margin:6px 0}
+.visualStep p{font-size:13px;color:var(--muted);margin:0}
+.visualStep:after{content:"→";position:absolute;right:-14px;top:45%;background:var(--panel);color:var(--red);font-size:20px;z-index:2}
+
+.toolReal{border:1px solid var(--line);background:var(--panel);padding:16px;border-radius:8px}
+.toolReal h3{margin:0 0 6px;font-size:16px}
+.toolReal p{color:var(--muted);font-size:13px;margin:0 0 10px}
+.toolReal code{display:block;background:#111;color:#7ce2b0;padding:10px;border-radius:5px;white-space:pre-wrap;font-size:12px;font-family:Consolas,monospace;overflow-x:auto}
+
+.labMission{border:2px solid var(--red);background:var(--panel);padding:20px;border-radius:8px}
+.missionSteps{display:grid;gap:8px;margin:14px 0}
+.missionStep{border:1px solid var(--line);padding:12px;background:var(--soft);font-size:13px;border-radius:6px}
+.missionStep b{color:var(--red)}
+.choice{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:8px 0;cursor:pointer;font-size:13px;color:var(--ink)}
+.choice:hover{border-color:var(--red)}
+.feedback{border-left:4px solid var(--red);background:var(--soft);padding:12px;font-size:13px;margin-top:10px}
+
+.evidenceChecklist{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.evidenceItem{border:1px solid var(--line);padding:12px;background:var(--soft);border-radius:6px;font-size:13px}
+.terminal{background:#0e0e0e;color:#eee;border-radius:9px;padding:17px;font:13px/1.7 Consolas,monospace;min-height:220px;white-space:pre-wrap;margin-top:16px;overflow-x:auto}
+
+/* Interactive Domain Scene */
+.domainScene{margin-top:18px;border:1px solid #333;border-radius:12px;background:#101010;color:#fff;overflow:hidden}
+.sceneHeader{padding:16px 18px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.sceneHeader>div{display:flex;align-items:center;gap:12px}.sceneIcon{font-size:32px}.sceneKicker{font:700 9px Consolas,monospace;color:#ff5555;letter-spacing:.15em}.sceneHeader h3{margin:2px 0 0;font-size:19px;color:#fff}.sceneStatus{font:10px Consolas,monospace;border:1px solid #555;border-radius:20px;padding:5px 9px;color:#aaa}
+.scenePurpose{margin:0;padding:12px 18px;color:#cfcfcf;font-size:13px;border-bottom:1px solid #333}
+.sceneCanvas{min-height:180px;padding:20px;display:flex;align-items:center;justify-content:center;gap:0;background:radial-gradient(circle at 50% 50%,#242424,#0d0d0d 70%);overflow-x:auto}
+.sceneNode{width:150px;min-height:120px;background:#181818;border:1px solid #555;color:#fff;border-radius:10px;padding:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex-shrink:0}
+.sceneNode:hover{border-color:#ff5555;transform:translateY(-2px)}.sceneNode.selected{border:2px solid #ff3333;box-shadow:0 0 0 3px rgba(215,25,32,.35)}.nodeNum{font:9px Consolas,monospace;color:#ff5555;align-self:flex-start}.nodeIcon{font-size:28px}.sceneConnector{font-size:24px;color:#ff4444;width:40px;text-align:center;flex-shrink:0}
+.sceneExplanation{margin:0 18px 18px;padding:12px 14px;background:#181818;border-left:3px solid #ff3333;border-radius:5px;font-size:12px;display:flex;gap:9px;flex-wrap:wrap}.sceneExplanation b{color:#fff}.sceneExplanation span{color:#bbb}
+
+.moduleNavFooter{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:30px;padding-top:20px;border-top:1px solid var(--line);flex-wrap:wrap}
 
 /* AI Mentor Modal */
 .mentor{display:none;position:fixed;right:20px;bottom:20px;width:420px;max-width:calc(100vw - 40px);background:var(--panel);border:2px solid var(--red);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.45);z-index:100}
@@ -174,232 +197,174 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
  .hero,.sim,.grid2{grid-template-columns:1fr} .module-grid{grid-template-columns:repeat(2,1fr)}
  .flow{grid-template-columns:repeat(3,1fr)} .node:nth-child(3)::after{display:none}
  .readiness{grid-template-columns:repeat(3,1fr)} .metrics{grid-template-columns:repeat(2,1fr)}
- .module-lanes{grid-template-columns:1fr 1fr}
 }
 @media(max-width:760px){
  .sidebar{width:270px} .main{margin-left:0} .content{padding:24px 18px 70px}
  .metrics,.module-grid{grid-template-columns:1fr} .flow{grid-template-columns:1fr 1fr}
  .readiness{grid-template-columns:1fr 1fr} .node::after{display:none!important}
- .module-preview,.subtopic-grid,.source-scene-flow,.source-visual-path{grid-template-columns:1fr}
- .source-scene-node:after,.source-visual-step:after{display:none}
- .top .hide-mobile{display:none} .module-lanes{grid-template-columns:1fr}
+ .learningCards,.evidenceChecklist,.visualPath{grid-template-columns:1fr}
+ .visualStep:after{display:none} .top .hide-mobile{display:none}
 }
 </style>
 </head>
 <body>
 <div class="app">
 <aside class="sidebar" id="sidebar">
-  <a href="#home" class="brand" title="ShadowXLab Return to Home">
+  <div class="brand" onclick="showHome()" title="ShadowXLab Return to Home">
     <img src="assets/logo.jpg" alt="ShadowXLab Logo">
     <div>SHADOW<b>X</b>LAB <small>VAPT / PEN-200</small></div>
-  </a>
+  </div>
   <div class="nav-title">COMMAND CENTER</div>
   <nav class="nav">
-    <a class="active" href="#home" onclick="activate('home')">⌂ <span></span>Course Home</a>
-    <a href="#dashboard" onclick="activate('dashboard')">▣ <span></span>Student Dashboard</a>
-    <a href="#readiness" onclick="activate('readiness')">◉ <span></span>Readiness Tracker</a>
-    <a class="sim-nav" href="simulator.html" title="Launch FinBank Connected Career Simulator">◈ <span></span>Career Simulator</a>
+    <button class="nav-link active" id="nav-home" onclick="showHome()">⌂ <span class="badge"></span>Course Home</button>
+    <button class="nav-link" id="nav-dashboard" onclick="showDashboard()">▣ <span class="badge"></span>Student Dashboard</button>
+    <button class="nav-link" id="nav-readiness" onclick="showReadinessPage()">◉ <span class="badge"></span>Readiness Tracker</button>
+    <a class="sim-nav" href="simulator.html" title="Launch FinBank Connected Career Simulator">◈ <span class="badge"></span>Career Simulator</a>
     <div class="nav-title">24-MODULE VAPT PATH</div>
-    <a href="#module-01" onclick="selectModule('01')"><span>01</span>Course & Kali Onboarding</a>
-    <a href="#module-02" onclick="selectModule('02')"><span>02</span>Introduction to Cybersecurity</a>
-    <a href="#module-03" onclick="selectModule('03')"><span>03</span>Effective Learning Strategies</a>
-    <a href="#module-04" onclick="selectModule('04')"><span>04</span>Report Writing for Penetration Testers</a>
-    <a href="#module-05" onclick="selectModule('05')"><span>05</span>Information Gathering</a>
-    <a href="#module-06" onclick="selectModule('06')"><span>06</span>Vulnerability Scanning</a>
-    <a href="#module-07" onclick="selectModule('07')"><span>07</span>Introduction to Web Applications</a>
-    <a href="#module-08" onclick="selectModule('08')"><span>08</span>Common Web Application Attacks</a>
-    <a href="#module-09" onclick="selectModule('09')"><span>09</span>SQL Injection Attacks</a>
-    <a href="#module-10" onclick="selectModule('10')"><span>10</span>Client-Side Attacks</a>
-    <a href="#module-11" onclick="selectModule('11')"><span>11</span>Locating Public Exploits</a>
-    <a href="#module-12" onclick="selectModule('12')"><span>12</span>Fixing Exploits</a>
-    <a href="#module-13" onclick="selectModule('13')"><span>13</span>Antivirus Evasion</a>
-    <a href="#module-14" onclick="selectModule('14')"><span>14</span>Password Attacks</a>
-    <a href="#module-15" onclick="selectModule('15')"><span>15</span>Windows Privilege Escalation</a>
-    <a href="#module-16" onclick="selectModule('16')"><span>16</span>Linux Privilege Escalation</a>
-    <a href="#module-17" onclick="selectModule('17')"><span>17</span>Port Redirection and SSH Tunneling</a>
-    <a href="#module-18" onclick="selectModule('18')"><span>18</span>Advanced Tunneling</a>
-    <a href="#module-19" onclick="selectModule('19')"><span>19</span>The Metasploit Framework</a>
-    <a href="#module-20" onclick="selectModule('20')"><span>20</span>Active Directory Introduction and Enumeration</a>
-    <a href="#module-21" onclick="selectModule('21')"><span>21</span>Attacking Active Directory Authentication</a>
-    <a href="#module-22" onclick="selectModule('22')"><span>22</span>Lateral Movement in Active Directory</a>
-    <a href="#module-23" onclick="selectModule('23')"><span>23</span>Assembling the Pieces</a>
-    <a href="#module-24" onclick="selectModule('24')"><span>24</span>Trying Harder: The Labs</a>
+    <div id="sidebarModuleLinks"></div>
   </nav>
 </aside>
 
 <main class="main" id="main">
 <header class="top">
   <button class="icon" onclick="toggleSide()" title="Collapse / Expand Navigator">☰</button>
-  <a href="#home" style="display:flex;align-items:center;gap:8px">
+  <div onclick="showHome()" style="display:flex;align-items:center;gap:8px;cursor:pointer">
     <strong style="letter-spacing:.06em">SHADOWX<span style="color:var(--red)">LAB</span></strong>
     <span class="muted hide-mobile">· CYBERCAREER / VAPT / PEN-200</span>
-  </a>
+  </div>
   <span style="margin-left:auto"></span>
   <a class="top-btn primary hide-mobile" href="simulator.html" title="Launch FinBank Connected Career Simulator">🕹️ CAREER SIMULATOR</a>
   <button class="top-btn" onclick="openMentor()">AI MENTOR</button>
-  <a class="top-btn hide-mobile" href="#modules">ALL MODULES</a>
+  <button class="top-btn hide-mobile" onclick="showCatalogue()">ALL MODULES</button>
   <button class="top-btn" onclick="toggleTheme()" id="theme" title="Toggle Light / Dark Mode">☼</button>
 </header>
 
-<div class="content" id="home">
-  <section class="hero">
-    <div>
-      <div class="eyebrow">COMMAND CENTER · COMPLETE VAPT LEARNING PATH</div>
-      <h1>Your VAPT <em>Mission Control.</em></h1>
-      <p class="lead">Build the mental model first. Operate the Kali tools second. Validate what the output means. Prove the finding. Then connect individual techniques into complete attack chains.</p>
-      <div class="actions">
-        <a class="btn red" href="#dashboard">OPEN STUDENT DASHBOARD →</a>
-        <a class="btn" href="#module-01" onclick="selectModule('01')">START MODULE 01</a>
-        <a class="btn" href="simulator.html">CAREER SIMULATOR</a>
-        <a class="btn" href="#modules">VIEW CURRICULUM</a>
+<div class="content">
+  <!-- VIEW 1: HOME & COMMAND CENTER -->
+  <div class="view-panel active" id="view-home">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">COMMAND CENTER · COMPLETE VAPT LEARNING PATH</div>
+        <h1>Your VAPT <em>Mission Control.</em></h1>
+        <p class="lead">Build the mental model first. Operate the Kali tools second. Validate what the output means. Prove the finding. Then connect individual techniques into complete attack chains.</p>
+        <div class="actions">
+          <button class="btn red" onclick="showDashboard()">OPEN STUDENT DASHBOARD →</button>
+          <button class="btn" onclick="openModule('01')">START MODULE 01</button>
+          <a class="btn" href="simulator.html">CAREER SIMULATOR</a>
+          <button class="btn" onclick="showCatalogue()">VIEW CURRICULUM</button>
+        </div>
       </div>
-    </div>
-    <div class="hero-panel">
-      <div><div class="mini-kicker">COURSE MISSION</div><h2>From learning to operator readiness.</h2>
-      <p class="muted">Every module follows a visible progression instead of a disconnected command list.</p></div>
-      <div><div class="big">24</div><div class="muted">VAPT modules · progressive practical journey</div></div>
-    </div>
-  </section>
+      <div class="hero-panel">
+        <div><div class="mini-kicker">COURSE MISSION</div><h2>From learning to operator readiness.</h2>
+        <p class="muted">Every module follows a visible progression instead of a disconnected command list.</p></div>
+        <div><div class="big">24</div><div class="muted">VAPT modules · progressive practical journey</div></div>
+      </div>
+    </section>
 
-  <div class="metrics">
-    <div class="metric"><strong>24</strong><small>VAPT modules</small></div>
-    <div class="metric"><strong>6</strong><small>learning phases</small></div>
-    <div class="metric"><strong>Kali</strong><small>tool-oriented practice</small></div>
-    <div class="metric"><strong>1 → 24</strong><small>progressive journey</small></div>
+    <div class="metrics">
+      <div class="metric"><strong>24</strong><small>VAPT modules</small></div>
+      <div class="metric"><strong>6</strong><small>learning phases</small></div>
+      <div class="metric"><strong>Kali</strong><small>tool-oriented practice</small></div>
+      <div class="metric"><strong>1 → 24</strong><small>progressive journey</small></div>
+    </div>
+
+    <section class="section">
+      <div class="section-head"><div><div class="eyebrow">THE LEARNING LOOP</div><h2>What the student actually does</h2>
+      <p class="muted">The course repeatedly moves through the same practical reasoning loop.</p></div></div>
+      <div class="flow">
+        <div class="node"><b>01</b><strong>SEE</strong><div class="muted">Attack surface</div></div>
+        <div class="node"><b>02</b><strong>LEARN</strong><div class="muted">Security concept</div></div>
+        <div class="node"><b>03</b><strong>OPERATE</strong><div class="muted">Kali tools</div></div>
+        <div class="node"><b>04</b><strong>VALIDATE</strong><div class="muted">Finding</div></div>
+        <div class="node"><b>05</b><strong>PROVE</strong><div class="muted">Evidence</div></div>
+        <div class="node"><b>06</b><strong>CHAIN</strong><div class="muted">Attack path</div></div>
+      </div>
+    </section>
+
+    <section class="section" id="section-dashboard">
+      <div class="section-head"><div><div class="eyebrow">STUDENT DASHBOARD</div><h2>Your VAPT Mission Control</h2>
+      <p class="muted">A dedicated home for progress, next objective, readiness and practical activity.</p></div>
+      <button class="btn red" onclick="openModule('01')">CONTINUE MODULE 01 →</button></div>
+      <div class="grid2">
+        <div class="panel">
+          <div class="mini-kicker">NEXT OBJECTIVE</div><h3 id="nextTitle">Module 01 · Course & Kali Onboarding</h3>
+          <p id="nextText">Prepare the Kali-based operator workstation, understand the course lab boundary, and verify safe connectivity before assessment.</p>
+          <div class="progress"><i id="overallFill"></i></div><p class="muted"><span id="overallPct">0</span>% curriculum progress</p>
+        </div>
+        <div class="panel">
+          <div class="mini-kicker">LEARNING ACTIVITY</div>
+          <div class="activity"><span>Course command center active</span><span class="muted">now</span></div>
+          <div class="activity"><span>VAPT learning loop reviewed</span><span class="muted">ready</span></div>
+          <div class="activity"><span>Module 01 available</span><span class="muted">next</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="section-readiness">
+      <div class="section-head"><div><div class="eyebrow">READINESS TRACKER</div><h2>Can you actually perform the skill?</h2>
+      <p class="muted">Readiness is demonstrated, not assumed from page visits.</p></div><button class="btn" onclick="checkReadiness()">RUN READINESS CHECK</button></div>
+      <div class="readiness">
+        <div class="r" onclick="toggleReadinessItem(this)"><b>01</b>Understand the concept</div>
+        <div class="r" onclick="toggleReadinessItem(this)"><b>02</b>Explain the visual model</div>
+        <div class="r" onclick="toggleReadinessItem(this)"><b>03</b>Operate the tool</div>
+        <div class="r" onclick="toggleReadinessItem(this)"><b>04</b>Interpret the output</div>
+        <div class="r" onclick="toggleReadinessItem(this)"><b>05</b>Validate the finding</div>
+        <div class="r" onclick="toggleReadinessItem(this)"><b>06</b>Capture evidence</div>
+      </div>
+    </section>
+
+    <section class="section" id="section-simulator">
+      <div class="sim">
+        <div class="sim-visual">
+          <div class="eyebrow">LIVE ENTERPRISE ENVIRONMENT</div><h2>FinBank Connected Career Simulator</h2>
+          <p class="muted">Put VAPT skills into an end-to-end enterprise workflow: ethical hacking → controlled attack → SOC investigation → GRC risk assessment.</p>
+          <div class="sim-flow">
+            <div class="sim-node"><b>01</b>RECON</div><div class="sim-node"><b>02</b>VAPT</div>
+            <div class="sim-node"><b>03</b>ATTACK</div><div class="sim-node"><b>04</b>SOC</div>
+            <div class="sim-node"><b>05</b>GRC</div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="eyebrow">CAREER SIMULATOR</div><h2>Turn techniques into job workflow.</h2>
+          <p class="muted">The simulator makes the student reason about targets, tools, evidence, decisions and business impact across 5 professional roles.</p>
+          <div class="actions">
+            <a class="btn red" href="simulator.html">LAUNCH SIMULATOR →</a>
+            <button class="btn" onclick="showCatalogue()">EXPLORE MODULES</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="section-modules">
+      <div class="section-head"><div><div class="eyebrow">COMPLETE CURRICULUM</div><h2>24-module VAPT journey</h2>
+      <p class="muted">Each module is a distinct learning environment. Click any module to open its complete learning units, visual flow, tools, and mission.</p></div></div>
+      <div class="module-grid" id="moduleGrid"></div>
+    </section>
+
+    <section class="section" id="section-progression">
+      <div class="eyebrow">VAPT SKILL PROGRESSION</div><h2>Six practical phases</h2>
+      <div class="grid2">
+        <div class="panel"><h3>01–04 · Foundation</h3><div class="progress"><i style="width:17%"></i></div><p class="muted">Security mindset · learning method · reporting</p></div>
+        <div class="panel"><h3>05–06 · Recon</h3><div class="progress"><i style="width:8%"></i></div><p class="muted">Information gathering · vulnerability assessment</p></div>
+        <div class="panel"><h3>07–10 · Web</h3><div class="progress"><i style="width:17%"></i></div><p class="muted">Web architecture · common attacks · SQLi · client-side</p></div>
+        <div class="panel"><h3>11–14 · Exploit</h3><div class="progress"><i style="width:17%"></i></div><p class="muted">Exploit research · fixing · evasion · password attacks</p></div>
+        <div class="panel"><h3>15–19 · PrivEsc / Pivot</h3><div class="progress"><i style="width:21%"></i></div><p class="muted">Windows · Linux · tunneling · Metasploit</p></div>
+        <div class="panel"><h3>20–24 · AD / Challenge</h3><div class="progress"><i style="width:21%"></i></div><p class="muted">AD · authentication · movement · attack chains · labs</p></div>
+      </div>
+    </section>
   </div>
 
-  <section class="section">
-    <div class="section-head"><div><div class="eyebrow">THE LEARNING LOOP</div><h2>What the student actually does</h2>
-    <p class="muted">The course repeatedly moves through the same practical reasoning loop.</p></div></div>
-    <div class="flow">
-      <div class="node"><b>01</b><strong>SEE</strong><div class="muted">Attack surface</div></div>
-      <div class="node"><b>02</b><strong>LEARN</strong><div class="muted">Security concept</div></div>
-      <div class="node"><b>03</b><strong>OPERATE</strong><div class="muted">Kali tools</div></div>
-      <div class="node"><b>04</b><strong>VALIDATE</strong><div class="muted">Finding</div></div>
-      <div class="node"><b>05</b><strong>PROVE</strong><div class="muted">Evidence</div></div>
-      <div class="node"><b>06</b><strong>CHAIN</strong><div class="muted">Attack path</div></div>
-    </div>
-  </section>
-
-  <section class="section" id="dashboard">
-    <div class="section-head"><div><div class="eyebrow">STUDENT DASHBOARD</div><h2>Your VAPT Mission Control</h2>
-    <p class="muted">A dedicated home for progress, next objective, readiness and practical activity.</p></div>
-    <a class="btn red" href="#module-01" onclick="selectModule('01')">CONTINUE MODULE 01 →</a></div>
-    <div class="grid2">
-      <div class="panel">
-        <div class="mini-kicker">NEXT OBJECTIVE</div><h3 id="nextTitle">Module 01 · Course & Kali Onboarding</h3>
-        <p id="nextText">Prepare the Kali-based operator workstation, understand the course lab boundary, and verify safe connectivity before assessment.</p>
-        <div class="progress"><i id="overallFill"></i></div><p class="muted"><span id="overallPct">0</span>% curriculum progress</p>
-      </div>
-      <div class="panel">
-        <div class="mini-kicker">LEARNING ACTIVITY</div>
-        <div class="activity"><span>Course command center active</span><span class="muted">now</span></div>
-        <div class="activity"><span>VAPT learning loop reviewed</span><span class="muted">ready</span></div>
-        <div class="activity"><span>Module 01 available</span><span class="muted">next</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="readiness">
-    <div class="section-head"><div><div class="eyebrow">READINESS TRACKER</div><h2>Can you actually perform the skill?</h2>
-    <p class="muted">Readiness is demonstrated, not assumed from page visits.</p></div><button class="btn" onclick="checkReadiness()">RUN READINESS CHECK</button></div>
-    <div class="readiness">
-      <div class="r" onclick="toggleReadinessItem(this)"><b>01</b>Understand the concept</div>
-      <div class="r" onclick="toggleReadinessItem(this)"><b>02</b>Explain the visual model</div>
-      <div class="r" onclick="toggleReadinessItem(this)"><b>03</b>Operate the tool</div>
-      <div class="r" onclick="toggleReadinessItem(this)"><b>04</b>Interpret the output</div>
-      <div class="r" onclick="toggleReadinessItem(this)"><b>05</b>Validate the finding</div>
-      <div class="r" onclick="toggleReadinessItem(this)"><b>06</b>Capture evidence</div>
-    </div>
-  </section>
-
-  <section class="section" id="simulator">
-    <div class="sim">
-      <div class="sim-visual">
-        <div class="eyebrow">LIVE ENTERPRISE ENVIRONMENT</div><h2>FinBank Connected Career Simulator</h2>
-        <p class="muted">Put VAPT skills into an end-to-end enterprise workflow: ethical hacking → controlled attack → SOC investigation → GRC risk assessment.</p>
-        <div class="sim-flow">
-          <div class="sim-node"><b>01</b>RECON</div><div class="sim-node"><b>02</b>VAPT</div>
-          <div class="sim-node"><b>03</b>ATTACK</div><div class="sim-node"><b>04</b>SOC</div>
-          <div class="sim-node"><b>05</b>GRC</div>
-        </div>
-      </div>
-      <div class="panel">
-        <div class="eyebrow">CAREER SIMULATOR</div><h2>Turn techniques into job workflow.</h2>
-        <p class="muted">The simulator makes the student reason about targets, tools, evidence, decisions and business impact across 5 professional roles.</p>
-        <div class="actions">
-          <a class="btn red" href="simulator.html">LAUNCH SIMULATOR →</a>
-          <a class="btn" href="#modules">EXPLORE MODULES</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Live Module Preview Workspace -->
-  <section class="section" id="module-preview">
-    <div class="section-head">
-      <div>
-        <div class="eyebrow">MODULE PREVIEW · LIVE WORKSPACE</div>
-        <h2 id="previewHeading">Module 01 · Course & Kali Onboarding</h2>
-        <p class="muted">This is the actual live module preview. Select any module from the navigator or curriculum to inspect its Learning Units, visual flow, tools, mission and evidence.</p>
-      </div>
-      <button class="btn red" onclick="openModuleTab('mission')">START PRACTICAL MISSION →</button>
-    </div>
-    <div class="module-preview">
-      <div class="preview-hero">
-        <div class="preview-number" id="previewNumber">MODULE 01 · FOUNDATION</div>
-        <div class="preview-title" id="previewTitle">Course & Kali Onboarding</div>
-        <p class="preview-sub" id="previewSub">Prepare the Kali operator workstation, understand scope boundaries, verify connectivity, and establish a safe practical workflow.</p>
-        
-        <div class="subtopic-panel" id="subtopicPanel">
-          <div class="subtopic-head">
-            <div>
-              <div class="preview-number">OFFSEC PEN-200 LEARNING UNITS & OBJECTIVES</div>
-              <h3>Curriculum Hierarchy</h3>
-            </div>
-          </div>
-          <div class="subtopic-grid" id="subtopicGrid"></div>
-          <div class="subtopic-source">Click on any objective to focus your study and prime the AI Mentor.</div>
-        </div>
-
-        <div class="preview-tabs">
-          <button class="preview-tab active" data-tab="concepts" onclick="openModuleTab('concepts')">CONCEPTS</button>
-          <button class="preview-tab" data-tab="visual" onclick="openModuleTab('visual')">VISUAL FLOW</button>
-          <button class="preview-tab" data-tab="tools" onclick="openModuleTab('tools')">TOOLS & COMMANDS</button>
-          <button class="preview-tab" data-tab="mission" onclick="openModuleTab('mission')">PRACTICAL LAB</button>
-          <button class="preview-tab" data-tab="evidence" onclick="openModuleTab('evidence')">EVIDENCE</button>
-        </div>
-      </div>
-      <div class="preview-content" id="previewContent"></div>
-    </div>
-  </section>
-
-  <section class="section" id="modules">
-    <div class="section-head"><div><div class="eyebrow">COMPLETE CURRICULUM</div><h2>24-module VAPT journey</h2>
-    <p class="muted">Each module is a distinct learning environment with its own visual model and tools.</p></div></div>
-    <div class="module-grid" id="moduleGrid"></div>
-  </section>
-
-  <section class="section" id="module-workspaces">
-    <div class="eyebrow">MODULE WORKSPACES</div><h2>Practical module entry points</h2>
-    <p class="muted">Every navigator entry resolves directly to its workspace.</p>
-    <div id="workspaceContainer"></div>
-  </section>
-
-  <section class="section" id="progression">
-    <div class="eyebrow">VAPT SKILL PROGRESSION</div><h2>Six practical phases</h2>
-    <div class="grid2">
-      <div class="panel"><h3>01–04 · Foundation</h3><div class="progress"><i style="width:17%"></i></div><p class="muted">Security mindset · learning method · reporting</p></div>
-      <div class="panel"><h3>05–06 · Recon</h3><div class="progress"><i style="width:8%"></i></div><p class="muted">Information gathering · vulnerability assessment</p></div>
-      <div class="panel"><h3>07–10 · Web</h3><div class="progress"><i style="width:17%"></i></div><p class="muted">Web architecture · common attacks · SQLi · client-side</p></div>
-      <div class="panel"><h3>11–14 · Exploit</h3><div class="progress"><i style="width:17%"></i></div><p class="muted">Exploit research · fixing · evasion · password attacks</p></div>
-      <div class="panel"><h3>15–19 · PrivEsc / Pivot</h3><div class="progress"><i style="width:21%"></i></div><p class="muted">Windows · Linux · tunneling · Metasploit</p></div>
-      <div class="panel"><h3>20–24 · AD / Challenge</h3><div class="progress"><i style="width:21%"></i></div><p class="muted">AD · authentication · movement · attack chains · labs</p></div>
-    </div>
-  </section>
-
-  <footer>SHADOWXLAB · CYBERCAREER · VAPT / PEN-200 · Authorized training environments only.</footer>
+  <!-- VIEW 2: DEDICATED FULL MODULE VIEW -->
+  <div class="view-panel" id="view-module">
+    <div id="moduleContent"></div>
+  </div>
 </div>
+
+<footer>
+  <div style="max-width:1440px;margin:auto;padding:0 34px">
+    SHADOWXLAB · CYBERCAREER · VAPT / PEN-200 · Authorized training environments only.
+  </div>
+</footer>
 </main>
 </div>
 
@@ -418,294 +383,467 @@ footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-s
 <div class="toast" id="toast"></div>
 
 <script>
-function toggleSide(){
-  document.getElementById('sidebar').classList.toggle('collapsed');
-  document.getElementById('main').classList.toggle('expanded');
-  localStorage.setItem('cc-side',document.getElementById('sidebar').classList.contains('collapsed')?'1':'0');
-}
+/* ============================================================
+   SHADOWXLAB V10 — PEN-200 / VAPT CURRICULUM DATA
+   ============================================================ */
 
-function toggleTheme(){
-  const d=document.documentElement;
-  const dark=d.dataset.theme==='dark';
-  d.dataset.theme=dark?'light':'dark';
-  document.getElementById('theme').textContent=dark?'☼':'☾';
-  localStorage.setItem('cc-theme',d.dataset.theme);
-}
+const SCENES={"01": {"name": "KALI LAB BENCH", "icon": "🖥️", "nodes": ["HOST PC", "KALI VM", "LAB VPN", "TARGET NET"], "purpose": "Connect the operator workstation to the isolated training environment before touching a target."}, "02": {"name": "SECURITY TRIAD", "icon": "🔺", "nodes": ["CONFIDENTIALITY", "INTEGRITY", "AVAILABILITY"], "purpose": "Map a security event to the asset, threat, vulnerability, impact and control."}, "03": {"name": "LEARNING ENGINE", "icon": "🧠", "nodes": ["SEE", "RECALL", "PRACTICE", "TEACH"], "purpose": "Turn a technical concept into a repeatable skill using retrieval, practice and explanation."}, "04": {"name": "PENTEST REPORT", "icon": "📋", "nodes": ["OBSERVATION", "EVIDENCE", "FINDING", "REMEDIATION"], "purpose": "Transform raw technical output into a defensible penetration-test finding."}, "05": {"name": "RECON GRAPH", "icon": "🌐", "nodes": ["DOMAIN", "DNS", "HOST", "PORT", "SERVICE"], "purpose": "Build an attack-surface map from passive and active information gathering."}, "06": {"name": "VULNERABILITY PIPELINE", "icon": "🔎", "nodes": ["DISCOVER", "SCAN", "PLUGIN", "SEVERITY", "VALIDATE"], "purpose": "Move from scanner output to a verified vulnerability instead of treating every alert as exploitable."}, "07": {"name": "WEB REQUEST PIPELINE", "icon": "🌍", "nodes": ["BROWSER", "HTTP", "PROXY", "SERVER", "DATABASE"], "purpose": "Follow a web request through the application stack and identify where security controls matter."}, "08": {"name": "WEB ATTACK SURFACE", "icon": "⚔️", "nodes": ["PATH", "FILE", "UPLOAD", "COMMAND", "SHELL"], "purpose": "Trace common web attack primitives from input to server-side impact."}, "09": {"name": "SQL QUERY ENGINE", "icon": "🗃️", "nodes": ["INPUT", "QUERY", "DATABASE", "ERROR/ROW", "IMPACT"], "purpose": "See how untrusted input changes a database query and how SQL injection is validated."}, "10": {"name": "CLIENT ATTACK CHAIN", "icon": "📄", "nodes": ["USER", "DOCUMENT", "TRIGGER", "PROCESS", "CALLBACK"], "purpose": "Visualize how a client-side attack crosses the user, document and operating-system boundary."}, "11": {"name": "EXPLOIT RESEARCH", "icon": "🧨", "nodes": ["CVE", "ADVISORY", "CODE", "VERSION", "TARGET"], "purpose": "Match a target version and exposure to a credible public exploit without blindly executing unknown code."}, "12": {"name": "EXPLOIT DEBUGGER", "icon": "🛠️", "nodes": ["SOURCE", "COMPILE", "CRASH", "OFFSET", "CONTROL"], "purpose": "Understand why an exploit fails and how controlled debugging turns a crash into a reproducible result."}, "13": {"name": "AV DETECTION PIPELINE", "icon": "🛡️", "nodes": ["FILE", "STATIC", "BEHAVIOR", "DETECTION", "EVASION TEST"], "purpose": "Study how defensive controls inspect payloads and evaluate controlled evasion experiments."}, "14": {"name": "CREDENTIAL ATTACK", "icon": "🔐", "nodes": ["USERNAME", "AUTH", "HASH", "WORDLIST", "ACCESS"], "purpose": "Follow a credential attack from authentication surface to recovered or validated credentials."}, "15": {"name": "WINDOWS PRIVESC", "icon": "🪟", "nodes": ["USER", "SERVICE", "TOKEN", "PRIVILEGE", "SYSTEM"], "purpose": "Trace Windows privilege boundaries and the local escalation paths that can cross them."}, "16": {"name": "LINUX PRIVESC", "icon": "🐧", "nodes": ["USER", "FILES", "SUDO", "SUID", "ROOT"], "purpose": "Inspect Linux permissions and identify the boundary between an unprivileged shell and root."}, "17": {"name": "SSH TUNNEL", "icon": "↔️", "nodes": ["ATTACKER", "SSH", "FORWARD", "INTERNAL", "SERVICE"], "purpose": "Visualize how port forwarding changes reachability between network zones."}, "18": {"name": "DEEP TUNNEL", "icon": "🕳️", "nodes": ["CLIENT", "HTTP/DNS", "TUNNEL", "RELAY", "INTERNAL"], "purpose": "Understand tunneling as a transport problem and compare HTTP and DNS tunneling paths."}, "19": {"name": "METASPLOIT WORKFLOW", "icon": "⚙️", "nodes": ["MODULE", "EXPLOIT", "PAYLOAD", "SESSION", "POST"], "purpose": "Move through the Metasploit lifecycle from module selection to controlled post-exploitation."}, "20": {"name": "ACTIVE DIRECTORY MAP", "icon": "🏢", "nodes": ["USER", "COMPUTER", "GROUP", "SPN", "DOMAIN"], "purpose": "Build an AD relationship graph and identify where permissions and trust relationships create attack paths."}, "21": {"name": "KERBEROS AUTH", "icon": "🎫", "nodes": ["CLIENT", "AS-REQ", "TGT", "TGS", "SERVICE"], "purpose": "Visualize Kerberos authentication and where credential attacks target the protocol."}, "22": {"name": "LATERAL MOVEMENT", "icon": "🛰️", "nodes": ["FOOTHOLD", "ADMIN", "REMOTE EXEC", "NEXT HOST", "DOMAIN"], "purpose": "Trace movement from one compromised Windows host to another using authorized administrative protocols."}, "23": {"name": "FULL ATTACK PATH", "icon": "🧩", "nodes": ["RECON", "INITIAL ACCESS", "FOOTHOLD", "PRIVESC", "PIVOT", "DOMAIN"], "purpose": "Assemble multiple techniques into one coherent end-to-end penetration-test path."}, "24": {"name": "CHALLENGE LAB", "icon": "🏁", "nodes": ["ENUMERATE", "HYPOTHESIZE", "TEST", "CHAIN", "PROVE"], "purpose": "Practice solving an unfamiliar environment by building and testing hypotheses rather than following a recipe."}};
 
-function activate(id){
-  document.querySelectorAll('.nav a').forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+id));
-}
-
-function openMentor(){
-  document.getElementById("mentor").classList.add("open");
-  const m = MODULES[currentModule] || MODULES["01"];
-  const objNote = currentObjective ? `<br><br><b>Active Objective:</b> ${currentObjective}` : '';
-  document.getElementById("mentorText").innerHTML = `You are currently reviewing <b>Module ${currentModule}: ${m[0]}</b> (${m[1]}).<br>${m[2]}${objNote}`;
-}
-
-function closeMentor(){document.getElementById("mentor").classList.remove("open")}
-
-function mentorExplain(k){
-  const m = MODULES[currentModule] || MODULES["01"];
-  const sc = SOURCE_SCENES[currentModule] || SOURCE_SCENES["01"];
-  const sd = SOURCE_DETAILS[currentModule] || SOURCE_DETAILS["01"];
-  const objText = currentObjective ? ` (Active Objective: ${currentObjective})` : '';
-  let text = '';
-  if(k==="goal") {
-    text = `Module ${currentModule}: ${m[0]}${objText}. ${sd.goal}`;
-  } else if(k==="visual") {
-    text = `Start with the ${sc.name} model: ${(sc.nodes||[]).join(" → ")}. Each transition represents a decision, not just a decorative box. Look for the observable artifact before moving forward.`;
-  } else if(k==="lab") {
-    text = `Your practical mission: ${m[6]}`;
-  } else if(k==="tools") {
-    text = `Tools in this module: ${m[5].map(t=>t[0] + ' (' + t[2] + ')').join(', ')}. Run these only on authorized lab targets.`;
-  }
-  document.getElementById("mentorText").textContent = text;
-}
-
-const SOURCE_SCENES={"01": {"name": "KALI LAB BENCH", "icon": "🖥️", "nodes": ["HOST PC", "KALI VM", "LAB VPN", "TARGET NET"], "purpose": "Connect the operator workstation to the isolated training environment before touching a target."}, "02": {"name": "SECURITY TRIAD", "icon": "🔺", "nodes": ["CONFIDENTIALITY", "INTEGRITY", "AVAILABILITY"], "purpose": "Map a security event to the asset, threat, vulnerability, impact and control."}, "03": {"name": "LEARNING ENGINE", "icon": "🧠", "nodes": ["SEE", "RECALL", "PRACTICE", "TEACH"], "purpose": "Turn a technical concept into a repeatable skill using retrieval, practice and explanation."}, "04": {"name": "PENTEST REPORT", "icon": "📋", "nodes": ["OBSERVATION", "EVIDENCE", "FINDING", "REMEDIATION"], "purpose": "Transform raw technical output into a defensible penetration-test finding."}, "05": {"name": "RECON GRAPH", "icon": "🌐", "nodes": ["DOMAIN", "DNS", "HOST", "PORT", "SERVICE"], "purpose": "Build an attack-surface map from passive and active information gathering."}, "06": {"name": "VULNERABILITY PIPELINE", "icon": "🔎", "nodes": ["DISCOVER", "SCAN", "PLUGIN", "SEVERITY", "VALIDATE"], "purpose": "Move from scanner output to a verified vulnerability instead of treating every alert as exploitable."}, "07": {"name": "WEB REQUEST PIPELINE", "icon": "🌍", "nodes": ["BROWSER", "HTTP", "PROXY", "SERVER", "DATABASE"], "purpose": "Follow a web request through the application stack and identify where security controls matter."}, "08": {"name": "WEB ATTACK SURFACE", "icon": "⚔️", "nodes": ["PATH", "FILE", "UPLOAD", "COMMAND", "SHELL"], "purpose": "Trace common web attack primitives from input to server-side impact."}, "09": {"name": "SQL QUERY ENGINE", "icon": "🗃️", "nodes": ["INPUT", "QUERY", "DATABASE", "ERROR/ROW", "IMPACT"], "purpose": "See how untrusted input changes a database query and how SQL injection is validated."}, "10": {"name": "CLIENT ATTACK CHAIN", "icon": "📄", "nodes": ["USER", "DOCUMENT", "TRIGGER", "PROCESS", "CALLBACK"], "purpose": "Visualize how a client-side attack crosses the user, document and operating-system boundary."}, "11": {"name": "EXPLOIT RESEARCH", "icon": "🧨", "nodes": ["CVE", "ADVISORY", "CODE", "VERSION", "TARGET"], "purpose": "Match a target version and exposure to a credible public exploit without blindly executing unknown code."}, "12": {"name": "EXPLOIT DEBUGGER", "icon": "🛠️", "nodes": ["SOURCE", "COMPILE", "CRASH", "OFFSET", "CONTROL"], "purpose": "Understand why an exploit fails and how controlled debugging turns a crash into a reproducible result."}, "13": {"name": "AV DETECTION PIPELINE", "icon": "🛡️", "nodes": ["FILE", "STATIC", "BEHAVIOR", "DETECTION", "EVASION TEST"], "purpose": "Study how defensive controls inspect payloads and evaluate controlled evasion experiments."}, "14": {"name": "CREDENTIAL ATTACK", "icon": "🔐", "nodes": ["USERNAME", "AUTH", "HASH", "WORDLIST", "ACCESS"], "purpose": "Follow a credential attack from authentication surface to recovered or validated credentials."}, "15": {"name": "WINDOWS PRIVESC", "icon": "🪟", "nodes": ["USER", "SERVICE", "TOKEN", "PRIVILEGE", "SYSTEM"], "purpose": "Trace Windows privilege boundaries and the local escalation paths that can cross them."}, "16": {"name": "LINUX PRIVESC", "icon": "🐧", "nodes": ["USER", "FILES", "SUDO", "SUID", "ROOT"], "purpose": "Inspect Linux permissions and identify the boundary between an unprivileged shell and root."}, "17": {"name": "SSH TUNNEL", "icon": "↔️", "nodes": ["ATTACKER", "SSH", "FORWARD", "INTERNAL", "SERVICE"], "purpose": "Visualize how port forwarding changes reachability between network zones."}, "18": {"name": "DEEP TUNNEL", "icon": "🕳️", "nodes": ["CLIENT", "HTTP/DNS", "TUNNEL", "RELAY", "INTERNAL"], "purpose": "Understand tunneling as a transport problem and compare HTTP and DNS tunneling paths."}, "19": {"name": "METASPLOIT WORKFLOW", "icon": "⚙️", "nodes": ["MODULE", "EXPLOIT", "PAYLOAD", "SESSION", "POST"], "purpose": "Move through the Metasploit lifecycle from module selection to controlled post-exploitation."}, "20": {"name": "ACTIVE DIRECTORY MAP", "icon": "🏢", "nodes": ["USER", "COMPUTER", "GROUP", "SPN", "DOMAIN"], "purpose": "Build an AD relationship graph and identify where permissions and trust relationships create attack paths."}, "21": {"name": "KERBEROS AUTH", "icon": "🎫", "nodes": ["CLIENT", "AS-REQ", "TGT", "TGS", "SERVICE"], "purpose": "Visualize Kerberos authentication and where credential attacks target the protocol."}, "22": {"name": "LATERAL MOVEMENT", "icon": "🛰️", "nodes": ["FOOTHOLD", "ADMIN", "REMOTE EXEC", "NEXT HOST", "DOMAIN"], "purpose": "Trace movement from one compromised Windows host to another using authorized administrative protocols."}, "23": {"name": "FULL ATTACK PATH", "icon": "🧩", "nodes": ["RECON", "INITIAL ACCESS", "FOOTHOLD", "PRIVESC", "PIVOT", "DOMAIN"], "purpose": "Assemble multiple techniques into one coherent end-to-end penetration-test path."}, "24": {"name": "CHALLENGE LAB", "icon": "🏁", "nodes": ["ENUMERATE", "HYPOTHESIZE", "TEST", "CHAIN", "PROVE"], "purpose": "Practice solving an unfamiliar environment by building and testing hypotheses rather than following a recipe."}};
-
-const SOURCE_DETAILS={"01": {"goal": "Prepare the Kali-based operator workstation, understand the course lab boundary, and verify safe connectivity before assessment.", "visual": [["Operator PC", "Your Windows/Linux host provides the virtualization layer."], ["Kali VM", "Kali is the controlled offensive workstation where assessment tools run."], ["VPN / Lab Network", "The lab connection places the operator inside the authorized training boundary."], ["Target", "The target is reachable only inside the approved scope."]]}, "02": {"goal": "Build the security vocabulary needed to reason about a penetration test: assets, threats, vulnerabilities, risk, controls and business impact.", "visual": [["Asset", "What has value and needs protection?"], ["Threat", "What can cause harm or attempt compromise?"], ["Vulnerability", "What weakness makes the threat possible?"], ["Risk / Impact", "What is the consequence and likelihood?"]]}, "03": {"goal": "Turn PEN-200 knowledge into durable practical skill using active recall, demonstration, deliberate practice and explanation.", "visual": [["SEE", "Observe a demonstrated technique."], ["RECALL", "Reconstruct the idea without notes."], ["PRACTICE", "Repeat it against a controlled target."], ["EXPLAIN", "Teach the reasoning and trade-offs."]]}, "04": {"goal": "Produce penetration-test evidence and reporting that another tester can reproduce and a client can understand.", "visual": [["Observation", "What did the tester actually see?"], ["Evidence", "What artifact proves it?"], ["Finding", "Why is it a security issue?"], ["Remediation", "What should the owner change?"]]}, "05": {"goal": "Turn an unknown target into an attack-surface map using passive research, DNS, host discovery, port scanning and service enumeration.", "visual": [["Scope", "Known domain/IP and authorization."], ["Discovery", "Find hosts and exposed services."], ["Enumeration", "Identify versions, protocols and metadata."], ["Attack Surface", "Prioritize what deserves deeper testing."]]}, "06": {"goal": "Understand vulnerability scanning as a pipeline from discovery to scanner output to manual validation.", "visual": [["Asset", "Identify what is being assessed."], ["Scanner", "Apply checks and plugins."], ["Finding", "Read the technical result."], ["Validation", "Confirm whether it is actually present and relevant."]]}, "07": {"goal": "Understand a web application as a request/response system and learn where enumeration and interception fit into assessment.", "visual": [["Browser", "User action creates a request."], ["HTTP", "Request/response carries method, headers, cookies and data."], ["Proxy", "Tester can observe and modify traffic."], ["Server/Data", "Application logic processes input and accesses backend resources."]]}, "08": {"goal": "Recognize common web attack primitives and follow the path from controllable input to server-side impact.", "visual": [["Input", "Find attacker-controlled data."], ["File / Path", "Test how the application handles paths and files."], ["Interpreter", "Determine whether input reaches a dangerous interpreter."], ["Impact", "Validate the security consequence in a controlled way."]]}, "09": {"goal": "Understand how application input becomes SQL, identify injection behavior and validate SQLi safely.", "visual": [["Input", "User-controlled value enters the application."], ["Query", "Application builds a database statement."], ["Database", "The DBMS interprets the resulting query."], ["Result", "Errors, rows or blind behavior reveal the effect."]]}, "10": {"goal": "Understand how client-side artifacts, user interaction and Windows application behavior can form an attack path.", "visual": [["Target", "Fingerprint the client and user environment."], ["Artifact", "Document, library or shortcut reaches the client."], ["Execution", "Windows processes the artifact."], ["Observable Result", "The controlled lab shows whether execution occurred."]]}, "11": {"goal": "Find credible public exploit references, inspect them safely, and determine whether they match the target version and assumptions.", "visual": [["Version", "Identify the exact product/version."], ["Research", "Find advisories and exploit references."], ["Code Review", "Inspect prerequisites and assumptions."], ["Match", "Decide whether the exploit fits the authorized target."]]}, "12": {"goal": "Adapt and troubleshoot exploit code in a controlled lab by understanding compilation, offsets, architecture and failure modes.", "visual": [["Source", "Read what the exploit actually does."], ["Build", "Compile for the target architecture."], ["Failure", "Observe crash or incorrect behavior."], ["Debug", "Identify the mismatch and correct it."]]}, "13": {"goal": "Study how antivirus detection works and evaluate controlled evasion experiments without confusing simulation with real-world bypass claims.", "visual": [["Artifact", "A file or payload enters the test environment."], ["Static", "Signatures and file characteristics may be inspected."], ["Behavior", "Execution can reveal suspicious activity."], ["Detection", "The defensive control produces an observable verdict."]]}, "14": {"goal": "Understand password attack surfaces, credential material and appropriate offline/online attack models.", "visual": [["Account", "Identify the authentication surface."], ["Credential Material", "Password, hash, key or ticket may be available."], ["Attack Model", "Choose online or offline testing based on the material."], ["Validation", "Confirm access only on the authorized target."]]}, "15": {"goal": "Move from a low-privileged Windows foothold to a higher-integrity context by inspecting services, permissions, tokens and configuration.", "visual": [["User", "Start with the privileges of the compromised account."], ["Service / Config", "Look for weak permissions and executable paths."], ["Token / Privilege", "Understand what Windows security context allows."], ["SYSTEM", "Validate the resulting privilege boundary crossing."]]}, "16": {"goal": "Inspect Linux permissions and identify legitimate escalation paths from an unprivileged account to root.", "visual": [["User", "Establish the current identity and groups."], ["Filesystem", "Inspect writable files, ownership and permissions."], ["Sudo / SUID", "Identify privileged execution paths."], ["Root", "Validate the resulting privilege context."]]}, "17": {"goal": "Understand how SSH port forwarding changes network reachability and allows an authorized tester to reach an internal service through a foothold.", "visual": [["Attacker", "The tester can reach the foothold."], ["SSH", "The encrypted transport carries a forwarded connection."], ["Forward", "A local or remote port maps to another endpoint."], ["Internal Service", "A previously unreachable service becomes reachable through the tunnel."]]}, "18": {"goal": "Compare advanced tunneling approaches and understand how traffic can traverse restrictive network boundaries.", "visual": [["Client", "Application generates traffic."], ["Transport", "HTTP, DNS or another permitted channel carries it."], ["Tunnel", "A relay wraps or forwards the traffic."], ["Internal Network", "The destination service receives the reconstructed connection."]]}, "19": {"goal": "Use the Metasploit Framework as a structured exploitation workflow: module selection, options, payloads, sessions and controlled post-exploitation.", "visual": [["Module", "Select an exploit or auxiliary module."], ["Options", "Set target-specific parameters."], ["Payload", "Define the session behavior."], ["Session", "Interact with the controlled target."]]}, "20": {"goal": "Enumerate an Active Directory environment by mapping identities, computers, groups, services and relationships.", "visual": [["Domain", "Identify the AD namespace and domain controllers."], ["Users / Groups", "Map identities and memberships."], ["Computers", "Map hosts and roles."], ["SPNs / Relationships", "Identify service accounts and trust/permission paths."]]}, "21": {"goal": "Understand Kerberos authentication and identify where authentication material can be exposed or attacked in an authorized AD lab.", "visual": [["Client", "Requests authentication."], ["KDC / AS", "Authentication Service validates identity and issues a TGT."], ["TGT / TGS", "Tickets are used to request access to services."], ["Service", "The service validates the ticket."]]}, "22": {"goal": "Trace lateral movement across an authorized Windows domain after a foothold, using administrative relationships and remote execution paths.", "visual": [["Foothold", "Start from one compromised host."], ["Credential / Access", "Obtain an authorized administrative context."], ["Remote Execution", "Use a supported remote administration path."], ["Next Host", "Validate the movement and record the new context."]]}, "23": {"goal": "Assemble reconnaissance, initial access, privilege escalation, pivoting and domain techniques into one coherent penetration-test storyline.", "visual": [["Recon", "Build the attack surface."], ["Initial Access", "Choose the strongest validated entry point."], ["Privilege / Pivot", "Increase control and reach."], ["Domain Impact", "Connect the final access path to business impact."]]}, "24": {"goal": "Practice unfamiliar environments by building hypotheses, testing them systematically, chaining only validated findings and documenting the complete route.", "visual": [["Enumerate", "Collect enough evidence to form hypotheses."], ["Hypothesize", "Rank likely attack paths."], ["Test", "Validate one hypothesis at a time."], ["Chain / Prove", "Combine confirmed steps and document the final route."]]}};
-
-const PEN200_SUBTOPICS = {
-  "01": [["Welcome to PWK", ["Take inventory over what’s included in the course", "Set up an Attacking Kali VM", "Connect to and interact over the PWK VPN", "Understand how to complete Module Exercises"]], ["How to Approach the Course", ["Conceptualize a learning model based on increasing uncertainty", "Understand the different learning components included in PEN-200"]], ["Summary of PWK Learning Modules", ["Obtain a high level overview of what’s covered in each PEN-200 Learning Module"]]],
-  "02": [["The Practice of Cybersecurity", ["Recognize the challenges unique to information security", "Understand how offensive and defensive security reflect each other", "Begin to build a mental model of useful mindsets applicable to information security"]], ["Threats and Threat Actors", ["Understand how attackers and defenders learn from each other", "Understand the differences between risks, threats, vulnerabilities, and exploits"]]],
-  "03": [["Effective Learning Strategies", ["Understand the learning approach used throughout PEN-200", "Apply increasing uncertainty when solving exercises", "Use the course learning components deliberately"]]],
-  "04": [["Understanding Note-Taking", ["Review the deliverables for penetration testing engagements", "Understand the importance of note portability", "Identify the general structure of pentesting documentation", "Choose the right note-taking tool", "Understand the importance of taking screenshots", "Use tools to take screenshots"]], ["Writing Effective Technical Penetration Testing Reports", ["Organize technical findings into clear, reproducible reports", "Communicate evidence, impact and remediation effectively"]]],
-  "05": [["Passive Information Gathering", ["Perform passive information gathering", "Perform open-source intelligence (OSINT) and search engine reconnaissance", "Query Whois registration data, Netcraft, and DNS records passively"]], ["Active Information Gathering", ["Perform DNS enumeration", "Understand TCP/UDP port scanning", "Perform port scanning with Nmap", "Enumerate SMB, SMTP, and SNMP"]]],
-  "06": [["Vulnerability Scanning Theory", ["Understand how vulnerability scanners work", "Understand types of vulnerability scans", "Understand things to consider in a vulnerability scan", "Install Nessus & understand components", "Perform a vulnerability scan"]], ["Analysis & Validation", ["Analyze scan results", "Perform an authenticated vulnerability scan", "Work with Nessus plugins", "Use NSE vulnerability scripts", "Manually validate candidate vulnerabilities"]]],
-  "07": [["Web Application Architecture", ["Understand how web applications work", "Understand web application architecture", "Inspect HTTP methods, headers, and cookies"]], ["Enumeration & Proxies", ["Identify technologies and attack surfaces", "Use Burp Suite as part of web application testing", "Perform directory enumeration with ffuf and Gobuster"]]],
-  "08": [["Directory Traversal & LFI", ["Identify directory traversal vulnerabilities", "Exploit Local File Inclusion (LFI) and PHP stream wrappers", "Understand Remote File Inclusion (RFI)"]], ["Upload & Command Injection", ["Test and bypass file upload restrictions", "Identify and exploit OS command injection vulnerabilities", "Turn web weaknesses into controlled server access"]]],
-  "09": [["SQL Injection Fundamentals", ["Understand database types and characteristics", "Understand SQL query logic and syntax", "Manually discover SQL injection points", "Exploit UNION-based and error-based SQL injection"]], ["Advanced SQLi & Automation", ["Understand blind SQL injections (boolean and time-based)", "Execute database commands via database extensions", "Automate authorized SQL injection attacks using SQLmap"]]],
-  "10": [["Client-Side Reconnaissance", ["Perform information gathering and client fingerprinting", "Inspect browser environments and trust boundaries"]], ["Execution Vectors", ["Prepare a client-side attack", "Leverage Microsoft Word macros in training environments", "Obtain code execution via Windows Library Files and shortcut artifacts"]]],
-  "11": [["Locating Public Exploits", ["Understand the Exploit Database (Exploit-DB)", "Search offline exploit frameworks using SearchSploit", "Use Nmap NSE exploit-related scripts", "Evaluate exploit prerequisites and safety"]]],
-  "12": [["Fixing Exploits", ["Cross-compile exploit code", "Fix an exploit and change buffer offsets", "Select a vulnerability and fix the code", "Troubleshoot common exploit-development errors"]]],
-  "13": [["Antivirus Evasion", ["Understand detection methods", "Understand in-memory evasion", "Practice AV evasion in test VMs", "Understand thread injection and process migration"]]],
-  "14": [["Password Attacks", ["Understand SSH and RDP authentication", "Test HTTP POST login forms using Hydra", "Understand encryption, hashes and cracking", "Mutate wordlists", "Crack NTLM and Net-NTLMv2"]]],
-  "15": [["Windows Privilege Escalation", ["Understand Windows privileges and access controls", "Perform situational awareness using PowerShell", "Perform automated enumeration (WinPEAS, Seatbelt)", "Abuse service binary/DLL hijacking & unquoted paths", "Abuse scheduled tasks and token privileges"]]],
-  "16": [["Linux Privilege Escalation", ["Perform manual and automated enumeration (LinPEAS)", "Inspect user trails and service footprints", "Abuse cron jobs and insecure file permissions", "Abuse SUID binaries and capabilities", "Abuse delegated sudo commands (sudo -l)"]]],
-  "17": [["Port Redirection & Tunnels", ["Use Socat for port forwarding", "Perform SSH local port forwarding", "Perform SSH dynamic port forwarding (SOCKS)", "Perform SSH remote port forwarding", "Use sshuttle, Plink and Netsh"]]],
-  "18": [["Advanced Tunneling", ["Understand advanced proxying and pivoting concepts", "Tunnel through deep packet inspection barriers with Chisel", "Deploy DNS tunneling with dnscat", "Chain multi-hop pivots across segmented environments"]]],
-  "19": [["The Metasploit Framework", ["Understand Metasploit setup and navigation", "Configure auxiliary and exploit modules", "Select staged and non-staged payloads", "Manage active sessions and Meterpreter post-exploitation"]]],
-  "20": [["Active Directory Enumeration", ["Enumerate Active Directory using legacy tools and LDAP", "Enumerate Active Directory using PowerShell and .NET", "Enumerate SPNs, shares and object permissions with PowerView", "Map attack paths using BloodHound and SharpHound"]]],
-  "21": [["AD Authentication Attacks", ["Understand NTLM and Kerberos authentication mechanisms", "Understand cached credentials and ticket extraction", "Execute Kerberoasting against service accounts", "Abuse pre-authentication (AS-REP Roasting)"]]],
-  "22": [["Lateral Movement in AD", ["Execute lateral movement using WinRM / Evil-WinRM", "Perform remote execution with WMI and PsExec", "Execute Pass-the-Hash and Overpass-the-Hash", "Understand Golden Ticket and persistence concepts"]]],
-  "23": [["Assembling the Pieces", ["Combine reconnaissance, web exploitation and initial foothold", "Chain privilege escalation and lateral movement", "Organize evidence into a coherent client-ready narrative"]]],
-  "24": [["Trying Harder: The Labs", ["Apply PEN-200 techniques with increasing uncertainty", "Formulate, test and adapt hypotheses independently", "Recover from dead ends and produce complete proof deliverables"]]}
+const PEN200_UNITS = {
+  "01": [
+    ["Welcome to PWK", ["Take inventory over what's included in the course", "Set up an Attacking Kali VM", "Connect to and interact over the PWK VPN", "Understand how to complete Module Exercises"]],
+    ["How to Approach the Course", ["Conceptualize a learning model based on increasing uncertainty", "Understand the different learning components included in PEN-200"]],
+    ["Summary of PWK Learning Modules", ["Obtain a high level overview of what's covered in each PEN-200 Learning Module"]]
+  ],
+  "02": [
+    ["The Practice of Cybersecurity", ["Recognize the challenges unique to information security", "Understand how offensive and defensive security reflect each other", "Begin to build a mental model of useful mindsets applicable to information security"]],
+    ["Threats and Threat Actors", ["Understand how attackers and defenders learn from each other", "Understand the differences between risks, threats, vulnerabilities, and exploits"]],
+    ["The CIA Triad & Controls", ["Understand Confidentiality, Integrity, and Availability", "Map technical weaknesses to preventive, detective, and corrective controls", "Connect technical findings to business impact and governance standards"]]
+  ],
+  "03": [
+    ["The Science of Learning & Memory", ["Understand cognitive load, retrieval practice, and spaced repetition", "Analyze the challenges of acquiring hands-on technical skills"]],
+    ["Demonstrative & Active Methodologies", ["Study real-world technical case studies to build intuition", "Apply SQ3R, PQ4R, Leitner, and Feynman techniques to cybersecurity concepts"]],
+    ["Practical Study & Exam Preparation", ["Build structured lab journals and technical documentation", "Develop problem-solving frameworks for unfamiliar challenge environments"]]
+  ],
+  "04": [
+    ["Understanding Note-Taking", ["Review the deliverables for penetration testing engagements", "Understand the importance of note portability", "Identify the general structure of pentesting documentation", "Choose the right note-taking tool", "Understand the importance of taking screenshots", "Use tools to take screenshots"]],
+    ["Writing Effective Technical Penetration Testing Reports", ["Organize technical findings into clear, reproducible reports", "Communicate evidence, impact and remediation effectively"]]
+  ],
+  "05": [
+    ["Passive Information Gathering", ["Perform open-source intelligence (OSINT) and search engine reconnaissance", "Query Whois registration data, Netcraft, and DNS records passively", "Identify leaked credentials and exposed open-source code repositories"]],
+    ["Active Information Gathering", ["Perform DNS enumeration, forward lookups, and zone transfer queries", "Understand TCP and UDP port scanning theory", "Execute network and service port scans using Nmap", "Enumerate SMB, NetBIOS, SMTP, and SNMP services on live targets"]]
+  ],
+  "06": [
+    ["Vulnerability Scanning Theory & Operations", ["Understand how vulnerability scanners work", "Understand types of vulnerability scans", "Understand things to consider in a vulnerability scan", "Install Nessus & understand components", "Perform a vulnerability scan"]],
+    ["Vulnerability Analysis & Validation", ["Analyze scan results", "Perform an authenticated vulnerability scan", "Work with Nessus plugins", "Use NSE vulnerability scripts", "Manually validate candidate vulnerabilities to eliminate false positives"]]
+  ],
+  "07": [
+    ["Web Application Architecture & Protocols", ["Understand how web applications work", "Understand web application architecture", "Inspect HTTP methods, status codes, headers, and cookies"]],
+    ["Web Application Enumeration & Proxies", ["Identify technologies and attack surfaces", "Use Burp Suite as part of web application testing", "Perform directory and endpoint enumeration with ffuf and Gobuster"]]
+  ],
+  "08": [
+    ["Directory Traversal & File Inclusion", ["Identify and test directory traversal weaknesses", "Exploit Local File Inclusion (LFI) and PHP stream wrappers", "Understand Remote File Inclusion (RFI) concepts"]],
+    ["File Upload & Command Injection", ["Test and bypass file upload restrictions", "Identify and exploit OS command injection vulnerabilities", "Turn web weaknesses into controlled server-side access"]]
+  ],
+  "09": [
+    ["SQL Injection Fundamentals & Discovery", ["Understand database types and characteristics", "Understand SQL query logic and syntax", "Manually discover SQL injection points", "Exploit UNION-based and error-based SQL injection"]],
+    ["Advanced SQLi & Automation", ["Understand blind SQL injections (boolean and time-based)", "Execute database commands via database extensions", "Automate authorized SQL injection attacks using SQLmap"]]
+  ],
+  "10": [
+    ["Target Reconnaissance & Client Profiling", ["Perform information gathering and client fingerprinting", "Inspect browser environments and trust boundaries"]],
+    ["Client-Side Execution Vectors", ["Prepare a client-side attack", "Leverage Microsoft Word macros in training environments", "Obtain code execution via Windows Library Files and shortcut artifacts"]]
+  ],
+  "11": [
+    ["Exploit Research & Repositories", ["Understand the Exploit Database (Exploit-DB)", "Search offline exploit frameworks using SearchSploit", "Use Nmap NSE exploit-related scripts"]],
+    ["Exploit Selection & Verification", ["Evaluate exploit prerequisites: version, architecture, and configuration", "Safely inspect untrusted exploit source code before execution"]]
+  ],
+  "12": [
+    ["Exploit Adaptation & Memory Debugging", ["Understand memory corruption exploit fundamentals", "Cross-compile exploit code for Windows and Linux", "Modify buffer offsets and return addresses in exploit code"]],
+    ["Web Exploit Fixing & Troubleshooting", ["Select a vulnerability and fix the code", "Troubleshoot common exploit-development and socket errors"]]
+  ],
+  "13": [
+    ["Antivirus Detection Mechanisms", ["Understand signature-based, heuristic, and dynamic behavioral detection engines", "Differentiate between on-disk scanning and in-memory execution monitoring"]],
+    ["Controlled AV-Evasion Methodology", ["Practice in-memory evasion and custom payloads", "Understand thread injection and process migration", "Automate controlled AV-evasion workflows in test VMs"]]
+  ],
+  "14": [
+    ["Online Password Attacks", ["Understand SSH and RDP authentication mechanisms", "Test HTTP POST login forms using Hydra", "Account for account lockout policies and rate limiting"]],
+    ["Offline Password Cracking", ["Understand hashes and cracking methodology", "Mutate wordlists with custom rules", "Work with SSH private-key passphrases", "Crack NTLM and understand passing NTLM", "Crack Net-NTLMv2 and understand Net-NTLMv2 relaying"]]
+  ],
+  "15": [
+    ["Windows Situational Awareness & Enumeration", ["Understand Windows privileges and access-control mechanisms", "Perform situational awareness using PowerShell and CMD", "Find credentials and sensitive information hidden in plain view", "Perform automated enumeration using WinPEAS and Seatbelt"]],
+    ["Windows Local Privilege Escalation", ["Abuse service binary hijacking and DLL hijacking", "Identify and exploit unquoted service paths", "Abuse scheduled tasks and token privileges for privilege escalation"]]
+  ],
+  "16": [
+    ["Linux Enumeration & Discovery", ["Perform manual enumeration of users, groups, and files", "Inspect user trails and service footprints", "Perform automated enumeration with LinPEAS and pspy"]],
+    ["Linux Privilege Escalation Paths", ["Abuse cron jobs and insecure file permissions", "Abuse SUID binaries and Linux capabilities", "Abuse delegated sudo commands (sudo -l)", "Exploit kernel vulnerabilities safely in labs"]]
+  ],
+  "17": [
+    ["Port Forwarding Concepts & Socat", ["Understand network pivoting, port forwarding, and routing boundaries", "Use Socat for port forwarding"]],
+    ["SSH Tunneling & Port Redirection", ["Perform SSH local port forwarding", "Perform SSH dynamic port forwarding (SOCKS)", "Perform SSH remote port forwarding", "Perform SSH remote dynamic port forwarding", "Use sshuttle, Plink, and Netsh"]]
+  ],
+  "18": [
+    ["Advanced Encapsulation & Proxying", ["Tunnel through deep packet inspection barriers", "Deploy HTTP encapsulation tunnels using Chisel"]],
+    ["DNS Tunneling & Multi-Hop Pivots", ["Deploy DNS tunneling with dnscat", "Chain tunnels across segmented enterprise environments"]]
+  ],
+  "19": [
+    ["Metasploit Architecture & Setup", ["Understand Metasploit Framework setup and navigation", "Configure auxiliary and exploit modules", "Select staged and non-staged payloads"]],
+    ["Session Management & Post-Exploitation", ["Manage active sessions and Meterpreter commands", "Create executable payloads with msfvenom", "Execute post-exploitation and internal pivoting"]]
+  ],
+  "20": [
+    ["Active Directory Architecture & Enumeration", ["Understand Active Directory domain controllers, trees, and forests", "Enumerate Active Directory using legacy Windows tools and LDAP", "Enumerate Active Directory using PowerShell and .NET classes"]],
+    ["Advanced AD Graph Analysis", ["Enumerate SPNs, shares, and object permissions with PowerView", "Collect domain artifacts with SharpHound", "Analyze attack paths using BloodHound"]]
+  ],
+  "21": [
+    ["Active Directory Authentication Protocols", ["Understand NTLM and Kerberos authentication mechanisms (AS-REQ, TGT, TGS)", "Understand where Windows caches authentication objects and tickets"]],
+    ["Authentication Abuse & Attacks", ["Execute Kerberoasting against service accounts with SPNs", "Abuse account options (AS-REP Roasting)", "Execute Pass-the-Hash and delegation attacks"]]
+  ],
+  "22": [
+    ["Remote Administration & Lateral Movement", ["Execute lateral movement using WinRM / Evil-WinRM", "Perform remote execution with WMI and PsExec"]],
+    ["Credential Reuse & Domain Persistence", ["Execute Pass-the-Hash and Overpass-the-Hash", "Understand Golden Ticket, Silver Ticket, and Shadow Copy persistence concepts"]]
+  ],
+  "23": [
+    ["Integrated Penetration Test Execution", ["Combine public-network enumeration and web server exploitation", "Perform credential recovery, privilege escalation, and internal pivoting"]],
+    ["Full Domain Compromise & Reporting", ["Execute multi-stage Active Directory credential harvesting and DC access", "Assemble chronological evidence into a coherent client-ready narrative"]]
+  ],
+  "24": [
+    ["Methodology Under Uncertainty", ["Apply PEN-200 techniques to unfamiliar challenge networks", "Formulate, test, and adapt hypotheses independently based on observed evidence"]],
+    ["Exam Strategy & Deliverables", ["Manage exam time, note-taking rigor, and documentation under pressure", "Produce complete, reproducible proof deliverables for OSCP certification"]]
+  ]
 };
 
-const MODULES = {
-  "01": ["Course & Kali Onboarding", "FOUNDATION", "Prepare Kali, understand the authorized lab boundary, verify interfaces, routing and safe connectivity.", ["Kali workstation", "Engagement boundary", "Network interfaces", "Routing path", "Evidence discipline"], ["Laptop / PC", "Kali Linux", "VPN / tun0", "Authorized lab", "Evidence"], [["ip", "Interface and address inspection", "ip addr"], ["ip route", "Routing-table inspection", "ip route"], ["ping", "Controlled reachability check", "ping -c 3 <target>"], ["openvpn", "Authorized training VPN connection", "sudo openvpn <lab-config.ovpn>"]], "Prepare the workstation, verify the expected interface and route, reach the authorized target, and capture the evidence that proves the environment is ready."],
-  "02": ["Introduction to Cybersecurity", "FOUNDATION", "Build the threat, vulnerability, risk and attack-surface mental model used throughout VAPT.", ["Asset", "Threat", "Vulnerability", "Exploit", "Risk"], ["Asset", "Threat", "Vulnerability", "Exploit", "Business impact"], [["whoami", "Identify current operator context", "whoami"], ["hostname", "Identify workstation context", "hostname"], ["ss", "Inspect listening network sockets", "ss -tulpn"], ["ip", "Map local network identity", "ip addr"]], "Map a fictional enterprise asset to threat, vulnerability, exploit and business impact before selecting a testing action."],
-  "03": ["Effective Learning Strategies", "FOUNDATION", "Use a repeatable SEE → LEARN → OPERATE → VALIDATE → PROVE workflow instead of memorizing commands.", ["Observe", "Hypothesis", "Operate", "Interpret", "Prove"], ["Question", "Concept", "Tool", "Output", "Evidence"], [["man", "Read authoritative local tool help", "man <tool>"], ["--help", "Inspect command capabilities", "<tool> --help"], ["history", "Review executed practice commands", "history"], ["script", "Record a terminal session", "script session.log"]], "Take one unknown tool, form a hypothesis, inspect its help, run a safe command, interpret the result, and document what changed in your understanding."],
-  "04": ["Report Writing for Penetration Testers", "FOUNDATION", "Turn technical observations into reproducible findings, evidence and business-readable recommendations.", ["Observation", "Evidence", "Impact", "Risk", "Remediation"], ["Finding", "Proof", "Impact", "Severity", "Recommendation"], [["script", "Capture terminal evidence", "script evidence.log"], ["date", "Timestamp evidence", "date"], ["sha256sum", "Integrity-check an artifact", "sha256sum evidence.log"], ["tee", "Save command output", "command | tee output.txt"]], "Create a reproducible finding record containing target, observation, evidence, impact, risk and remediation."],
-  "05": ["Information Gathering", "RECON", "Map the attack surface from scope to hosts, services, technologies and candidate entry points.", ["Scope", "Hosts", "Ports", "Services", "Technology"], ["Scope", "DNS", "Host", "Port", "Application"], [["dig", "Query DNS records", "dig <domain>"], ["host", "Resolve a hostname", "host <domain>"], ["nmap", "Discover authorized services", "nmap -sV <target>"], ["curl", "Inspect HTTP service metadata", "curl -I http://<target>"]], "Starting from an authorized target, enumerate its reachable services and build an attack-surface inventory."],
-  "06": ["Vulnerability Scanning", "RECON", "Discover weaknesses, prioritize scanner findings and manually validate what is actually exploitable.", ["Discovery", "Finding", "Severity", "Validation", "Risk"], ["Scanner", "Candidate", "Manual check", "Confirmed", "Evidence"], [["nmap", "Service and script discovery", "nmap -sV --script vuln <target>"], ["nuclei", "Template-based authorized checks", "nuclei -u <target>"], ["curl", "Manually verify web behavior", "curl -i http://<target>"], ["grep", "Filter collected output", "grep -i <pattern> output.txt"]], "Review candidate vulnerabilities, reproduce one safely, distinguish scanner noise from a validated finding, and capture proof."],
-  "07": ["Introduction to Web Applications", "WEB", "Understand requests, responses, sessions, routes, parameters and trust boundaries in modern web applications.", ["Browser", "HTTP request", "Server", "Database", "Response"], ["User", "Request", "Application", "Data", "Response"], [["curl", "Send and inspect HTTP requests", "curl -i http://<target>/"], ["ss", "Identify web listeners", "ss -lntp"], ["dig", "Resolve the web host", "dig <domain>"], ["grep", "Extract response patterns", "grep -i <pattern> response.txt"]], "Trace a web request from client to server and identify where input crosses trust boundaries."],
-  "08": ["Common Web Application Attacks", "WEB", "Recognize authentication, authorization, input-validation and session weaknesses in controlled targets.", ["Input", "Validation", "Auth", "Authorization", "Session"], ["Client", "Request", "Control", "Resource", "Response"], [["curl", "Manipulate request parameters", "curl -i '<url>?id=1'"], ["ffuf", "Discover authorized content", "ffuf -u http://<target>/FUZZ -w <wordlist>"], ["burp", "Intercept and modify HTTP traffic", "Burp Suite"], ["grep", "Inspect captured responses", "grep -i <pattern> responses.txt"]], "Use a controlled web target to identify an input-handling weakness and explain the security boundary it crosses."],
-  "09": ["SQL Injection Attacks", "WEB", "Understand how untrusted input reaches database queries and how SQL injection is detected and validated.", ["Input", "Query", "Database", "Result", "Impact"], ["Parameter", "SQL", "DB engine", "Rows", "Application"], [["curl", "Send controlled parameters", "curl -i '<url>?id=1'"], ["sqlmap", "Validate an authorized SQLi target", "sqlmap -u '<url>?id=1' --batch"], ["grep", "Inspect response differences", "grep -i <pattern> response.txt"], ["diff", "Compare baseline and test responses", "diff baseline.txt test.txt"]], "Compare baseline and altered requests, identify a meaningful response difference, and document why it indicates SQL injection."],
-  "10": ["Client-Side Attacks", "WEB", "Understand browser execution, DOM trust boundaries and client-side attack paths.", ["Browser", "DOM", "Script", "User input", "Action"], ["Page", "DOM", "JS", "Event", "Effect"], [["curl", "Retrieve page source", "curl -s http://<target>/"], ["grep", "Locate scripts and inputs", "grep -Ei '<script|input|form' page.html"], ["wget", "Save authorized web content", "wget -q http://<target>/ -O page.html"], ["sha256sum", "Record artifact integrity", "sha256sum page.html"]], "Inspect a controlled page, map client-side inputs to script behavior, and identify the security boundary involved."],
-  "11": ["Locating Public Exploits", "EXPLOIT", "Translate a validated vulnerability into exploit research, applicability analysis and safe proof planning.", ["CVE", "Affected version", "Exploit", "Applicability", "Proof"], ["Finding", "Advisory", "Code", "Target", "Evidence"], [["searchsploit", "Search local exploit references", "searchsploit <product> <version>"], ["nmap", "Confirm service/version context", "nmap -sV <target>"], ["curl", "Validate exposed service behavior", "curl -I http://<target>"], ["file", "Inspect exploit artifact type", "file exploit.*"]], "Match a validated version to a candidate exploit, check prerequisites, and decide whether the exploit is applicable before execution."],
-  "12": ["Fixing Exploits", "EXPLOIT", "Understand exploit mechanics well enough to troubleshoot, adapt and safely validate proof-of-concept code.", ["Input", "Payload", "Primitive", "Execution", "Proof"], ["Request", "Trigger", "Effect", "Observation", "Fix"], [["grep", "Locate exploit parameters", "grep -n '<pattern>' exploit.*"], ["sed", "Inspect or adjust a lab parameter", "sed -n '1,160p' exploit.*"], ["python3", "Run a controlled PoC", "python3 exploit.py <lab-target>"], ["diff", "Compare original and modified PoC", "diff original.py modified.py"]], "Analyze a proof of concept, identify its trigger condition, make a controlled lab adjustment, and verify the expected behavior."],
-  "13": ["Antivirus Evasion", "EXPLOIT", "Understand defensive detection boundaries, payload behavior and why evasion must be tested in isolated environments.", ["Payload", "Signature", "Behavior", "Detection", "Evasion"], ["Artifact", "Static", "Dynamic", "Alert", "Validation"], [["file", "Inspect an artifact", "file payload.bin"], ["sha256sum", "Fingerprint an artifact", "sha256sum payload.bin"], ["strings", "Inspect readable content", "strings payload.bin"], ["xxd", "Inspect raw bytes", "xxd -l 128 payload.bin"]], "Compare a benign training artifact with a controlled test artifact and explain which observable characteristics could trigger detection."],
-  "14": ["Password Attacks", "EXPLOIT", "Understand credential attack surfaces, authentication protocols, wordlists, rate limits and evidence.", ["Credential", "Hash", "Protocol", "Guessing", "Control"], ["Account", "Hash", "Attempt", "Authentication", "Lockout"], [["hydra", "Authorized online authentication testing", "hydra -l <user> -P <wordlist> <target> <service>"], ["john", "Offline hash testing in a lab", "john hashes.txt"], ["hashcat", "Offline password recovery practice", "hashcat -m <mode> hashes.txt <wordlist>"], ["ssh", "Validate a recovered lab credential", "ssh <user>@<target>"]], "Given a lab credential artifact, identify the authentication surface, select the appropriate controlled test, and document the result."],
-  "15": ["Windows Privilege Escalation", "PRIVESC / PIVOT", "Enumerate identity, services, permissions, credentials and execution paths to identify a Windows privilege boundary.", ["Identity", "Services", "Permissions", "Credentials", "Privilege"], ["User", "Process", "Service", "Weakness", "SYSTEM"], [["whoami", "Identify current Windows context", "whoami /all"], ["sc", "Inspect services", "sc query"], ["ipconfig", "Map Windows network context", "ipconfig /all"], ["tasklist", "Inspect running processes", "tasklist"]], "Starting from a low-privileged Windows context, enumerate privilege-relevant configuration and identify one defensible escalation path."],
-  "16": ["Linux Privilege Escalation", "PRIVESC / PIVOT", "Enumerate sudo rights, SUID files, capabilities, scheduled tasks and writable paths.", ["Identity", "Sudo", "SUID", "Capabilities", "Scheduled tasks"], ["User", "Permission", "Binary", "Execution", "Root"], [["id", "Inspect current identity", "id"], ["sudo", "Inspect allowed commands", "sudo -l"], ["find", "Locate SUID files", "find / -perm -4000 -type f 2>/dev/null"], ["getcap", "Inspect Linux capabilities", "getcap -r / 2>/dev/null"]], "Enumerate a lab Linux host, identify a privilege boundary, validate the path, and capture evidence of the resulting privilege level."],
-  "17": ["Port Redirection and SSH Tunneling", "PRIVESC / PIVOT", "Understand how controlled tunnels expose reachable services across segmented networks.", ["Source", "Tunnel", "Listener", "Route", "Target"], ["Kali", "SSH", "Local port", "Remote service", "Evidence"], [["ssh", "Create an authorized forwarding tunnel", "ssh -L <local>:<host>:<port> <user>@<pivot>"], ["ss", "Verify local listener", "ss -lntp"], ["ip route", "Inspect routing context", "ip route"], ["curl", "Reach a tunneled HTTP service", "curl http://127.0.0.1:<local>"]], "Build a controlled tunnel through a lab pivot, verify the listener and prove that the previously unreachable service is now reachable."],
-  "18": ["Advanced Tunneling", "PRIVESC / PIVOT", "Reason about multi-hop reachability, proxying and segmented enterprise paths.", ["Segment", "Pivot", "Proxy", "Route", "Reachability"], ["Kali", "Pivot A", "Pivot B", "Proxy", "Internal host"], [["ssh", "Establish a multi-hop lab path", "ssh -J <pivot> <user>@<internal>"], ["ss", "Verify tunnel endpoints", "ss -lntp"], ["curl", "Test proxied access", "curl http://<internal-host>"], ["ip", "Confirm interface context", "ip addr"]], "Map a segmented lab path and establish controlled access to an internal service without changing the network topology."],
-  "19": ["The Metasploit Framework", "PRIVESC / PIVOT", "Understand modules, options, payloads, sessions and evidence-driven exploitation in an authorized lab.", ["Module", "Option", "Payload", "Session", "Evidence"], ["Search", "Configure", "Execute", "Session", "Proof"], [["msfconsole", "Open the framework console", "msfconsole"], ["search", "Find a lab module", "search <term>"], ["show", "Inspect module options", "show options"], ["sessions", "Inspect controlled sessions", "sessions"]], "Select an authorized lab module, inspect prerequisites and options, execute only within scope, and document the resulting session evidence."],
-  "20": ["Active Directory Introduction and Enumeration", "AD / CHALLENGE", "Map domains, users, groups, computers, shares, policies and trust relationships.", ["Domain", "User", "Group", "Computer", "Trust"], ["DNS", "Identity", "Group", "Host", "Relationship"], [["nslookup", "Inspect domain resolution", "nslookup <domain>"], ["net", "Inspect Windows domain context", "net user /domain"], ["whoami", "Inspect domain identity", "whoami /all"], ["ipconfig", "Map domain network context", "ipconfig /all"]], "Build an AD attack-surface map from domain identity to users, groups, computers and relationships."],
-  "21": ["Attacking Active Directory Authentication", "AD / CHALLENGE", "Understand Kerberos, NTLM, credential material and authentication attack surfaces.", ["Identity", "Protocol", "Ticket", "Credential", "Authentication"], ["User", "Kerberos/NTLM", "Material", "Attempt", "Access"], [["klist", "Inspect Kerberos tickets", "klist"], ["whoami", "Inspect authentication context", "whoami /all"], ["net", "Enumerate domain users in a lab", "net user /domain"], ["setspn", "Inspect service principal names", "setspn -Q */*"]], "Analyze a controlled authentication scenario, identify the credential material involved, and explain how the attack path changes access."],
-  "22": ["Lateral Movement in Active Directory", "AD / CHALLENGE", "Connect identity compromise to movement between authorized Windows systems.", ["Credential", "Host", "Protocol", "Movement", "Proof"], ["Identity", "Target", "SMB/RDP/WinRM", "Session", "Evidence"], [["net", "Inspect domain relationships", "net view /domain"], ["whoami", "Confirm current identity", "whoami /all"], ["ipconfig", "Confirm network position", "ipconfig /all"], ["hostname", "Confirm target context", "hostname"]], "Given an authorized lab identity, map reachable systems, select a permitted movement path and prove the resulting access."],
-  "23": ["Assembling the Pieces", "AD / CHALLENGE", "Connect reconnaissance, exploitation, privilege escalation, pivoting and evidence into one attack narrative.", ["Recon", "Initial access", "Privilege", "Pivot", "Evidence"], ["Surface", "Entry", "Escalate", "Move", "Report"], [["nmap", "Reconstruct service discovery", "nmap -sV <target>"], ["ip route", "Reconstruct path", "ip route"], ["whoami", "Prove privilege context", "whoami /all"], ["script", "Capture the operator timeline", "script attack-chain.log"]], "Build an end-to-end authorized attack chain and explain why each transition was possible."],
-  "24": ["Trying Harder: The Labs", "AD / CHALLENGE", "Operate independently: enumerate, form hypotheses, recover from dead ends, chain techniques and prove completion.", ["Enumerate", "Hypothesize", "Test", "Adapt", "Prove"], ["Observation", "Theory", "Experiment", "Pivot", "Evidence"], [["nmap", "Start broad service discovery", "nmap -sV <target>"], ["grep", "Filter evidence for patterns", "grep -Ri '<pattern>' evidence/"], ["find", "Locate relevant artifacts", "find . -type f"], ["script", "Record the complete attempt", "script final-session.log"]], "Complete an authorized challenge without a prescribed command sequence: document hypotheses, dead ends, pivots and final proof."]
-};
+const MODULE_DETAILS={"01": {"goal": "Prepare the Kali-based operator workstation, understand the course lab boundary, and verify safe connectivity before assessment.", "visual": [["Operator PC", "Your Windows/Linux host provides the virtualization layer."], ["Kali VM", "Kali is the controlled offensive workstation where assessment tools run."], ["VPN / Lab Network", "The lab connection places the operator inside the authorized training boundary."], ["Target", "The target is reachable only inside the approved scope."]], "concepts": [["Lab boundary", "Define exactly which hosts, networks and services are authorized."], ["Kali workflow", "Use the terminal, filesystem, networking and tool repositories as one working environment."], ["Connectivity", "Verify addressing, routes and reachability before troubleshooting tools."], ["Evidence workspace", "Create a repeatable place for notes, screenshots and command output."]], "tools": [["ip", "Inspect interfaces and addresses.", "ip addr"], ["ip route", "Inspect routing and the lab path.", "ip route"], ["ping", "Check basic reachability where ICMP is allowed.", "ping -c 3 <target>"], ["openvpn", "Connect to an authorized training VPN when required.", "sudo openvpn <lab-config.ovpn>"]], "lab": "Build the workstation-to-target path. Record your Kali IP, route, target scope and one successful connectivity test.", "evidence": ["Kali IP address", "Routing table", "Authorized target/scope", "Connectivity result"]}, "02": {"goal": "Build the security vocabulary needed to reason about a penetration test: assets, threats, vulnerabilities, risk, controls and business impact.", "visual": [["Asset", "What has value and needs protection?"], ["Threat", "What can cause harm or attempt compromise?"], ["Vulnerability", "What weakness makes the threat possible?"], ["Risk / Impact", "What is the consequence and likelihood?"]], "concepts": [["CIA triad", "Confidentiality, integrity and availability describe core security objectives."], ["Threat vs vulnerability", "A threat is a potential cause of harm; a vulnerability is a weakness that can be exploited."], ["Exploit", "A technique or code path that takes advantage of a vulnerability."], ["Risk", "A decision-oriented view combining likelihood and impact."]], "tools": [["Threat model", "Map assets, threats, weaknesses and controls.", "asset → threat → vulnerability → impact"], ["CIA mapping", "Classify the security property affected.", "confidentiality / integrity / availability"], ["Control mapping", "Connect a weakness to a preventive, detective or corrective control.", "finding → control → residual risk"]], "lab": "Given a small enterprise environment, classify its assets, identify threats and vulnerabilities, and explain the business impact of one finding.", "evidence": ["Asset inventory", "Threat/vulnerability relationship", "CIA classification", "Risk statement"]}, "03": {"goal": "Turn PEN-200 knowledge into durable practical skill using active recall, demonstration, deliberate practice and explanation.", "visual": [["SEE", "Observe a demonstrated technique."], ["RECALL", "Reconstruct the idea without notes."], ["PRACTICE", "Repeat it against a controlled target."], ["EXPLAIN", "Teach the reasoning and trade-offs."]], "concepts": [["Retrieval practice", "Recall the workflow instead of rereading it."], ["Demonstration", "Watch the complete technique before reproducing it."], ["Deliberate practice", "Repeat a focused skill and correct the exact failure."], ["Feynman method", "Explain the concept simply enough to expose gaps."]], "tools": [["Notes", "Capture decisions, not copied prose.", "What? Why? Result?"], ["Flashcards", "Recall commands, concepts and distinctions.", "prompt → answer → review"], ["Lab journal", "Record attempts and failure analysis.", "attempt → observation → correction"]], "lab": "Take one technical workflow and produce a one-page visual explanation, then reproduce it from memory in the lab.", "evidence": ["Self-explanation", "Attempt log", "Corrected workflow", "Recall check"]}, "04": {"goal": "Produce penetration-test evidence and reporting that another tester can reproduce and a client can understand.", "visual": [["Observation", "What did the tester actually see?"], ["Evidence", "What artifact proves it?"], ["Finding", "Why is it a security issue?"], ["Remediation", "What should the owner change?"]], "concepts": [["Finding structure", "Title, severity, affected asset, description, evidence, impact and remediation."], ["Evidence quality", "Evidence must be relevant, reproducible and tied to the claim."], ["Executive vs technical", "Business readers need impact; technical readers need reproduction detail."], ["Portable notes", "Capture useful information during testing rather than reconstructing it later."]], "tools": [["Markdown", "Create structured technical notes.", "# Finding\\n## Evidence"], ["Screenshot tool", "Capture the exact state that proves the result.", "select → capture → annotate"], ["Terminal logging", "Preserve command/output context.", "script -a session.log"], ["Obsidian/CherryTree", "Organize notes by host and finding.", "host → service → finding"]], "lab": "Create one complete finding from a controlled vulnerability: evidence, impact, reproduction and remediation.", "evidence": ["Finding title", "Affected asset", "Proof screenshot/output", "Impact", "Remediation"]}, "05": {"goal": "Turn an unknown target into an attack-surface map using passive research, DNS, host discovery, port scanning and service enumeration.", "visual": [["Scope", "Known domain/IP and authorization."], ["Discovery", "Find hosts and exposed services."], ["Enumeration", "Identify versions, protocols and metadata."], ["Attack Surface", "Prioritize what deserves deeper testing."]], "concepts": [["Passive vs active", "Passive research gathers information without directly probing the target; active enumeration interacts with it."], ["Host discovery", "Determine which systems are reachable."], ["Port/service enumeration", "Map listening services and identify versions."], ["Living off the land", "Use legitimate built-in services or commands when appropriate."]], "tools": [["Nmap", "Host, port, version and script scanning.", "nmap -sC -sV <target>"], ["Netcat", "Test TCP connectivity and interact with simple services.", "nc -nv <target> <port>"], ["dig", "Query DNS records.", "dig <domain>"], ["smbclient", "Enumerate accessible SMB shares.", "smbclient -L //<target> -N"], ["enum4linux", "Enumerate common Windows/SMB information.", "enum4linux -a <target>"]], "lab": "Starting with an authorized target, build a service inventory and identify three follow-up enumeration questions.", "evidence": ["Target scope", "Nmap result", "Service/version table", "Follow-up hypotheses"]}, "06": {"goal": "Understand vulnerability scanning as a pipeline from discovery to scanner output to manual validation.", "visual": [["Asset", "Identify what is being assessed."], ["Scanner", "Apply checks and plugins."], ["Finding", "Read the technical result."], ["Validation", "Confirm whether it is actually present and relevant."]], "concepts": [["Scanner vs proof", "A scanner identifies possible weaknesses; the tester validates the finding."], ["Plugin logic", "Understand what condition caused a scanner to report an issue."], ["Authenticated scanning", "Credentials can reveal configuration and local weaknesses unavailable to unauthenticated scans."], ["False positives", "A reported condition may not be exploitable or relevant in context."]], "tools": [["Nessus", "Run and interpret vulnerability assessments.", "nessus web console"], ["Nmap NSE", "Run targeted vulnerability scripts.", "nmap --script vuln <target>"], ["Nmap service detection", "Correlate versions with known exposure.", "nmap -sV <target>"]], "lab": "Run a controlled scan, choose one high-value result, explain why it triggered, then validate it manually.", "evidence": ["Scan configuration", "Finding ID/title", "Plugin evidence", "Manual validation result"]}, "07": {"goal": "Understand a web application as a request/response system and learn where enumeration and interception fit into assessment.", "visual": [["Browser", "User action creates a request."], ["HTTP", "Request/response carries method, headers, cookies and data."], ["Proxy", "Tester can observe and modify traffic."], ["Server/Data", "Application logic processes input and accesses backend resources."]], "concepts": [["HTTP methods", "GET, POST and other methods communicate intent and data."], ["Headers/cookies", "Metadata and state can affect application behavior."], ["Proxying", "Intercept requests to understand application behavior."], ["API testing", "Treat API endpoints as first-class attack surfaces."]], "tools": [["Burp Suite", "Intercept, modify and replay web traffic.", "Burp Proxy → HTTP history"], ["curl", "Make controlled HTTP requests from the terminal.", "curl -i http://<target>/"], ["DevTools", "Inspect DOM, network requests and client behavior.", "F12 → Network"], ["ffuf", "Discover paths and parameters in an authorized lab.", "ffuf -u http://<target>/FUZZ -w <wordlist>"]], "lab": "Map one web application from browser request to backend response and identify three attack-surface locations.", "evidence": ["Request/response", "Headers/cookies", "Endpoint inventory", "Attack-surface map"]}, "08": {"goal": "Recognize common web attack primitives and follow the path from controllable input to server-side impact.", "visual": [["Input", "Find attacker-controlled data."], ["File / Path", "Test how the application handles paths and files."], ["Interpreter", "Determine whether input reaches a dangerous interpreter."], ["Impact", "Validate the security consequence in a controlled way."]], "concepts": [["Directory traversal", "Manipulating path components to access unintended files."], ["File inclusion", "Applications may load attacker-influenced local or remote resources."], ["File upload", "Validation and storage controls determine whether uploaded content is dangerous."], ["Command injection", "Untrusted input reaches an operating-system command interpreter."]], "tools": [["Burp Suite", "Modify web parameters and replay requests.", "Repeater → modify → send"], ["curl", "Reproduce requests outside the browser.", "curl -i -X POST ..."], ["ffuf", "Discover files, directories and parameters.", "ffuf -u .../FUZZ -w ..."], ["Gobuster", "Enumerate directories or DNS in authorized scopes.", "gobuster dir -u http://<target> -w <wordlist>"]], "lab": "Assess a deliberately vulnerable web application and prove one file/path weakness and one input-to-command weakness without attacking anything outside the lab.", "evidence": ["Original request", "Modified request", "Observed response", "Impact proof"]}, "09": {"goal": "Understand how application input becomes SQL, identify injection behavior and validate SQLi safely.", "visual": [["Input", "User-controlled value enters the application."], ["Query", "Application builds a database statement."], ["Database", "The DBMS interprets the resulting query."], ["Result", "Errors, rows or blind behavior reveal the effect."]], "concepts": [["SQL structure", "Understand SELECT, WHERE, UNION and predicates before testing injection."], ["Manual discovery", "Change one input at a time and observe behavior."], ["UNION/error/blind", "Different SQLi classes expose different observable signals."], ["Automation", "SQLmap can automate testing after the manual hypothesis is understood."]], "tools": [["Burp Suite", "Edit the parameter and compare responses.", "Repeater → parameter mutation"], ["curl", "Repeat precise requests.", "curl 'http://<target>/item?id=1'"], ["SQLmap", "Automate authorized SQL injection testing.", "sqlmap -u 'http://<target>/item?id=1' --batch"]], "lab": "Identify an injectable parameter in a deliberately vulnerable application, classify the SQLi type and demonstrate controlled data retrieval.", "evidence": ["Original parameter", "Test payload", "Response comparison", "SQLi classification"]}, "10": {"goal": "Understand how client-side artifacts, user interaction and Windows application behavior can form an attack path.", "visual": [["Target", "Fingerprint the client and user environment."], ["Artifact", "Document, library or shortcut reaches the client."], ["Execution", "Windows processes the artifact."], ["Observable Result", "The controlled lab shows whether execution occurred."]], "concepts": [["Client fingerprinting", "Learn the operating system, applications and likely attack surface."], ["Office attack surface", "Documents can trigger application features and content processing."], ["Library files", "Windows search/loading behavior can create security-relevant paths."], ["Shortcut execution", "User-launched shortcuts can invoke programs and parameters."]], "tools": [["Office test VM", "Use a disposable Windows client for safe experimentation.", "isolated Windows VM"], ["Browser DevTools", "Inspect client-side behavior.", "F12 → Network/Console"], ["Client fingerprinting", "Identify application and OS details.", "authorized enumeration"]], "lab": "In an isolated Windows client, identify a client-side attack surface and document the exact user-to-process path.", "evidence": ["Client profile", "Artifact", "Process observation", "Impact/limitation"]}, "11": {"goal": "Find credible public exploit references, inspect them safely, and determine whether they match the target version and assumptions.", "visual": [["Version", "Identify the exact product/version."], ["Research", "Find advisories and exploit references."], ["Code Review", "Inspect prerequisites and assumptions."], ["Match", "Decide whether the exploit fits the authorized target."]], "concepts": [["Exploit provenance", "Prefer reputable references and understand where code came from."], ["Version matching", "An exploit for a nearby version may not work or may behave differently."], ["Prerequisites", "Architecture, configuration, authentication and network access can matter."], ["Safe handling", "Treat downloaded exploit code as untrusted."]], "tools": [["SearchSploit", "Search local Exploit-DB data.", "searchsploit <keyword>"], ["Nmap NSE", "Use relevant scripts for authorized validation.", "nmap --script <script> <target>"], ["Exploit-DB", "Research public exploit references in a controlled workflow.", "CVE → exploit reference"]], "lab": "Given a vulnerable service version, research two candidate exploits and reject at least one using evidence-based reasoning.", "evidence": ["Target version", "Research references", "Exploit assumptions", "Selection rationale"]}, "12": {"goal": "Adapt and troubleshoot exploit code in a controlled lab by understanding compilation, offsets, architecture and failure modes.", "visual": [["Source", "Read what the exploit actually does."], ["Build", "Compile for the target architecture."], ["Failure", "Observe crash or incorrect behavior."], ["Debug", "Identify the mismatch and correct it."]], "concepts": [["Architecture", "32/64-bit and ABI differences affect exploit behavior."], ["Offsets", "Memory-corruption exploits depend on precise control locations."], ["Cross-compilation", "Build code for a target operating system/architecture."], ["Debugging", "Use a debugger to replace guesswork with observed state."]], "tools": [["gcc", "Compile C exploit code for Linux.", "gcc exploit.c -o exploit"], ["mingw-w64", "Cross-compile Windows binaries from Linux.", "x86_64-w64-mingw32-gcc exploit.c -o exploit.exe"], ["gdb", "Inspect registers, memory and execution.", "gdb ./exploit"], ["Python", "Automate payload construction and test cases.", "python3 script.py"]], "lab": "Take a provided safe lab exploit that initially fails, identify the failure reason, adapt it and demonstrate the corrected behavior.", "evidence": ["Original source", "Build command", "Failure observation", "Debug finding", "Corrected result"]}, "13": {"goal": "Study how antivirus detection works and evaluate controlled evasion experiments without confusing simulation with real-world bypass claims.", "visual": [["Artifact", "A file or payload enters the test environment."], ["Static", "Signatures and file characteristics may be inspected."], ["Behavior", "Execution can reveal suspicious activity."], ["Detection", "The defensive control produces an observable verdict."]], "concepts": [["Known threats", "Known signatures and indicators can produce detections."], ["Static analysis", "Inspect characteristics without executing the artifact."], ["Dynamic analysis", "Observe behavior during controlled execution."], ["Evasion testing", "Change one variable and measure the defensive response."]], "tools": [["AV test VM", "Use an isolated defensive test environment.", "snapshot → test → revert"], ["Payload analysis", "Inspect file structure and indicators.", "strings / file / hashes"], ["Detection console", "Record the exact defensive verdict.", "event → rule → evidence"]], "lab": "Compare two controlled test artifacts and document which defensive signal changed and why.", "evidence": ["Artifact hashes", "Static observations", "Detection event", "Comparison"]}, "14": {"goal": "Understand password attack surfaces, credential material and appropriate offline/online attack models.", "visual": [["Account", "Identify the authentication surface."], ["Credential Material", "Password, hash, key or ticket may be available."], ["Attack Model", "Choose online or offline testing based on the material."], ["Validation", "Confirm access only on the authorized target."]], "concepts": [["Password vs hash", "A hash is not the plaintext password but can be attacked offline."], ["Wordlists", "Candidate generation influences attack coverage."], ["Brute force", "Systematically tests combinations and can become expensive."], ["Credential reuse", "A recovered credential may have impact across multiple authorized systems."]], "tools": [["Hydra", "Test online authentication in an authorized lab.", "hydra -l user -P <wordlist> <target> <service>"], ["John the Ripper", "Perform offline password hash recovery.", "john hashes.txt"], ["Hashcat", "Use hardware-accelerated offline recovery.", "hashcat -m <mode> hashes.txt <wordlist>"], ["ssh2john", "Convert SSH private-key material for offline analysis.", "ssh2john id_rsa > hash.txt"]], "lab": "Given an authorized credential artifact, select an attack model, recover a test credential and validate the result only inside the lab.", "evidence": ["Credential type", "Attack mode", "Recovered result", "Validation"]}, "15": {"goal": "Move from a low-privileged Windows foothold to a higher-integrity context by inspecting services, permissions, tokens and configuration.", "visual": [["User", "Start with the privileges of the compromised account."], ["Service / Config", "Look for weak permissions and executable paths."], ["Token / Privilege", "Understand what Windows security context allows."], ["SYSTEM", "Validate the resulting privilege boundary crossing."]], "concepts": [["Service misconfiguration", "Weak service permissions or paths can create escalation opportunities."], ["Token privileges", "Windows access tokens carry identities and privileges."], ["Unquoted paths", "Executable search behavior can become security-relevant when permissions are weak."], ["Credential exposure", "Stored secrets can provide another authorized escalation route."]], "tools": [["PowerShell", "Inspect services, users and configuration.", "Get-Service"], ["WinPEAS", "Automate common Windows privilege checks in a lab.", "winpeas.exe"], ["Seatbelt", "Enumerate Windows security-relevant configuration.", "Seatbelt.exe -group=all"]], "lab": "Enumerate a Windows foothold, identify one plausible privilege-escalation path, prove the prerequisite and document the boundary crossing.", "evidence": ["Current user/context", "Enumeration output", "Escalation prerequisite", "Result"]}, "16": {"goal": "Inspect Linux permissions and identify legitimate escalation paths from an unprivileged account to root.", "visual": [["User", "Establish the current identity and groups."], ["Filesystem", "Inspect writable files, ownership and permissions."], ["Sudo / SUID", "Identify privileged execution paths."], ["Root", "Validate the resulting privilege context."]], "concepts": [["Unix permissions", "Owner/group/other permissions define access."], ["Sudo", "Delegated commands can create escalation paths when configured unsafely."], ["SUID", "Programs may execute with the file owner's privileges."], ["Capabilities", "Fine-grained Linux privileges can also create escalation opportunities."]], "tools": [["sudo", "Inspect delegated privileges.", "sudo -l"], ["find", "Locate SUID files or writable paths.", "find / -perm -4000 -type f 2>/dev/null"], ["LinPEAS", "Automate common Linux privilege checks.", "./linpeas.sh"], ["getcap", "Inspect Linux capabilities.", "getcap -r / 2>/dev/null"]], "lab": "From a low-privileged Linux account, enumerate permissions, identify a valid escalation condition and prove root access in the isolated target.", "evidence": ["whoami/id", "Enumeration output", "Vulnerable condition", "Root proof"]}, "17": {"goal": "Understand how SSH port forwarding changes network reachability and allows an authorized tester to reach an internal service through a foothold.", "visual": [["Attacker", "The tester can reach the foothold."], ["SSH", "The encrypted transport carries a forwarded connection."], ["Forward", "A local or remote port maps to another endpoint."], ["Internal Service", "A previously unreachable service becomes reachable through the tunnel."]], "concepts": [["Local forwarding", "Expose a remote service through a local listener."], ["Remote forwarding", "Expose a local-side service through a remote listener."], ["Reachability", "Tunneling changes path, not the underlying service."], ["Pivot evidence", "Document both endpoints and the forwarding relationship."]], "tools": [["SSH", "Create authorized port forwards.", "ssh -L 8080:internal:80 user@pivot"], ["ss", "Inspect listening sockets.", "ss -lntp"], ["nc", "Test the forwarded endpoint.", "nc -nv 127.0.0.1 8080"]], "lab": "Use an isolated two-network lab to forward one internal HTTP service through an SSH foothold and prove the changed reachability.", "evidence": ["Network diagram", "SSH command", "Listening port", "Internal service response"]}, "18": {"goal": "Compare advanced tunneling approaches and understand how traffic can traverse restrictive network boundaries.", "visual": [["Client", "Application generates traffic."], ["Transport", "HTTP, DNS or another permitted channel carries it."], ["Tunnel", "A relay wraps or forwards the traffic."], ["Internal Network", "The destination service receives the reconstructed connection."]], "concepts": [["Tunneling vs routing", "A tunnel carries traffic through an existing path; it does not magically remove authorization boundaries."], ["HTTP tunneling", "Application-layer traffic can be transported through HTTP-compatible channels."], ["DNS tunneling", "DNS can carry encoded data, subject to protocol and defensive controls."], ["Detection", "Unusual volume, timing and query patterns can reveal tunneling."]], "tools": [["Chisel", "Create TCP tunnels over HTTP/WebSocket in authorized labs.", "chisel client <server> ..."], ["SSH", "Use encrypted forwarding when available.", "ssh -L ..."], ["Wireshark", "Observe tunnel traffic and protocol behavior.", "capture → filter → inspect"]], "lab": "Compare two tunneling paths in an isolated network and explain the visibility and reachability differences.", "evidence": ["Topology", "Tunnel setup", "Packet observation", "Reachability comparison"]}, "19": {"goal": "Use the Metasploit Framework as a structured exploitation workflow: module selection, options, payloads, sessions and controlled post-exploitation.", "visual": [["Module", "Select an exploit or auxiliary module."], ["Options", "Set target-specific parameters."], ["Payload", "Define the session behavior."], ["Session", "Interact with the controlled target."]], "concepts": [["Auxiliary vs exploit", "Auxiliary modules perform support tasks; exploit modules target vulnerabilities."], ["Payloads", "Payload choice determines what happens after exploitation."], ["Sessions", "A successful exploit may create an interactive session."], ["Post-exploitation", "Use sessions to validate impact without unnecessary actions."]], "tools": [["msfconsole", "Framework console and module workflow.", "msfconsole"], ["search", "Find relevant modules.", "search type:exploit name:<term>"], ["info", "Inspect module requirements.", "info <module>"], ["show options", "Review required settings.", "show options"]], "lab": "Against a deliberately vulnerable lab service, select the correct module, configure it, obtain a controlled session and document every decision.", "evidence": ["Module selection", "Options", "Payload", "Session proof", "Impact boundary"]}, "20": {"goal": "Enumerate an Active Directory environment by mapping identities, computers, groups, services and relationships.", "visual": [["Domain", "Identify the AD namespace and domain controllers."], ["Users / Groups", "Map identities and memberships."], ["Computers", "Map hosts and roles."], ["SPNs / Relationships", "Identify service accounts and trust/permission paths."]], "concepts": [["AD objects", "Users, groups, computers and services are connected objects."], ["LDAP enumeration", "Directory queries reveal identity and configuration information."], ["SPNs", "Service Principal Names identify services associated with accounts."], ["Attack-path thinking", "Permissions and relationships matter more than isolated objects."]], "tools": [["PowerShell", "Query Windows/AD information.", "Get-ADUser -Filter *"], ["PowerView", "Enumerate AD relationships in a lab.", "Get-DomainUser"], ["BloodHound", "Visualize relationships and attack paths.", "collect → ingest → graph"]], "lab": "Build a small AD relationship map and identify one permission or service relationship that deserves deeper investigation.", "evidence": ["Domain context", "User/group map", "Computer map", "Relationship graph"]}, "21": {"goal": "Understand Kerberos authentication and identify where authentication material can be exposed or attacked in an authorized AD lab.", "visual": [["Client", "Requests authentication."], ["KDC / AS", "Authentication Service validates identity and issues a TGT."], ["TGT / TGS", "Tickets are used to request access to services."], ["Service", "The service validates the ticket."]], "concepts": [["TGT", "Ticket Granting Ticket represents authenticated domain identity for subsequent service requests."], ["TGS", "Service tickets provide access to specific services."], ["Kerberoasting", "Service-account tickets can provide material for offline password attacks when conditions permit."], ["Authentication evidence", "Record the exact account, service and protocol state involved."]], "tools": [["Rubeus", "Inspect and test Kerberos workflows in a lab.", "Rubeus.exe"], ["PowerView", "Enumerate SPNs and domain context.", "Get-DomainUser -SPN"], ["Impacket", "Perform authorized protocol testing from Linux.", "GetUserSPNs.py ..."]], "lab": "Map a test account's Kerberos authentication flow and investigate a deliberately vulnerable service account configuration.", "evidence": ["Account/service", "SPN", "Ticket artifact", "Offline test result"]}, "22": {"goal": "Trace lateral movement across an authorized Windows domain after a foothold, using administrative relationships and remote execution paths.", "visual": [["Foothold", "Start from one compromised host."], ["Credential / Access", "Obtain an authorized administrative context."], ["Remote Execution", "Use a supported remote administration path."], ["Next Host", "Validate the movement and record the new context."]], "concepts": [["Lateral movement", "Moving between systems after initial access."], ["Administrative protocols", "Remote services can become movement mechanisms when credentials permit."], ["Credential scope", "Determine where an account has useful privileges."], ["Movement evidence", "Capture source, destination, account and protocol."]], "tools": [["WinRM", "Remote PowerShell management in authorized labs.", "evil-winrm -i <target> -u <user> -p '<password>'"], ["PsExec", "Remote service-based execution in controlled environments.", "psexec.py domain/user:pass@target"], ["PowerShell", "Native remote management and enumeration.", "Invoke-Command -ComputerName <target> ..."], ["BloodHound", "Identify movement paths based on permissions.", "graph → path → validation"]], "lab": "Starting from a test workstation, identify an authorized movement path to a second host and validate it without touching unrelated systems.", "evidence": ["Source host", "Credential/context", "Remote protocol", "Destination proof"]}, "23": {"goal": "Assemble reconnaissance, initial access, privilege escalation, pivoting and domain techniques into one coherent penetration-test storyline.", "visual": [["Recon", "Build the attack surface."], ["Initial Access", "Choose the strongest validated entry point."], ["Privilege / Pivot", "Increase control and reach."], ["Domain Impact", "Connect the final access path to business impact."]], "concepts": [["Attack-chain reasoning", "Each step should be justified by evidence from the previous step."], ["Decision points", "Do not execute techniques merely because they are available."], ["Chaining", "Combine multiple small findings into a meaningful path."], ["Reporting the path", "The final story must explain cause, consequence and remediation."]], "tools": [["Nmap", "Recon and service mapping.", "nmap -sC -sV <target>"], ["Burp Suite", "Web discovery and validation.", "Proxy → Repeater"], ["Metasploit", "Controlled exploitation where appropriate.", "msfconsole"], ["BloodHound", "AD path analysis.", "collect → graph → validate"]], "lab": "Complete a multi-stage authorized scenario from discovery through controlled impact and write the attack path as a sequence of evidence-backed decisions.", "evidence": ["Attack-surface map", "Initial access proof", "Privilege proof", "Pivot proof", "Final path", "Report finding"]}, "24": {"goal": "Practice unfamiliar environments by building hypotheses, testing them systematically, chaining only validated findings and documenting the complete route.", "visual": [["Enumerate", "Collect enough evidence to form hypotheses."], ["Hypothesize", "Rank likely attack paths."], ["Test", "Validate one hypothesis at a time."], ["Chain / Prove", "Combine confirmed steps and document the final route."]], "concepts": [["Methodology under uncertainty", "There is no recipe; the process must adapt to evidence."], ["Prioritization", "Choose the next action that most reduces uncertainty."], ["Dead ends", "A failed hypothesis is useful evidence when recorded properly."], ["Proof", "Completion means reproducible evidence, not merely obtaining access."]], "tools": [["Nmap", "Build the initial attack surface.", "nmap -sC -sV <target>"], ["Web tools", "Investigate HTTP attack surface.", "Burp / curl / ffuf"], ["Privilege tools", "Validate local escalation paths.", "LinPEAS / WinPEAS"], ["AD tools", "Map identity and movement paths.", "BloodHound / PowerView"]], "lab": "Enter a fresh isolated challenge environment with no recipe. Build an attack notebook, rank hypotheses, test them and produce a complete evidence-backed route.", "evidence": ["Hypothesis log", "Enumeration map", "Validated findings", "Attack chain", "Final report"]}};
 
-let currentModule = '01';
-let currentTab = 'concepts';
+const MODULES = [
+  {"num": "01", "title": "Course & Kali Onboarding", "track": "General Course Introduction", "topics": ["Course inventory and learning environment", "Attacking Kali VM setup", "Lab VPN and safe connectivity", "Module exercises and learning workflow"], "tools": ["Kali Linux", "OpenVPN", "Terminal", "VMware/VirtualBox"], "icon": "🧭"},
+  {"num": "02", "title": "Introduction to Cybersecurity", "track": "Foundations", "topics": ["Cybersecurity practice and offensive/defensive thinking", "Threats, threat actors, risks, vulnerabilities and exploits", "CIA triad", "Security principles, controls and strategies", "Laws, regulations, standards and frameworks", "Cybersecurity career landscape"], "tools": ["Threat model", "CIA triad", "Control mapping"], "icon": "🛡️"},
+  {"num": "03", "title": "Effective Learning Strategies", "track": "Learning Methodology", "topics": ["Learning theory and memory", "Challenges of learning technical skills", "Demonstrative methodology", "Case study: chmod -x chmod", "Retrieval and spaced practice", "SQ3R, PQ4R, Feynman and Leitner methods", "Practical study and exam strategies"], "tools": ["Notes", "Flashcards", "Retrieval practice"], "icon": "🧠"},
+  {"num": "04", "title": "Report Writing for Penetration Testers", "track": "Reporting", "topics": ["Pentest deliverables and portable notes", "Screenshot and evidence practices", "Technical report structure", "Executive summary and technical summary", "Findings, recommendations, appendices and references"], "tools": ["CherryTree/Obsidian", "Flameshot", "Markdown"], "icon": "📝"},
+  {"num": "05", "title": "Information Gathering", "track": "Reconnaissance", "topics": ["Penetration testing lifecycle", "Passive vs active information gathering", "OSINT and passive web/DNS research", "Netcat and Nmap scanning", "DNS, SMB, SMTP and SNMP enumeration", "Living-off-the-land techniques"], "tools": ["Nmap", "Netcat", "dig", "host", "nslookup", "smbclient", "enum4linux", "snmpwalk"], "icon": "🌐"},
+  {"num": "06", "title": "Vulnerability Scanning", "track": "Vulnerability Assessment", "topics": ["Vulnerability scanning theory", "Scan types and assessment considerations", "Nessus components and scanning", "Authenticated scans and plugins", "Nmap NSE vulnerability scanning", "Interpreting scanner results"], "tools": ["Nessus", "Nmap NSE"], "icon": "🔎"},
+  {"num": "07", "title": "Introduction to Web Applications", "track": "Web Assessment", "topics": ["Web application assessment methodology", "OWASP Top 10 and common vulnerabilities", "Web enumeration techniques", "Web proxy concepts and Burp Suite", "Headers, cookies and source inspection", "API testing and debugging"], "tools": ["Burp Suite", "curl", "Browser DevTools", "ffuf"], "icon": "🌍"},
+  {"num": "08", "title": "Common Web Application Attacks", "track": "Web Exploitation", "topics": ["Directory traversal", "File inclusion and PHP wrappers", "Local and remote file inclusion concepts", "File upload vulnerabilities", "Command injection", "Turning web weaknesses into controlled access"], "tools": ["Burp Suite", "curl", "ffuf", "Gobuster"], "icon": "⚔️"},
+  {"num": "09", "title": "SQL Injection Attacks", "track": "Database Exploitation", "topics": ["SQL fundamentals and database types", "SQL syntax and query logic", "Manual SQL injection discovery", "UNION, error and blind SQLi", "MSSQL command execution concepts", "Automating SQL injection with SQLmap"], "tools": ["Burp Suite", "SQLmap", "curl"], "icon": "🗃️"},
+  {"num": "10", "title": "Client-Side Attacks", "track": "Client Exploitation", "topics": ["Target reconnaissance and client fingerprinting", "Microsoft Office attack surface", "Word macros in controlled labs", "Windows Library files", "Shortcut-based execution paths"], "tools": ["Browser/Office lab", "Client fingerprinting tools"], "icon": "📄"},
+  {"num": "11", "title": "Locating Public Exploits", "track": "Exploit Research", "topics": ["Safe handling of untrusted exploit code", "Online exploit resources", "Search operators for exploit discovery", "Offline exploit frameworks", "SearchSploit", "Nmap NSE exploit-related scripts", "Selecting an appropriate public exploit"], "tools": ["Exploit-DB", "SearchSploit", "Nmap NSE"], "icon": "🧨"},
+  {"num": "12", "title": "Fixing Exploits", "track": "Exploit Adaptation", "topics": ["Memory corruption exploit fundamentals", "Cross-compiling binaries", "Modifying exploit code", "Buffer and offset troubleshooting", "Adapting web exploits", "Debugging common exploit failures"], "tools": ["gcc", "mingw-w64", "gdb", "Python"], "icon": "🛠️"},
+  {"num": "13", "title": "Antivirus Evasion", "track": "Defensive Bypass Testing", "topics": ["Known vs unknown threats", "AV components and detection engines", "Static/dynamic detection concepts", "Controlled AV-evasion methodology", "Manual and automated evasion experiments"], "tools": ["Controlled AV test VM", "Payload analysis tools"], "icon": "🛡️"},
+  {"num": "14", "title": "Password Attacks", "track": "Credential Attacks", "topics": ["SSH, RDP and HTTP login attacks in labs", "Password-cracking fundamentals", "Wordlist mutation", "Password-manager key files", "SSH private-key passphrases", "NTLM and Net-NTLMv2", "Pass-the-Hash and relay concepts"], "tools": ["Hydra", "John the Ripper", "Hashcat", "ssh2john"], "icon": "🔐"},
+  {"num": "15", "title": "Windows Privilege Escalation", "track": "Windows Post-Exploitation", "topics": ["Windows privileges and access controls", "Situational awareness and enumeration", "Sensitive information discovery", "PowerShell artifacts", "Automated enumeration", "Service binary/DLL hijacking", "Unquoted service paths", "Scheduled tasks and privilege escalation exploits"], "tools": ["PowerShell", "WinPEAS", "Seatbelt"], "icon": "🪟"},
+  {"num": "16", "title": "Linux Privilege Escalation", "track": "Linux Post-Exploitation", "topics": ["Linux users, files and privileges", "Manual and automated enumeration", "User and system trails", "Credential discovery", "Cron and insecure permissions", "SUID and capabilities", "Sudo abuse", "Kernel vulnerability enumeration"], "tools": ["LinPEAS", "pspy", "find", "getcap", "sudo"], "icon": "🐧"},
+  {"num": "17", "title": "Port Redirection and SSH Tunneling", "track": "Network Pivoting", "topics": ["Port forwarding concepts", "Socat forwarding", "SSH local forwarding", "SSH dynamic forwarding", "SSH remote forwarding", "SSH remote dynamic forwarding", "Windows ssh.exe, Plink and Netsh"], "tools": ["SSH", "Socat", "Plink", "Netsh", "sshuttle"], "icon": "↔️"},
+  {"num": "18", "title": "Advanced Tunneling", "track": "Deep Network Access", "topics": ["Tunneling through deep packet inspection", "HTTP tunneling", "Chisel", "DNS tunneling", "dnscat"], "tools": ["Chisel", "dnscat", "curl"], "icon": "🕳️"},
+  {"num": "19", "title": "The Metasploit Framework", "track": "Framework Operations", "topics": ["Metasploit setup and navigation", "Auxiliary modules", "Exploit modules", "Staged and non-staged payloads", "Meterpreter", "Executable payload creation", "Post-exploitation", "Pivoting", "Resource scripts"], "tools": ["msfconsole", "Meterpreter", "msfvenom"], "icon": "⚙️"},
+  {"num": "20", "title": "Active Directory Introduction and Enumeration", "track": "AD Discovery", "topics": ["Manual AD enumeration", "Windows applications for AD discovery", "PowerShell and .NET enumeration", "Permissions and logged-on users", "SPNs", "Object permissions", "Domain shares", "SharpHound collection", "BloodHound analysis"], "tools": ["PowerShell", "PowerView", "SharpHound", "BloodHound"], "icon": "🏢"},
+  {"num": "21", "title": "Attacking Active Directory Authentication", "track": "AD Authentication", "topics": ["NTLM authentication", "Kerberos authentication", "Cached credentials", "Password attacks", "Account options abuse", "Kerberos SPN attacks", "Service-ticket concepts", "Domain-controller impersonation concepts"], "tools": ["Kerberos tooling", "Rubeus", "Credential tooling"], "icon": "🔑"},
+  {"num": "22", "title": "Lateral Movement in Active Directory", "track": "AD Movement & Persistence", "topics": ["WMI, WinRS and WinRM", "PsExec", "Pass-the-Hash", "Overpass-the-Hash", "DCOM", "Persistence concepts", "Golden-ticket concepts", "Shadow-copy abuse"], "tools": ["PsExec", "WinRM", "WMI", "PowerShell"], "icon": "🛰️"},
+  {"num": "23", "title": "Assembling the Pieces", "track": "Integrated Penetration Test", "topics": ["Public-network enumeration", "Web server attack path", "WordPress plugin vulnerabilities", "SSH private-key passphrase cracking", "Sudo privilege escalation", "Developer artifacts", "Internal network access", "Credential validation", "Phishing simulation in an authorized lab", "Internal enumeration", "Kerberoasting", "Relay attack path", "Domain-controller attack path"], "tools": ["Nmap", "Burp Suite", "Metasploit", "Linux/Windows tooling"], "icon": "🧩"},
+  {"num": "24", "title": "Trying Harder: The Labs", "track": "Challenge Labs & Exam Preparation", "topics": ["Challenge lab structure", "Dependency and attack-path reasoning", "Decoy machines", "Routers and NAT", "Credentials and password attacks", "Mock OSCP-style challenge methodology", "OSCP exam information"], "tools": ["Nmap", "Burp Suite", "Metasploit", "BloodHound", "Evidence tooling"], "icon": "🏁"}
+];
+
+let currentModule = "01";
+let currentTab = "overview";
 let currentObjective = null;
 
-function renderGridAndWorkspaces(){
-  const mg = document.getElementById('moduleGrid');
-  const wc = document.getElementById('workspaceContainer');
-  let gHtml = '';
-  let wHtml = '';
-  
-  for(let i=1; i<=24; i++){
-    const n = String(i).padStart(2,'0');
-    const m = MODULES[n];
-    if(!m) continue;
-    
-    gHtml += `
-    <a class="module-card" href="#module-${n}" onclick="selectModule('${n}')">
-      <div class="module-no">${n}</div>
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function getModule(n){return MODULES.find(m=>m.num===n)||MODULES[0]}
+
+function renderSidebarLinks(){
+  const box = document.getElementById("sidebarModuleLinks");
+  if(!box) return;
+  box.innerHTML = MODULES.map(m => `
+    <button class="nav-link ${m.num===currentModule?'active':''}" id="side-m-${m.num}" onclick="openModule('${m.num}')">
+      <span class="badge">${m.num}</span>${esc(m.title)}
+    </button>
+  `).join("");
+}
+
+function renderModuleGrid(){
+  const g = document.getElementById("moduleGrid");
+  if(!g) return;
+  g.innerHTML = MODULES.map(m => `
+    <div class="module-card" onclick="openModule('${m.num}')">
+      <div class="module-no">${m.num}</div>
       <div>
-        <div class="module-phase">${m[1]}</div>
-        <h3>${m[0]}</h3>
-        <p>${m[3].join(' · ')}</p>
+        <div class="module-phase">${esc(m.track)}</div>
+        <h3>${m.icon} ${esc(m.title)}</h3>
+        <p>${m.topics.slice(0,3).join(' · ')}</p>
       </div>
       <span class="arrow">→</span>
-    </a>`;
-
-    wHtml += `
-    <section class="module-workspace" id="module-${n}">
-      <div class="eyebrow">MODULE ${n} · ${m[1]}</div>
-      <h2>${m[0]}</h2>
-      <p class="lead smalllead">${m[2]}</p>
-      <div class="module-lanes">
-        <div class="lane"><b>SEE</b><strong>Visual Model</strong><p>${(SOURCE_SCENES[n]?.nodes||[]).join(' → ')}</p></div>
-        <div class="lane"><b>OPERATE</b><strong>Tools</strong><p>${m[5].map(t=>t[0]).join(', ')}</p></div>
-        <div class="lane"><b>VALIDATE</b><strong>Interpretation</strong><p>Confirm the observable condition before deciding next step.</p></div>
-        <div class="lane"><b>PROVE</b><strong>Practical Mission</strong><p>${m[6]}</p></div>
-      </div>
-      <div class="module-footer">
-        <span>Concept → Visual → Operate → Validate → Prove</span>
-        <button class="btn" onclick="selectModule('${n}')">OPEN LIVE WORKSPACE →</button>
-      </div>
-    </section>`;
-  }
-  
-  if(mg) mg.innerHTML = gHtml;
-  if(wc) wc.innerHTML = wHtml;
+    </div>
+  `).join("");
 }
 
-function selectModule(n){
-  currentModule = String(n).padStart(2,'0');
+function sceneMarkup(m){
+  const S = SCENES[m.num] || SCENES["01"];
+  return `
+  <div class="domainScene">
+    <div class="sceneHeader">
+      <div><span class="sceneIcon">${S.icon}</span><div><div class="sceneKicker">INTERACTIVE DOMAIN MODEL</div><h3>${S.name}</h3></div></div>
+      <span class="sceneStatus">INTERACTIVE</span>
+    </div>
+    <p class="scenePurpose">${S.purpose}</p>
+    <div class="sceneCanvas">
+      ${S.nodes.map((n,i)=>`
+        <button class="sceneNode ${i===0?'selected':''}" data-scene="${i}" onclick="selectSceneNode('${m.num}',${i})">
+          <span class="nodeNum">${String(i+1).padStart(2,'0')}</span>
+          <span class="nodeIcon">◈</span>
+          <b>${n}</b>
+        </button>
+        ${i<S.nodes.length-1?'<div class="sceneConnector">➜</div>':''}
+      `).join("")}
+    </div>
+    <div class="sceneExplanation" id="sceneExplain-${m.num}">
+       <b>${S.nodes[0]}</b><span>Click any node in the model to trace the operational flow.</span>
+    </div>
+  </div>`;
+}
+
+function selectSceneNode(num, i){
+  const S = SCENES[num] || SCENES["01"];
+  document.querySelectorAll(".sceneNode").forEach((n, idx) => n.classList.toggle("selected", idx===i));
+  const box = document.getElementById("sceneExplain-" + num);
+  if(box && S.nodes[i]) {
+    box.innerHTML = `<b>${S.nodes[i]}</b><span>Operational checkpoint ${i+1} of ${S.nodes.length} in the ${S.name} workflow. Verify prerequisites and captured evidence.</span>`;
+  }
+}
+
+function showHome(){
+  document.getElementById("view-home").classList.add("active");
+  document.getElementById("view-module").classList.remove("active");
+  document.querySelectorAll(".nav-link").forEach(b => b.classList.remove("active"));
+  const hBtn = document.getElementById("nav-home");
+  if(hBtn) hBtn.classList.add("active");
+  history.pushState({home:true}, "", "#home");
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+function showDashboard(){
+  showHome();
+  setTimeout(() => {
+    const el = document.getElementById("section-dashboard");
+    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 50);
+}
+
+function showReadinessPage(){
+  showHome();
+  setTimeout(() => {
+    const el = document.getElementById("section-readiness");
+    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 50);
+}
+
+function showCatalogue(){
+  showHome();
+  setTimeout(() => {
+    const el = document.getElementById("section-modules");
+    if(el) el.scrollIntoView({behavior:"smooth", block:"start"});
+  }, 50);
+}
+
+function openModule(num, updateHash=true){
+  const m = getModule(num);
+  currentModule = m.num;
   currentObjective = null;
-  const m = MODULES[currentModule] || MODULES['01'];
   
-  const nt = document.getElementById('nextTitle');
-  const ntxt = document.getElementById('nextText');
-  if(nt) nt.textContent = 'Module ' + currentModule + ' · ' + m[0];
-  if(ntxt) ntxt.textContent = m[2];
+  // Switch view to dedicated module container
+  document.getElementById("view-home").classList.remove("active");
+  document.getElementById("view-module").classList.add("active");
   
-  const pct = Math.max(0, Math.round((parseInt(currentModule)-1)/24*100));
-  const op = document.getElementById('overallPct');
-  const of = document.getElementById('overallFill');
-  if(op) op.textContent = pct;
-  if(of) of.style.width = pct + '%';
+  // Update sidebar active links
+  document.querySelectorAll(".nav-link").forEach(b => b.classList.remove("active"));
+  const activeSide = document.getElementById("side-m-" + m.num);
+  if(activeSide) activeSide.classList.add("active");
   
-  renderModule(currentModule);
-  
-  document.querySelectorAll('.nav a').forEach(a => {
-    a.classList.toggle('active', a.getAttribute('href') === '#module-' + currentModule);
-  });
-  
-  document.querySelectorAll('.module-workspace').forEach(w => {
-    w.classList.toggle('active', w.id === 'module-' + currentModule);
-  });
-
-  const previewEl = document.getElementById('module-preview');
-  if(previewEl) {
-    setTimeout(() => previewEl.scrollIntoView({behavior:'smooth', block:'start'}), 40);
-  }
+  renderModule(m);
+  if(updateHash) history.pushState({module:m.num}, "", "#module-" + m.num);
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
-function renderModule(n){
-  const m = MODULES[n] || MODULES['01'];
-  const ph = document.getElementById('previewHeading');
-  const pn = document.getElementById('previewNumber');
-  const pt = document.getElementById('previewTitle');
-  const ps = document.getElementById('previewSub');
+function renderModule(m){
+  const d = MODULE_DETAILS[m.num] || MODULE_DETAILS["01"];
+  const units = PEN200_UNITS[m.num] || [];
+  const prevNum = String(Math.max(1, parseInt(m.num)-1)).padStart(2,'0');
+  const nextNum = String(Math.min(24, parseInt(m.num)+1)).padStart(2,'0');
   
-  if(ph) ph.textContent = 'Module ' + n + ' · ' + m[0];
-  if(pn) pn.textContent = 'MODULE ' + n + ' · ' + m[1];
-  if(pt) pt.textContent = m[0];
-  if(ps) ps.textContent = m[2];
+  const unitsMarkup = units.length ? `
+  <div class="unit-section">
+    <div class="unit-head">
+      <div>
+        <div class="eyebrow">OFFSEC PEN-200 CURRICULUM HIERARCHY</div>
+        <h3>Learning Units & Specific Objectives</h3>
+      </div>
+      <span class="pill">${units.length} LEARNING UNITS</span>
+    </div>
+    <div class="unit-grid">
+      ${units.map((u, ui) => `
+        <div class="unit-card">
+          <span class="unit-tag">UNIT ${String(ui+1).padStart(2,'0')}</span>
+          <strong>${esc(u[0])}</strong>
+          <ul>
+            ${u[1].map(obj => `<li onclick="selectObjective('${esc(obj)}')" title="Click to focus on this objective">✓ ${esc(obj)}</li>`).join("")}
+          </ul>
+        </div>
+      `).join("")}
+    </div>
+  </div>` : '';
+
+  const html = `
+  <div class="moduleHero">
+    <div class="eyebrow">MODULE ${m.num} · ${esc(m.track)}</div>
+    <h1>${m.icon} ${esc(m.title)}</h1>
+    <p class="lead">${esc(d.goal)}</p>
+    <div class="metaPills">
+      <span class="pill">PEN-200 ALIGNED</span>
+      <span class="pill">${units.length} LEARNING UNITS</span>
+      <span class="pill">${m.topics.length} SUBTOPICS</span>
+      <span class="pill">${d.tools.length} TOOL GROUPS</span>
+      <span class="pill">PRACTICAL LAB</span>
+      <a href="simulator.html" class="pill" style="color:var(--red);font-weight:700">🕹️ PRACTICE IN SIMULATOR →</a>
+    </div>
+  </div>
+
+  ${unitsMarkup}
+
+  <div class="tabBar">
+    <button class="tab ${currentTab==='overview'?'active':''}" data-tab="overview" onclick="setTab('overview')">WHAT YOU LEARN</button>
+    <button class="tab ${currentTab==='visual'?'active':''}" data-tab="visual" onclick="setTab('visual')">VISUAL MODEL</button>
+    <button class="tab ${currentTab==='tools'?'active':''}" data-tab="tools" onclick="setTab('tools')">TOOLS & COMMANDS</button>
+    <button class="tab ${currentTab==='lab'?'active':''}" data-tab="lab" onclick="setTab('lab')">PRACTICAL MISSION</button>
+    <button class="tab ${currentTab==='evidence'?'active':''}" data-tab="evidence" onclick="setTab('evidence')">EVIDENCE</button>
+  </div>
+
+  <div class="tabPanel ${currentTab==='overview'?'active':''}" id="panel-overview">
+    <div class="eyebrow">MODULE OBJECTIVE & CONCEPTS</div>
+    <h2>Core Concept Mastery</h2>
+    <div class="detailGoal"><b>Learning Goal:</b> ${esc(d.goal)}</div>
+    <div class="learningCards">
+      ${d.concepts.map((x,i)=>`
+        <article class="learningCard">
+          <div class="num">CONCEPT ${String(i+1).padStart(2,"0")}</div>
+          <h3>${esc(x[0])}</h3>
+          <p>${esc(x[1])}</p>
+        </article>
+      `).join("")}
+    </div>
+  </div>
+
+  <div class="tabPanel ${currentTab==='visual'?'active':''}" id="panel-visual">
+    <div class="eyebrow">MODULE-SPECIFIC VISUAL FLOW</div>
+    <h2>Follow the ${esc(m.title)} Attack & Verification Pathway</h2>
+    <div class="visualPath">
+      ${d.visual.map((x,i)=>`
+        <div class="visualStep">
+          <div class="stepNo">STEP ${String(i+1).padStart(2,"0")}</div>
+          <h3>${esc(x[0])}</h3>
+          <p>${esc(x[1])}</p>
+        </div>
+      `).join("")}
+    </div>
+    ${sceneMarkup(m)}
+    <div class="detailGoal" style="margin-top:18px">
+      <b>Operator Verification:</b> Follow the transition from left to right. Confirm the observable artifact at each stage before executing the next tool.
+    </div>
+  </div>
+
+  <div class="tabPanel ${currentTab==='tools'?'active':''}" id="panel-tools">
+    <div class="eyebrow">REAL TOOL REASONING & KALI COMMANDS</div>
+    <h2>Tool → Purpose → Syntax → Interpretation</h2>
+    <div class="learningCards">
+      ${d.tools.map((x,i)=>`
+        <article class="toolReal">
+          <div class="num" style="color:var(--red);font:700 12px Consolas;margin-bottom:4px">TOOL ${String(i+1).padStart(2,"0")} · ${esc(x[0])}</div>
+          <h3>${esc(x[1])}</h3>
+          <p>Authorized execution syntax for Kali Linux / training lab:</p>
+          <code>${esc(x[2])}</code>
+        </article>
+      `).join("")}
+    </div>
+    <div class="detailGoal" style="margin-top:18px">
+      <b>Operational Scope:</b> Commands are intended strictly for authorized targets inside your isolated Kali / Proxmox lab environment.
+    </div>
+  </div>
+
+  <div class="tabPanel ${currentTab==='lab'?'active':''}" id="panel-lab">
+    <div class="eyebrow">PRACTICAL MISSION & VALIDATION</div>
+    <h2>Mission ${m.num}: ${esc(m.title)}</h2>
+    <div class="labMission">
+      <h3>Scenario Description</h3>
+      <p>${esc(d.lab)}</p>
+      <div class="missionSteps">
+        ${["Define the scope and verify connectivity.","Form a testable technical hypothesis.","Execute the authorized assessment command.","Analyze the response to validate or refute the hypothesis.","Record reproducible evidence."].map((x,i)=>`
+          <div class="missionStep"><b>${i+1} · ${x.split(". ")[0]}</b> — ${esc(x.split(". ").slice(1).join(". "))}</div>
+        `).join("")}
+      </div>
+      <button class="btn red" onclick="labChoice(1)">START MISSION VALIDATION</button>
+      <div class="feedback" id="labFeedback">Mission ready. Begin by confirming the authorized scope.</div>
+    </div>
+  </div>
+
+  <div class="tabPanel ${currentTab==='evidence'?'active':''}" id="panel-evidence">
+    <div class="eyebrow">PROVE THE RESULT & DELIVERABLES</div>
+    <h2>Evidence Checklist for Module ${m.num}</h2>
+    <div class="evidenceChecklist">
+      ${d.evidence.map(x=>`<div class="evidenceItem">☑ <b>${esc(x)}</b></div>`).join("")}
+    </div>
+    <div class="terminal">========================================================
+SHADOWXLAB AUDIT EVIDENCE RECORD
+========================================================
+Module:     ${m.num} · ${esc(m.title)}
+Scope:      AUTHORIZED TRAINING ENVIRONMENT
+
+[+] Target / Context:
+    [document target host/IP and authorization]
+
+[+] Observation:
+    [record the specific output or behavior observed]
+
+[+] Technical Reasoning:
+    [explain the vulnerability, configuration or result]
+
+[+] Proof Artifacts:
+    [terminal log, packet capture, or screenshot reference]
+========================================================</div>
+  </div>
+
+  <div class="moduleNavFooter">
+    <button class="btn" onclick="openModule('${prevNum}')" ${m.num==='01'?'disabled style="opacity:0.5"':''}>← MODULE ${prevNum}</button>
+    <button class="btn" onclick="showHome()">← RETURN TO COURSE HOME</button>
+    <button class="btn red" onclick="openModule('${nextNum}')" ${m.num==='24'?'disabled style="opacity:0.5"':''}>MODULE ${nextNum} →</button>
+  </div>`;
   
-  renderSubtopics(n);
-  openModuleTab(currentTab);
+  document.getElementById("moduleContent").innerHTML = html;
 }
 
-function renderSubtopics(n){
-  const grid = document.getElementById('subtopicGrid');
-  if(!grid) return;
-  const units = PEN200_SUBTOPICS[n] || [];
-  grid.innerHTML = units.map((u,i) => `
-    <article class="subtopic-unit">
-      <strong>LEARNING UNIT ${String(i+1).padStart(2,'0')} · ${u[0]}</strong>
-      <ul>${u[1].map(o => `<li onclick="selectObjective('${o.replace(/'/g,"\\'")}')" title="Click to focus on this objective">✓ ${o}</li>`).join('')}</ul>
-    </article>`).join('');
+function setTab(tab){
+  currentTab = tab;
+  document.querySelectorAll(".tabBar .tab").forEach(b => b.classList.toggle("active", b.dataset.tab === tab));
+  document.querySelectorAll(".tabPanel").forEach(p => p.classList.toggle("active", p.id === "panel-" + tab));
+  const hash = "#module-" + currentModule + "-" + tab;
+  history.replaceState({module:currentModule, tab}, "", hash);
 }
 
 function selectObjective(objName){
   currentObjective = objName;
   openMentor();
-  const m = MODULES[currentModule] || MODULES['01'];
-  document.getElementById("mentorText").innerHTML = `Focused on Objective: <b>"${objName}"</b> in Module ${currentModule} (${m[0]}).<br><br>Work through the Visual Flow and Tools tabs to inspect the relevant commands and validation steps.`;
+  const m = getModule(currentModule);
+  document.getElementById("mentorText").innerHTML = `Focused on Objective: <b>"${objName}"</b> in Module ${m.num} (${m.title}).<br><br>Work through the Visual Model and Tools tabs to inspect the relevant commands and validation steps.`;
 }
 
-function openModuleTab(tab){
-  currentTab = tab;
-  document.querySelectorAll('.preview-tab').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
-  const m = MODULES[currentModule] || MODULES['01'];
-  const c = document.getElementById('previewContent');
-  if(!c) return;
+function labChoice(n){
+  const f = document.getElementById("labFeedback");
+  if(!f) return;
+  f.textContent = n===1 ? "✓ Correct. Start by confirming the authorized scope and identifying the exact question you are investigating. That drives the tool choice and the evidence capture." : "✕ Not the recommended first move. Follow the visual workflow: scope → question → technique → result → interpretation → evidence.";
+}
 
-  if(tab === 'concepts'){
-    c.innerHTML = `
-      <h3>What you will learn</h3>
-      <p class="muted">${m[2]}</p>
-      <div class="concept-grid">
-        ${m[3].map((x,i) => `<div class="concept"><b>CONCEPT ${String(i+1).padStart(2,'0')}</b>${x}</div>`).join('')}
-      </div>`;
-  } else if(tab === 'visual'){
-    const sc = SOURCE_SCENES[currentModule] || SOURCE_SCENES['01'];
-    const sd = SOURCE_DETAILS[currentModule] || SOURCE_DETAILS['01'];
-    const sceneNodes = (sc.nodes||[]).map((x,i) => `<div class="source-scene-node"><b>${String(i+1).padStart(2,'0')}</b>${x}</div>`).join('');
-    const detailSteps = (sd.visual||[]).map((x,i) => `<div class="source-visual-step"><div class="stepNo">STEP ${String(i+1).padStart(2,'0')}</div><h4>${x[0]}</h4><p>${x[1]}</p></div>`).join('');
-    
-    c.innerHTML = `
-      <h3>Module-specific visual flow</h3>
-      <p class="muted">Follow the interactive domain scene model and the step-by-step verification pathway.</p>
-      <div class="source-scene">
-        <div class="source-scene-head">
-          <div class="source-scene-icon">${sc.icon||'◈'}</div>
-          <div>
-            <div class="source-scene-kicker">DOMAIN VISUAL MODEL</div>
-            <h3>${sc.name}</h3>
-          </div>
-        </div>
-        <p class="source-scene-purpose">${sc.purpose}</p>
-        <div class="source-scene-flow">${sceneNodes}</div>
-      </div>
-      <div class="source-visual-path">${detailSteps}</div>`;
-  } else if(tab === 'tools'){
-    c.innerHTML = `
-      <h3>Tools → purpose → command → interpretation</h3>
-      <p class="muted">Real Kali command syntax and verification guidelines for authorized environments:</p>
-      <div class="tool-list">
-        ${m[5].map(x => `<div class="tool"><strong>${x[0]}</strong><div class="muted">${x[1]}</div><code>${x[2]}</code></div>`).join('')}
-      </div>`;
-  } else if(tab === 'mission'){
-    c.innerHTML = `
-      <h3>Practical mission</h3>
-      <div class="mission"><strong>Mission ${currentModule}:</strong> ${m[6]}</div>
-      <div class="concept-grid" style="margin-top:15px">
-        <div class="concept"><b>01 · SCOPE</b>Verify target IP and authorization boundaries before starting.</div>
-        <div class="concept"><b>02 · OPERATE</b>Execute the appropriate Kali tools or simulator actions.</div>
-        <div class="concept"><b>03 · VALIDATE</b>Interpret output to determine if the hypothesis holds.</div>
-        <div class="concept"><b>04 · PROVE</b>Capture reproducible terminal output and evidence.</div>
-      </div>
-      <div style="margin-top:16px">
-        <button class="btn red" onclick="toast('Mission checklist validated for Module ${currentModule}.')">START MISSION VALIDATION</button>
-      </div>`;
-  } else {
-    c.innerHTML = `
-      <h3>Evidence checklist</h3>
-      <p class="muted">Required deliverables to prove completion of this module:</p>
-      <div class="evidence">
-        <div>Target / Scope</div>
-        <div>Command / Action</div>
-        <div>Observed Output</div>
-        <div>Finding / Decision</div>
-        <div>Business Impact</div>
-        <div>Proof Artifact</div>
-      </div>
-      <div class="mission" style="margin-top:16px">
-        <strong>Completion rule:</strong> A module is complete when the student can explain the result and produce defensible evidence.
-      </div>`;
+function openMentor(){
+  document.getElementById("mentor").classList.add("open");
+  const m = getModule(currentModule);
+  const d = MODULE_DETAILS[m.num] || MODULE_DETAILS["01"];
+  const objNote = currentObjective ? `<br><br><b>Active Objective:</b> ${esc(currentObjective)}` : '';
+  document.getElementById("mentorText").innerHTML = `You are currently reviewing <b>Module ${m.num}: ${esc(m.title)}</b> (${esc(m.track)}).<br>${esc(d.goal)}${objNote}`;
+}
+
+function closeMentor(){
+  document.getElementById("mentor").classList.remove("open");
+}
+
+function mentorExplain(k){
+  const m = getModule(currentModule);
+  const d = MODULE_DETAILS[m.num] || MODULE_DETAILS["01"];
+  const sc = SCENES[m.num] || SCENES["01"];
+  const objText = currentObjective ? ` (Active Objective: ${currentObjective})` : '';
+  let text = '';
+  if(k==="goal") {
+    text = `Module ${m.num}: ${m.title}${objText}. ${d.goal}`;
+  } else if(k==="visual") {
+    text = `Start with the ${sc.name} model: ${(sc.nodes||[]).join(" → ")}. Each transition represents a decision, not just a decorative box. Look for the observable artifact before moving forward.`;
+  } else if(k==="lab") {
+    text = `Your practical mission: ${d.lab}`;
+  } else if(k==="tools") {
+    text = `Tools in this module: ${d.tools.map(t=>t[0] + ' (' + t[2] + ')').join(', ')}. Run these only on authorized lab targets.`;
   }
+  document.getElementById("mentorText").textContent = text;
 }
 
 function toggleReadinessItem(el){
@@ -719,6 +857,20 @@ function checkReadiness(){
   toast('Readiness checkpoint recorded: 3/6 demonstrated.');
 }
 
+function toggleSide(){
+  document.getElementById('sidebar').classList.toggle('collapsed');
+  document.getElementById('main').classList.toggle('expanded');
+  localStorage.setItem('cc-side', document.getElementById('sidebar').classList.contains('collapsed')?'1':'0');
+}
+
+function toggleTheme(){
+  const d = document.documentElement;
+  const dark = d.dataset.theme==='dark';
+  d.dataset.theme = dark?'light':'dark';
+  document.getElementById('theme').textContent = dark?'☼':'☾';
+  localStorage.setItem('cc-theme', d.dataset.theme);
+}
+
 function toast(msg){
   const t = document.getElementById('toast');
   if(!t) return;
@@ -727,30 +879,58 @@ function toast(msg){
   setTimeout(() => t.style.display = 'none', 2600);
 }
 
-// Initial Boot
-renderGridAndWorkspaces();
-renderModule('01');
+function route(){
+  const h = location.hash || "#home";
+  if(h === "#home" || h === "") {
+    showHome();
+    return;
+  }
+  if(h === "#dashboard") {
+    showDashboard();
+    return;
+  }
+  if(h === "#readiness") {
+    showReadinessPage();
+    return;
+  }
+  if(h === "#modules" || h === "#catalogue") {
+    showCatalogue();
+    return;
+  }
+  const m = h.match(/^#module-(\d{2})(?:-(\w+))?$/);
+  if(m) {
+    const validTabs = ["overview","visual","tools","lab","evidence"];
+    if(m[2] && validTabs.includes(m[2])) {
+      currentTab = m[2];
+    }
+    openModule(m[1], false);
+    if(m[2] && validTabs.includes(m[2])) {
+      setTab(m[2]);
+    }
+    return;
+  }
+  showHome();
+}
+
+window.addEventListener("popstate", route);
+window.addEventListener("hashchange", route);
+
+// Boot
+renderSidebarLinks();
+renderModuleGrid();
+route();
 
 (()=>{
-  const hash = location.hash.match(/^#module-(\d+)$/);
-  if(hash) selectModule(hash[1].padStart(2,'0'));
-  
   const t = localStorage.getItem('cc-theme');
   if(t){
     document.documentElement.dataset.theme = t;
     document.getElementById('theme').textContent = t==='dark'?'☼':'☾';
   }
-  
   if(localStorage.getItem('cc-side')==='1'){
     document.getElementById('sidebar').classList.add('collapsed');
     document.getElementById('main').classList.add('expanded');
   }
 })();
-
-window.addEventListener('hashchange', () => {
-  const hash = location.hash.match(/^#module-(\d+)$/);
-  if(hash) selectModule(hash[1].padStart(2,'0'));
-});
 </script>
 </body>
 </html>
