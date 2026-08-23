@@ -6,226 +6,225 @@
 <title>ShadowXLab · VAPT / PEN-200 Platform</title>
 <link rel="canonical" href="https://cybercareer.shadowxlab.com/">
 <style>
-:root{--red:#d71920;--ink:#121212;--muted:#646464;--line:#d8d8d8;--soft:#f5f5f5;--paper:#fff;--green:#177b3b}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#fff;color:var(--ink);font-family:Inter,Arial,sans-serif}
+:root{
+  --red:#d71920;--red-dark:#b51319;--ink:#121212;--muted:#646464;
+  --line:#d8d8d8;--soft:#f5f5f5;--panel:#fff;--paper:#fff;--green:#177b3b;
+  --shadow:0 8px 25px rgba(0,0,0,.06);
+}
+[data-theme="dark"]{
+  --ink:#f5f5f5;--muted:#aaa;--line:#333;--soft:#181818;--panel:#111;--paper:#111;
+  --shadow:0 8px 25px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--panel);color:var(--ink);font-family:Inter,Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;transition:background .2s,color .2s}
 button,a{font:inherit}
+a{color:inherit;text-decoration:none}
 
-/* Header & Navigation Bar */
-.top{height:68px;border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:30;background:#fff;gap:15px}
+/* Top Navigation Bar */
+.top{height:68px;border-bottom:2px solid var(--red);display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:30;background:var(--panel);gap:15px}
 .topLeft{display:flex;align-items:center;gap:14px;min-width:0}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;cursor:pointer;white-space:nowrap}
+.brand{display:flex;align-items:center;gap:12px;cursor:pointer;white-space:nowrap}
 .brand img{height:42px;border-radius:6px;object-fit:contain}
-.brandText{font-weight:900;letter-spacing:.08em;font-size:15px}
+.brandText{font-weight:900;letter-spacing:.08em;font-size:16px}
 .brandText span{color:var(--red)}
 .brandText small{font-size:12px;color:var(--muted);font-weight:700;margin-left:2px}
 .topActions{display:flex;gap:8px;align-items:center;flex-shrink:0}
 
 /* Buttons */
-.btn{border:1px solid #bbb;background:#fff;padding:9px 13px;border-radius:6px;cursor:pointer;text-decoration:none;color:inherit;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:5px;transition:background .15s,border-color .15s}
+.btn{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 13px;border-radius:6px;cursor:pointer;font-size:13px;font-weight:700;display:inline-flex;align-items:center;gap:6px;transition:background .15s,border-color .15s,color .15s}
 .btn.red{background:var(--red);color:#fff;border-color:var(--red)}
-.btn:hover{border-color:var(--red)}
-.btn.red:hover{background:#b51319}
-.sidebarToggleBtn{width:36px;height:36px;border:1px solid #bbb;background:#fff;color:var(--ink);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.btn:hover{border-color:var(--red);color:var(--red)}
+.btn.red:hover{background:var(--red-dark);color:#fff;border-color:var(--red-dark)}
+.sidebarToggleBtn{width:36px;height:36px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
 .sidebarToggleBtn:hover{border-color:var(--red);color:var(--red)}
 .themeBtn{padding:9px 12px;font-size:15px}
 
 /* Layout */
 .layout{display:grid;grid-template-columns:320px minmax(0,1fr);min-height:calc(100vh - 68px);transition:grid-template-columns .2s ease}
-.sidebar{border-right:1px solid var(--line);background:#fbfbfb;height:calc(100vh - 68px);position:sticky;top:68px;overflow:auto;padding:16px 12px}
-.kicker,.mini{font:700 10px Consolas,monospace;letter-spacing:.16em;color:var(--red);text-transform:uppercase}
-.sideHead{padding:0 7px 12px;border-bottom:1px solid #ddd}
+.sidebar{border-right:1px solid var(--line);background:var(--soft);height:calc(100vh - 68px);position:sticky;top:68px;overflow:auto;padding:16px 12px}
+.kicker,.mini{font:700 11px Consolas,monospace;letter-spacing:.16em;color:var(--red);text-transform:uppercase}
+.sideHead{padding:0 7px 12px;border-bottom:1px solid var(--line)}
 .sideHead b{font-size:17px;display:block;margin-top:5px}
-.sideNavLinks{display:grid;gap:4px;margin-top:10px;padding-bottom:10px;border-bottom:1px solid #ddd}
-.sideNavLink{border:1px solid transparent;background:transparent;text-align:left;padding:8px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--ink);text-decoration:none}
-.sideNavLink:hover,.sideNavLink.active{background:#eee;border-color:#ccc}
+.sideNavLinks{display:grid;gap:4px;margin-top:10px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.sideNavLink{border:1px solid transparent;background:transparent;text-align:left;padding:8px 10px;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--ink)}
+.sideNavLink:hover,.sideNavLink.active{background:var(--panel);border-color:var(--line)}
 .sideNavLink.simLink{background:#fff3f3;border-color:#ffcccc;color:var(--red)}
-.sideNavLink.simLink:hover{background:#ffe3e3}
+[data-theme="dark"] .sideNavLink.simLink{background:#2a1515;border-color:#5c1d1d;color:#ff5555}
 .progress{height:5px;background:#e5e5e5;margin-top:12px;border-radius:4px;overflow:hidden}
+[data-theme="dark"] .progress{background:#282828}
 .progress i{display:block;width:4.2%;height:100%;background:var(--red)}
 .moduleList{margin-top:12px;display:grid;gap:4px}
-.moduleNav{border:0;background:transparent;text-align:left;padding:10px 9px;border-radius:6px;cursor:pointer;display:grid;grid-template-columns:30px 1fr;gap:5px}
-.moduleNav:hover{background:#eee}
-.moduleNav.active{background:#eee;border-left:3px solid var(--red);padding-left:6px}
-.moduleNav .n{font:700 11px Consolas;color:var(--red)}
-.moduleNav .t{font-size:12px;font-weight:700}
-.moduleNav .s{font-size:10px;color:#777;grid-column:2}
+.moduleNav{border:0;background:transparent;text-align:left;padding:10px 9px;border-radius:6px;cursor:pointer;display:grid;grid-template-columns:30px 1fr;gap:5px;color:var(--ink)}
+.moduleNav:hover{background:var(--panel)}
+.moduleNav.active{background:var(--panel);border-left:3px solid var(--red);padding-left:6px}
+.moduleNav .n{font:700 12px Consolas;color:var(--red)}
+.moduleNav .t{font-size:13px;font-weight:700}
+.moduleNav .s{font-size:11px;color:var(--muted);grid-column:2}
 main{min-width:0}
 
 /* Views & Module Content */
-.view{padding:38px 42px 90px;max-width:1500px;margin:auto}
-.overviewHero{padding-bottom:30px;border-bottom:1px solid var(--line)}
-h1{font-size:46px;line-height:1.05;margin:10px 0 13px;max-width:1050px}
-h2{font-size:28px;margin:0 0 9px}
-h3{margin:0 0 8px}
-.lead{font-size:17px;line-height:1.65;color:#444;max-width:1050px}
-.meta{display:flex;gap:7px;flex-wrap:wrap;margin:17px 0}
-.pill{border:1px solid #ccc;padding:5px 9px;border-radius:20px;font:10px Consolas}
+.view{padding:34px 38px 90px;max-width:1500px;margin:auto}
+.overviewHero{padding-bottom:24px;border-bottom:1px solid var(--line)}
+h1{font-size:42px;line-height:1.08;margin:10px 0 13px;max-width:1050px;letter-spacing:-.02em}
+h2{font-size:26px;margin:0 0 10px}
+h3{margin:0 0 8px;font-size:18px}
+.lead{font-size:17px;line-height:1.65;color:var(--muted);max-width:1050px}
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0}
+.pill{border:1px solid var(--line);background:var(--panel);padding:5px 10px;border-radius:20px;font:11px Consolas;color:var(--muted)}
+
+/* PEN-200 Hierarchy & Learning Units */
+.unit-section{margin-top:20px;border:1px solid var(--line);background:var(--soft);border-radius:8px;padding:18px}
+.unit-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.unit-head h3{margin:0;font-size:17px}
+.unit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.unit-card{border:1px solid var(--line);background:var(--panel);border-radius:7px;padding:14px}
+.unit-tag{font:800 10px Consolas;color:var(--red);letter-spacing:.12em;display:block;margin-bottom:6px}
+.unit-card strong{display:block;font-size:14px;margin-bottom:8px}
+.unit-card ul{margin:0;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.55}
+.unit-card li{margin:5px 0;cursor:pointer}
+.unit-card li:hover{color:var(--red)}
 
 /* Feature Tabs */
-.tabBar{display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid #ccc;margin:28px 0 22px}
-.tab{border:1px solid #ccc;border-bottom:0;background:#f1f1f1;padding:11px 15px;border-radius:6px 6px 0 0;cursor:pointer;font-size:13px}
-.tab.active{background:#fff;color:var(--red);font-weight:900;border-top:2px solid var(--red)}
+.tabBar{display:flex;flex-wrap:wrap;gap:5px;border-bottom:1px solid var(--line);margin:26px 0 20px}
+.tab{border:1px solid var(--line);border-bottom:0;background:var(--soft);color:var(--muted);padding:11px 16px;border-radius:6px 6px 0 0;cursor:pointer;font-size:13px;font-weight:700}
+.tab.active{background:var(--panel);color:var(--red);font-weight:900;border-top:2px solid var(--red)}
 .panel{display:none}
 .panel.active{display:block}
 
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.grid2{display:grid;grid-template-columns:1.2fr 1fr;gap:14px}
-.card{border:1px solid #ccc;border-radius:9px;padding:17px;background:#fff}
-.card h3{font-size:16px}
-.card p,.card li{font-size:13px;line-height:1.55;color:#555}
-.topic{border-left:4px solid var(--red);background:var(--soft);padding:11px;margin:8px 0}
-.topic b{font-size:13px}.topic small{display:block;color:#666;margin-top:4px}
-.toolGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.tool{border:1px solid #ccc;border-radius:9px;padding:14px;background:#fff}
-.tool b{display:block;font-size:14px}.tool code{font:11px Consolas;color:#555;line-height:1.6}
-.terminal{background:#0e0e0e;color:#eee;border-radius:9px;padding:17px;font:13px/1.7 Consolas;min-height:260px;white-space:pre-wrap}
-.terminal .redtxt{color:#ff5555}
-.lab{border:1px solid #ccc;border-radius:9px;padding:18px}
-.target{background:#f7f7f7;border:1px dashed #aaa;border-radius:7px;padding:13px;font:12px Consolas;margin:10px 0}
-.choice{display:block;width:100%;text-align:left;background:#fff;border:1px solid #bbb;border-radius:6px;padding:10px;margin:7px 0;cursor:pointer}
-.choice:hover{border-color:var(--red)}
-.feedback{border-left:4px solid var(--red);background:#f5f5f5;padding:11px;font-size:12px;margin-top:10px}
-.evidence{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.check{padding:12px;border:1px solid #ddd;background:#fafafa;border-radius:6px;margin:6px 0;font-size:12px}
-.modulePicker{padding:38px 42px}
-.moduleGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.moduleCard{border:1px solid #ccc;background:#fff;text-align:left;padding:17px;border-radius:9px;cursor:pointer;min-height:185px;position:relative}
-.moduleCard:hover{border-color:var(--red);transform:translateY(-1px)}
-.moduleIcon{font-size:30px}.moduleNum{font:700 10px Consolas;color:var(--red);margin-top:10px}
-.moduleTitle{font-size:16px;font-weight:900;margin:6px 0}
-.moduleTrack{font-size:11px;color:#666}
-.moduleTopics{font:10px Consolas;color:var(--red);font-weight:700;margin-top:14px}
-.mentor{display:none;position:fixed;right:20px;bottom:20px;width:400px;max-width:calc(100vw - 40px);background:#fff;border:2px solid var(--red);border-radius:10px;box-shadow:0 20px 60px #0004;z-index:100}
-.mentor.open{display:block}
-.mentorHead{padding:12px;border-bottom:1px solid #ddd;display:flex;justify-content:space-between;align-items:center}
-.mentorBody{padding:15px}
-.close{border:0;background:none;color:var(--red);font-weight:900;cursor:pointer}
-.curriculumHero{padding:34px 28px 22px;border-bottom:1px solid #ddd}
-.curriculumHero h1{font-size:44px;margin:6px 0 8px}
-.curriculumHero .lead{max-width:1000px}
-.phaseStrip{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:22px}
-.phase{border:1px solid #d3d3d3;padding:12px;background:#fafafa;min-height:80px}
-.phase b{display:block;font-size:11px;color:#e21b23}
-.phase span{font-size:12px}
-.curriculumSection{padding:22px 28px}
-.curriculumSection h2{font-size:26px}
-.detailGoal{border-left:4px solid #e21b23;background:#fafafa;padding:16px 18px;margin:12px 0 18px}
-.visualPath{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:14px;overflow:auto}
-.visualStep{min-width:190px;border:1px solid #ccc;padding:18px;background:#fff;position:relative}
-.visualStep:not(:last-child){border-right:0}
-.visualStep .stepNo{color:#e21b23;font:700 11px Consolas}
-.visualStep h3{font-size:17px;margin:6px 0}
-.visualStep p{font-size:13px;color:#555;margin:0}
-.visualStep:after{content:"→";position:absolute;right:-14px;top:45%;background:#fff;color:#e21b23;font-size:20px;z-index:2}
 .learningCards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-.learningCard{border:1px solid #ccc;padding:16px;background:#fff}
-.learningCard .num{color:#e21b23;font:700 11px Consolas}
-.learningCard h3{margin:5px 0 7px;font-size:17px}
-.learningCard p{margin:0;color:#555;font-size:13px}
-.toolReal{border:1px solid #ccc;background:#fff;padding:15px}
-.toolReal h3{margin:0 0 7px}
-.toolReal code{display:block;background:#111;color:#fff;padding:10px;margin-top:10px;white-space:pre-wrap;font-size:12px}
-.labMission{border:2px solid #e21b23;background:#fff;padding:20px}
-.missionSteps{display:grid;gap:8px}
-.missionStep{border:1px solid #ddd;padding:12px}
-.missionStep b{color:#e21b23}
+.learningCard{border:1px solid var(--line);padding:16px;background:var(--panel);border-radius:8px}
+.learningCard .num{color:var(--red);font:700 12px Consolas;margin-bottom:4px}
+.learningCard h3{margin:4px 0 6px;font-size:16px}
+.learningCard p{margin:0;color:var(--muted);font-size:13.5px}
+
+.detailGoal{border-left:4px solid var(--red);background:var(--soft);padding:14px 18px;margin:12px 0 18px;font-size:14px}
+.visualPath{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:14px;overflow:auto}
+.visualStep{min-width:190px;border:1px solid var(--line);padding:18px;background:var(--panel);position:relative}
+.visualStep:not(:last-child){border-right:0}
+.visualStep .stepNo{color:var(--red);font:700 11px Consolas}
+.visualStep h3{font-size:16px;margin:6px 0}
+.visualStep p{font-size:13px;color:var(--muted);margin:0}
+.visualStep:after{content:"→";position:absolute;right:-14px;top:45%;background:var(--panel);color:var(--red);font-size:20px;z-index:2}
+
+.toolReal{border:1px solid var(--line);background:var(--panel);padding:16px;border-radius:8px}
+.toolReal h3{margin:0 0 6px;font-size:16px}
+.toolReal p{color:var(--muted);font-size:13px;margin:0 0 10px}
+.toolReal code{display:block;background:#111;color:#7ce2b0;padding:10px;border-radius:5px;white-space:pre-wrap;font-size:12px;font-family:Consolas,monospace}
+
+.labMission{border:2px solid var(--red);background:var(--panel);padding:20px;border-radius:8px}
+.missionSteps{display:grid;gap:8px;margin:14px 0}
+.missionStep{border:1px solid var(--line);padding:12px;background:var(--soft);font-size:13px;border-radius:6px}
+.missionStep b{color:var(--red)}
+.choice{display:block;width:100%;text-align:left;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:12px;margin:8px 0;cursor:pointer;font-size:13px;color:var(--ink)}
+.choice:hover{border-color:var(--red)}
+.feedback{border-left:4px solid var(--red);background:var(--soft);padding:12px;font-size:13px;margin-top:10px}
+
 .evidenceChecklist{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.evidenceItem{border:1px solid #ddd;padding:12px;background:#fafafa}
+.evidenceItem{border:1px solid var(--line);padding:12px;background:var(--soft);border-radius:6px;font-size:13px}
+.terminal{background:#0e0e0e;color:#eee;border-radius:9px;padding:17px;font:13px/1.7 Consolas,monospace;min-height:240px;white-space:pre-wrap;margin-top:16px}
 
 /* Interactive Domain Scene */
-.domainScene{margin-top:18px;border:1px solid #222;border-radius:12px;background:#101010;color:#fff;overflow:hidden}
+.domainScene{margin-top:18px;border:1px solid #333;border-radius:12px;background:#101010;color:#fff;overflow:hidden}
 .sceneHeader{padding:16px 18px;border-bottom:1px solid #333;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.sceneHeader>div{display:flex;align-items:center;gap:12px}.sceneIcon{font-size:32px}.sceneKicker{font:700 9px Consolas;color:#ff5555;letter-spacing:.15em}.sceneHeader h3{margin:2px 0 0;font-size:20px}.sceneStatus{font:10px Consolas;border:1px solid #555;border-radius:20px;padding:6px 9px;color:#aaa}
-.scenePurpose{margin:0;padding:13px 18px;color:#cfcfcf;font-size:13px;border-bottom:1px solid #333}
-.sceneCanvas{min-height:190px;padding:22px;display:flex;align-items:center;justify-content:center;gap:0;background:radial-gradient(circle at 50% 50%,#242424,#0d0d0d 70%)}
-.sceneNode{width:155px;min-height:125px;background:#181818;border:1px solid #555;color:#fff;border-radius:10px;padding:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px}
-.sceneNode:hover{border-color:#ff5555;transform:translateY(-2px)}.sceneNode.selected{border:2px solid #ff3333;box-shadow:0 0 0 3px #d7192033}.nodeNum{font:9px Consolas;color:#ff5555;align-self:flex-start}.nodeIcon{font-size:30px}.sceneConnector{font-size:25px;color:#ff4444;width:45px;text-align:center}
+.sceneHeader>div{display:flex;align-items:center;gap:12px}.sceneIcon{font-size:32px}.sceneKicker{font:700 9px Consolas;color:#ff5555;letter-spacing:.15em}.sceneHeader h3{margin:2px 0 0;font-size:19px;color:#fff}.sceneStatus{font:10px Consolas;border:1px solid #555;border-radius:20px;padding:5px 9px;color:#aaa}
+.scenePurpose{margin:0;padding:12px 18px;color:#cfcfcf;font-size:13px;border-bottom:1px solid #333}
+.sceneCanvas{min-height:180px;padding:20px;display:flex;align-items:center;justify-content:center;gap:0;background:radial-gradient(circle at 50% 50%,#242424,#0d0d0d 70%);overflow-x:auto}
+.sceneNode{width:150px;min-height:120px;background:#181818;border:1px solid #555;color:#fff;border-radius:10px;padding:12px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;flex-shrink:0}
+.sceneNode:hover{border-color:#ff5555;transform:translateY(-2px)}.sceneNode.selected{border:2px solid #ff3333;box-shadow:0 0 0 3px rgba(215,25,32,.35)}.nodeNum{font:9px Consolas;color:#ff5555;align-self:flex-start}.nodeIcon{font-size:28px}.sceneConnector{font-size:24px;color:#ff4444;width:40px;text-align:center;flex-shrink:0}
 .sceneExplanation{margin:0 18px 18px;padding:12px 14px;background:#181818;border-left:3px solid #ff3333;border-radius:5px;font-size:12px;display:flex;gap:9px;flex-wrap:wrap}.sceneExplanation b{color:#fff}.sceneExplanation span{color:#bbb}
 
 /* Dashboard & Readiness */
-.dashboardHero{padding:42px 32px 28px;background:#fff;border-bottom:1px solid #d9d9d9}
-.dashboardHero h1{font-size:42px;line-height:1.08;margin:8px 0 10px}
-.dashboardHero h1 span{color:#e21b23}
-.dashboardLead{max-width:860px;font-size:18px;line-height:1.55;color:#444}
-.dashboardActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
-.dashBtn{padding:12px 17px;border:1px solid #111;background:#111;color:#fff;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px}
-.dashBtn.primary{background:#e21b23;border-color:#e21b23}
-.dashBtn.light{background:#fff;color:#111}
-.dashboardSection{padding:28px 32px;border-bottom:1px solid #ddd}
-.dashboardSection h2{font-size:28px;margin:6px 0 8px}
+.dashboardHero{padding:38px 34px 24px;background:var(--panel);border-bottom:1px solid var(--line)}
+.dashboardHero h1{font-size:40px;line-height:1.08;margin:8px 0 10px}
+.dashboardHero h1 span{color:var(--red)}
+.dashboardLead{max-width:860px;font-size:17px;line-height:1.55;color:var(--muted)}
+.dashboardActions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.dashBtn{padding:11px 16px;border:1px solid var(--ink);background:var(--panel);color:var(--ink);font-weight:700;font-size:13px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:6px;border-radius:6px}
+.dashBtn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.dashBtn.light{background:var(--panel);color:var(--ink);border-color:var(--line)}
+.dashboardSection{padding:26px 34px;border-bottom:1px solid var(--line)}
+.dashboardSection h2{font-size:26px;margin:6px 0 8px}
 .dashboardGrid{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-top:18px}
-.dashPanel{border:1px solid #ccc;background:#fff;padding:20px}
+.dashPanel{border:1px solid var(--line);background:var(--panel);padding:20px;border-radius:8px}
 .dashPanel h3{margin:0 0 15px;font-size:18px}
-.progressBar{height:12px;background:#eee;border:1px solid #ddd;overflow:hidden}
-.progressFill{height:100%;background:#e21b23;width:0;transition:width .3s}
+.progressBar{height:12px;background:var(--soft);border:1px solid var(--line);overflow:hidden;border-radius:6px}
+.progressFill{height:100%;background:var(--red);width:0;transition:width .3s}
 .phaseRows{display:grid;gap:10px}
 .phaseRow{display:grid;grid-template-columns:105px 1fr 52px;gap:10px;align-items:center;font-size:13px}
-.phaseRow b{font:700 11px Consolas;color:#e21b23}
+.phaseRow b{font:700 11px Consolas;color:var(--red)}
 .phasePct{text-align:right;font-weight:700}
 .readinessList{display:grid;gap:9px}
-.readinessItem{display:flex;gap:10px;align-items:flex-start;padding:10px;border:1px solid #ddd;background:#fafafa;cursor:pointer}
-.readinessItem input{margin-top:3px;accent-color:#e21b23}
-.readinessItem span{font-size:13px;line-height:1.35}
-.readinessItem.done{background:#f4f4f4;text-decoration:line-through;color:#666}
+.readinessItem{display:flex;gap:10px;align-items:flex-start;padding:11px;border:1px solid var(--line);background:var(--soft);border-radius:6px;cursor:pointer}
+.readinessItem input{margin-top:3px;accent-color:var(--red)}
+.readinessItem span{font-size:13.5px;line-height:1.4}
+.readinessItem.done{background:var(--panel);text-decoration:line-through;color:var(--muted)}
 .activityList{display:grid;gap:8px}
-.activity{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #eee;padding:9px 0;font-size:13px}
-.activity time{font:11px Consolas;color:#777}
-.dashboardEmpty{padding:22px;border:1px dashed #bbb;color:#666;background:#fafafa}
+.activity{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:9px 0;font-size:13px}
+.activity time{font:11px Consolas;color:var(--muted)}
+.dashboardEmpty{padding:20px;border:1px dashed var(--line);color:var(--muted);background:var(--soft);border-radius:6px;font-size:13px}
 
-.sxlCommandHero{background:linear-gradient(135deg,#fff,#f7f7f7);border-bottom:1px solid #d7d7d7;padding:38px 34px 30px}
-.sxlCommandHero .routeTag{font:700 10px Consolas;color:var(--red);letter-spacing:2px}
+.sxlCommandHero{background:linear-gradient(135deg,var(--panel),var(--soft));border-bottom:1px solid var(--line);padding:38px 34px 30px}
+.sxlCommandHero .routeTag{font:700 11px Consolas;color:var(--red);letter-spacing:2px}
 .sxlCommandHero h1{font-size:44px;line-height:1.05;margin:8px 0}
 .sxlCommandHero h1 span{color:var(--red)}
 .sxlCommandHero p{max-width:850px;font-size:17px;line-height:1.55;color:var(--muted)}
 .sxlMetricGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;padding:20px 34px}
-.sxlMetric{border:1px solid var(--line);background:#fff;padding:16px}
-.sxlMetric b{display:block;font-size:28px}.sxlMetric small{color:var(--muted)}
+.sxlMetric{border:1px solid var(--line);background:var(--panel);padding:16px;border-radius:8px}
+.sxlMetric b{display:block;font-size:28px}.sxlMetric small{color:var(--muted);font-size:12px}
 .sxlFlow{display:grid;grid-template-columns:repeat(6,1fr);padding:0 34px 24px;gap:8px}
-.sxlFlow .node{position:relative;border:1px solid var(--line);background:#fff;padding:15px 12px}
-.sxlFlow .node:not(:last-child):after{content:"→";position:absolute;right:-8px;top:36%;z-index:2;color:var(--red);background:#fff;padding:0 2px}
-.sxlFlow .node b{font:700 10px Consolas;color:var(--red)}.sxlFlow .node strong{display:block;margin-top:5px;font-size:13px}
+.sxlFlow .node{position:relative;border:1px solid var(--line);background:var(--panel);padding:15px 12px;border-radius:7px}
+.sxlFlow .node:not(:last-child):after{content:"→";position:absolute;right:-8px;top:36%;z-index:2;color:var(--red);background:var(--panel);padding:0 2px;font-weight:900}
+.sxlFlow .node b{font:700 11px Consolas;color:var(--red)}.sxlFlow .node strong{display:block;margin-top:5px;font-size:13px}
 .sxlContentGrid{display:grid;grid-template-columns:1.55fr 1fr;gap:14px;padding:0 34px 30px}
-.sxlPanel{border:1px solid var(--line);background:#fff;padding:20px}
-.sxlPanel h2{font-size:20px;margin:0 0 13px}.sxlPanel p{color:var(--muted);line-height:1.5}
+.sxlPanel{border:1px solid var(--line);background:var(--panel);padding:20px;border-radius:8px}
+.sxlPanel h2{font-size:20px;margin:0 0 13px}.sxlPanel p{color:var(--muted);line-height:1.55}
 .sxlQuickGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
-.sxlQuick{border:1px solid var(--line);background:var(--soft);padding:14px;text-align:left;cursor:pointer;color:var(--ink);text-decoration:none;display:block}
-.sxlQuick:hover{border-color:var(--red)}.sxlQuick b{display:block;color:var(--red);font:700 10px Consolas}.sxlQuick strong{display:block;margin-top:4px}
+.sxlQuick{border:1px solid var(--line);background:var(--soft);padding:14px;text-align:left;cursor:pointer;color:var(--ink);display:block;border-radius:6px}
+.sxlQuick:hover{border-color:var(--red)}.sxlQuick b{display:block;color:var(--red);font:700 10px Consolas}.sxlQuick strong{display:block;margin-top:4px;font-size:13px}
 .sxlReadinessMap{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.sxlReadinessMap .r{border:1px solid var(--line);padding:12px;background:var(--soft);font-size:12px}
+.sxlReadinessMap .r{border:1px solid var(--line);padding:12px;background:var(--soft);font-size:12px;border-radius:6px}
 .sxlReadinessMap .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#bbb;margin-right:6px}
 .sxlReadinessMap .done .dot{background:var(--red)}
 
 .simPromoCard{border:2px solid var(--red);background:linear-gradient(120deg,#fff,#fff6f5);border-radius:10px;padding:22px;margin-top:20px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+[data-theme="dark"] .simPromoCard{background:linear-gradient(120deg,#1c1212,#261212);border-color:#ff4444}
 .simPromoCard h3{font-size:22px;margin:4px 0 6px;color:var(--ink)}
-.simPromoCard p{margin:0;color:#555;font-size:14px;max-width:750px}
+.simPromoCard p{margin:0;color:var(--muted);font-size:14px;max-width:750px}
 
-/* Dark Theme */
-body.sxl-dark{background:#090909;color:#f5f5f5}
-body.sxl-dark .top{background:#111;border-color:#e21b23}
-body.sxl-dark .sidebar{background:#0d0d0d;border-color:#303030}
-body.sxl-dark .sidebar *{color:#eee}
-body.sxl-dark .btn{background:#1a1a1a;border-color:#333;color:#eee}
-body.sxl-dark .sidebarToggleBtn{background:#1a1a1a;border-color:#333;color:#eee}
-body.sxl-dark .moduleNav:hover,body.sxl-dark .moduleNav.active{background:#1d1d1d!important}
-body.sxl-dark .sxlCommandHero,body.sxl-dark .dashboardHero,body.sxl-dark .dashboardSection,
-body.sxl-dark .curriculumHero,body.sxl-dark .curriculumSection,body.sxl-dark .dashPanel,
-body.sxl-dark .sxlPanel,body.sxl-dark .sxlMetric,body.sxl-dark .sxlFlow .node,
-body.sxl-dark .moduleCard,body.sxl-dark .learningCard,body.sxl-dark .toolReal,
-body.sxl-dark .labMission,body.sxl-dark .card,body.sxl-dark .phase,
-body.sxl-dark .readinessItem,body.sxl-dark .sxlQuick,body.sxl-dark .sxlReadinessMap .r{background:#111;color:#eee;border-color:#333}
-body.sxl-dark .sxlCommandHero p,body.sxl-dark .dashboardLead,body.sxl-dark p,body.sxl-dark .lead{color:#aaa}
-body.sxl-dark .simPromoCard{background:linear-gradient(120deg,#181111,#221111);border-color:#ff3b30}
-body.sxl-dark .simPromoCard h3{color:#fff}
-body.sxl-dark .simPromoCard p{color:#ccc}
-body.sxl-dark .tabBar .tab{background:#1a1a1a;color:#ccc;border-color:#333}
-body.sxl-dark .tabBar .tab.active{background:#111;color:#ff3b30;border-top-color:#ff3b30}
+/* Curriculum Catalogue */
+.curriculumHero{padding:34px 28px 22px;border-bottom:1px solid var(--line)}
+.curriculumHero h1{font-size:42px;margin:6px 0 8px}
+.curriculumHero .lead{max-width:1000px}
+.phaseStrip{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-top:22px}
+.phase{border:1px solid var(--line);padding:12px;background:var(--soft);min-height:80px;border-radius:6px}
+.phase b{display:block;font-size:11px;color:var(--red)}
+.phase span{font-size:12px;color:var(--muted)}
+.curriculumSection{padding:22px 28px}
+.curriculumSection h2{font-size:26px}
+.moduleGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.moduleCard{border:1px solid var(--line);background:var(--panel);text-align:left;padding:17px;border-radius:9px;cursor:pointer;min-height:185px;position:relative;color:var(--ink)}
+.moduleCard:hover{border-color:var(--red);transform:translateY(-1px)}
+.moduleIcon{font-size:30px}.moduleNum{font:700 11px Consolas;color:var(--red);margin-top:10px}
+.moduleTitle{font-size:16px;font-weight:900;margin:6px 0}
+.moduleTrack{font-size:12px;color:var(--muted)}
+.moduleTopics{font:11px Consolas;color:var(--red);font-weight:700;margin-top:14px}
+
+/* AI Mentor Modal */
+.mentor{display:none;position:fixed;right:20px;bottom:20px;width:420px;max-width:calc(100vw - 40px);background:var(--panel);border:2px solid var(--red);border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.45);z-index:100}
+.mentor.open{display:block}
+.mentorHead{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.mentorHead b{color:var(--red);font:700 13px Consolas;letter-spacing:1px}
+.mentorBody{padding:16px}
+.mentorBody p{margin:0 0 12px;font-size:13.5px;color:var(--ink);line-height:1.55}
+.close{border:0;background:none;color:var(--red);font-weight:900;cursor:pointer;font-size:13px}
 
 /* Sidebar Collapsed State */
 body.sxl-sidebar-collapsed .layout{grid-template-columns:0 minmax(0,1fr)!important}
 body.sxl-sidebar-collapsed .layout > .sidebar{display:none!important}
 
 @media(max-width:1100px){.moduleGrid{grid-template-columns:repeat(3,1fr)}.sxlFlow{grid-template-columns:repeat(3,1fr)}.sxlContentGrid{grid-template-columns:1fr}.sxlMetricGrid{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:850px){.layout{display:block}.sidebar{position:static;height:auto}.view,.modulePicker{padding:25px 16px}h1{font-size:36px}.visualPath,.learningCards,.evidenceChecklist,.sxlQuickGrid,.sxlReadinessMap,.grid2,.grid3{grid-template-columns:1fr}.visualStep:after{display:none}.moduleGrid{grid-template-columns:1fr 1fr}.sxlFlow{grid-template-columns:1fr 1fr;padding:0 18px 20px}.sxlMetricGrid,.sxlContentGrid{padding-left:18px;padding-right:18px}}
+@media(max-width:850px){.layout{display:block}.sidebar{position:static;height:auto}.view,.modulePicker{padding:25px 16px}h1{font-size:34px}.visualPath,.learningCards,.evidenceChecklist,.sxlQuickGrid,.sxlReadinessMap,.grid2{grid-template-columns:1fr}.visualStep:after{display:none}.moduleGrid{grid-template-columns:1fr 1fr}.sxlFlow{grid-template-columns:1fr 1fr;padding:0 18px 20px}.sxlMetricGrid,.sxlContentGrid{padding-left:18px;padding-right:18px}}
 @media(max-width:650px){.brandText small{display:none}.topActions .btn:not(.red):not(.themeBtn){display:none}}
 @media(max-width:500px){.moduleGrid,.phaseStrip{grid-template-columns:1fr}}
 </style>
@@ -253,7 +252,7 @@ body.sxl-sidebar-collapsed .layout > .sidebar{display:none!important}
   <div class="sideHead">
     <div class="kicker">COMPLETE VAPT LEARNING PATH</div>
     <b id="sideTitle">VAPT Curriculum</b>
-    <div style="font-size:11px;color:#666;margin-top:3px">PEN-200 aligned visual curriculum</div>
+    <div style="font-size:11px;color:var(--muted);margin-top:3px">PEN-200 aligned visual curriculum</div>
     <div class="progress"><i id="progressBar"></i></div>
   </div>
 
@@ -277,91 +276,121 @@ body.sxl-sidebar-collapsed .layout > .sidebar{display:none!important}
   <div class="mentorBody">
     <p id="mentorText">Choose a module. I can explain what you are about to learn, why the tools matter, and what the practical workflow is.</p>
     <button class="choice" onclick="mentorExplain('goal')">What is the goal of this module?</button>
-    <button class="choice" onclick="mentorExplain('visual')">What should I look at first?</button>
-    <button class="choice" onclick="mentorExplain('lab')">What will I actually do?</button>
+    <button class="choice" onclick="mentorExplain('visual')">What should I look at first in the visual flow?</button>
+    <button class="choice" onclick="mentorExplain('lab')">What will I actually do in the lab?</button>
+    <button class="choice" onclick="mentorExplain('tools')">How do the Kali commands connect?</button>
   </div>
 </div>
 
 <script>
+/* ============================================================
+   SHADOWXLAB V10 — PEN-200 / VAPT CURRICULUM DATA
+   Source-of-truth aligned with OffSec PEN-200 Learning Modules
+   ============================================================ */
+
 const SCENES={"01": {"name": "KALI LAB BENCH", "icon": "🖥️", "nodes": ["HOST PC", "KALI VM", "LAB VPN", "TARGET NET"], "purpose": "Connect the operator workstation to the isolated training environment before touching a target."}, "02": {"name": "SECURITY TRIAD", "icon": "🔺", "nodes": ["CONFIDENTIALITY", "INTEGRITY", "AVAILABILITY"], "purpose": "Map a security event to the asset, threat, vulnerability, impact and control."}, "03": {"name": "LEARNING ENGINE", "icon": "🧠", "nodes": ["SEE", "RECALL", "PRACTICE", "TEACH"], "purpose": "Turn a technical concept into a repeatable skill using retrieval, practice and explanation."}, "04": {"name": "PENTEST REPORT", "icon": "📋", "nodes": ["OBSERVATION", "EVIDENCE", "FINDING", "REMEDIATION"], "purpose": "Transform raw technical output into a defensible penetration-test finding."}, "05": {"name": "RECON GRAPH", "icon": "🌐", "nodes": ["DOMAIN", "DNS", "HOST", "PORT", "SERVICE"], "purpose": "Build an attack-surface map from passive and active information gathering."}, "06": {"name": "VULNERABILITY PIPELINE", "icon": "🔎", "nodes": ["DISCOVER", "SCAN", "PLUGIN", "SEVERITY", "VALIDATE"], "purpose": "Move from scanner output to a verified vulnerability instead of treating every alert as exploitable."}, "07": {"name": "WEB REQUEST PIPELINE", "icon": "🌍", "nodes": ["BROWSER", "HTTP", "PROXY", "SERVER", "DATABASE"], "purpose": "Follow a web request through the application stack and identify where security controls matter."}, "08": {"name": "WEB ATTACK SURFACE", "icon": "⚔️", "nodes": ["PATH", "FILE", "UPLOAD", "COMMAND", "SHELL"], "purpose": "Trace common web attack primitives from input to server-side impact."}, "09": {"name": "SQL QUERY ENGINE", "icon": "🗃️", "nodes": ["INPUT", "QUERY", "DATABASE", "ERROR/ROW", "IMPACT"], "purpose": "See how untrusted input changes a database query and how SQL injection is validated."}, "10": {"name": "CLIENT ATTACK CHAIN", "icon": "📄", "nodes": ["USER", "DOCUMENT", "TRIGGER", "PROCESS", "CALLBACK"], "purpose": "Visualize how a client-side attack crosses the user, document and operating-system boundary."}, "11": {"name": "EXPLOIT RESEARCH", "icon": "🧨", "nodes": ["CVE", "ADVISORY", "CODE", "VERSION", "TARGET"], "purpose": "Match a target version and exposure to a credible public exploit without blindly executing unknown code."}, "12": {"name": "EXPLOIT DEBUGGER", "icon": "🛠️", "nodes": ["SOURCE", "COMPILE", "CRASH", "OFFSET", "CONTROL"], "purpose": "Understand why an exploit fails and how controlled debugging turns a crash into a reproducible result."}, "13": {"name": "AV DETECTION PIPELINE", "icon": "🛡️", "nodes": ["FILE", "STATIC", "BEHAVIOR", "DETECTION", "EVASION TEST"], "purpose": "Study how defensive controls inspect payloads and evaluate controlled evasion experiments."}, "14": {"name": "CREDENTIAL ATTACK", "icon": "🔐", "nodes": ["USERNAME", "AUTH", "HASH", "WORDLIST", "ACCESS"], "purpose": "Follow a credential attack from authentication surface to recovered or validated credentials."}, "15": {"name": "WINDOWS PRIVESC", "icon": "🪟", "nodes": ["USER", "SERVICE", "TOKEN", "PRIVILEGE", "SYSTEM"], "purpose": "Trace Windows privilege boundaries and the local escalation paths that can cross them."}, "16": {"name": "LINUX PRIVESC", "icon": "🐧", "nodes": ["USER", "FILES", "SUDO", "SUID", "ROOT"], "purpose": "Inspect Linux permissions and identify the boundary between an unprivileged shell and root."}, "17": {"name": "SSH TUNNEL", "icon": "↔️", "nodes": ["ATTACKER", "SSH", "FORWARD", "INTERNAL", "SERVICE"], "purpose": "Visualize how port forwarding changes reachability between network zones."}, "18": {"name": "DEEP TUNNEL", "icon": "🕳️", "nodes": ["CLIENT", "HTTP/DNS", "TUNNEL", "RELAY", "INTERNAL"], "purpose": "Understand tunneling as a transport problem and compare HTTP and DNS tunneling paths."}, "19": {"name": "METASPLOIT WORKFLOW", "icon": "⚙️", "nodes": ["MODULE", "EXPLOIT", "PAYLOAD", "SESSION", "POST"], "purpose": "Move through the Metasploit lifecycle from module selection to controlled post-exploitation."}, "20": {"name": "ACTIVE DIRECTORY MAP", "icon": "🏢", "nodes": ["USER", "COMPUTER", "GROUP", "SPN", "DOMAIN"], "purpose": "Build an AD relationship graph and identify where permissions and trust relationships create attack paths."}, "21": {"name": "KERBEROS AUTH", "icon": "🎫", "nodes": ["CLIENT", "AS-REQ", "TGT", "TGS", "SERVICE"], "purpose": "Visualize Kerberos authentication and where credential attacks target the protocol."}, "22": {"name": "LATERAL MOVEMENT", "icon": "🛰️", "nodes": ["FOOTHOLD", "ADMIN", "REMOTE EXEC", "NEXT HOST", "DOMAIN"], "purpose": "Trace movement from one compromised Windows host to another using authorized administrative protocols."}, "23": {"name": "FULL ATTACK PATH", "icon": "🧩", "nodes": ["RECON", "INITIAL ACCESS", "FOOTHOLD", "PRIVESC", "PIVOT", "DOMAIN"], "purpose": "Assemble multiple techniques into one coherent end-to-end penetration-test path."}, "24": {"name": "CHALLENGE LAB", "icon": "🏁", "nodes": ["ENUMERATE", "HYPOTHESIZE", "TEST", "CHAIN", "PROVE"], "purpose": "Practice solving an unfamiliar environment by building and testing hypotheses rather than following a recipe."}};
 
-function sceneMarkup(m){
- const S = SCENES[m.num] || SCENES["01"];
- return `
- <div class="domainScene">
-   <div class="sceneHeader">
-     <div><span class="sceneIcon">${S.icon}</span><div><div class="sceneKicker">INTERACTIVE DOMAIN MODEL</div><h3>${S.name}</h3></div></div>
-     <span class="sceneStatus">INTERACTIVE</span>
-   </div>
-   <p class="scenePurpose">${S.purpose}</p>
-   <div class="sceneCanvas">
-     ${S.nodes.map((n,i)=>`
-       <button class="sceneNode ${i===0?'selected':''}" data-scene="${i}" onclick="selectSceneNode('${m.num}',${i})">
-         <span class="nodeNum">${String(i+1).padStart(2,'0')}</span>
-         <span class="nodeIcon">${sceneIcon(m.num,i)}</span>
-         <b>${n}</b>
-       </button>
-       ${i<S.nodes.length-1?'<div class="sceneConnector">➜</div>':''}
-     `).join("")}
-   </div>
-   <div class="sceneExplanation" id="sceneExplain-${m.num}">
-      <b>${S.nodes[0]}</b><span>${sceneExplanation(m.num,0)}</span>
-   </div>
- </div>`;
-}
-
-function sceneIcon(num,i){
- const icons={
- "01":["🖥️","🐧","🔒","🎯"],"02":["🔐","🧱","⚡","🎯"],"03":["👁️","🧠","⌨️","🗣️"],
- "04":["👀","📸","🚩","🛠️"],"05":["🌐","📡","🖥️","🔌"],"06":["📡","🔍","⚠️","✓"],
- "07":["🌐","📨","🧪","🗄️"],"08":["📁","⬆️","💉","🐚"],"09":["⌨️","🧾","🗄️","💥"],
- "10":["👤","📄","⚙️","📡"],"11":["🆔","📚","💻","🎯"],"12":["💻","💥","🔬","🎯"],
- "13":["📄","🔬","🧠","🛡️"],"14":["👤","🔑","#️⃣","🔓"],"15":["👤","⚙️","🎫","👑"],
- "16":["👤","📁","🔑","👑"],"17":["🧑‍💻","🔐","↔️","🖥️"],"18":["🧑‍💻","🌐","🕳️","🏢"],
- "19":["🧩","💣","📦","🖥️"],"20":["👤","💻","👥","🏢"],"21":["👤","📨","🎫","🔑"],
- "22":["🎯","🔑","🛰️","🎯"],"23":["🧭","⚔️","🐚","👑"],"24":["🔎","💡","🧪","🏁"]
- };
- return (icons[num]||icons["01"])[i]||"●";
-}
-
-function sceneExplanation(num,i){
- const map={
- "01":["Prepare the operator workstation and verify the lab boundary.","Kali is the primary offensive workstation.","Use the approved lab connection rather than exposing targets.","The target is reached only inside the authorized environment."],
- "02":["Start with what must be protected.","Identify the security property affected.","Determine which control or weakness matters.","Connect the technical issue to business impact."],
- "03":["Observe the concept before memorizing terminology.","Retrieve it from memory without notes.","Practice the skill repeatedly in a realistic task.","Explain it in your own words to prove understanding."],
- "04":["Record exactly what you observed.","Capture reproducible evidence.","Turn evidence into a finding.","Explain how the issue should be remediated."],
- "05":["Start with the known domain or scope.","Resolve infrastructure and relationships.","Identify reachable hosts.","Map exposed services and ports."],
- "06":["Discover reachable services.","Run a vulnerability assessment.","Understand what the plugin actually detected.","Validate the finding before reporting it."],
- "07":["A user initiates the request.","Inspect the HTTP request and response.","Use a proxy to modify and observe traffic.","Understand what the server and data layer receive."],
- "08":["Identify the controllable path or input.","Test file handling and upload boundaries.","Validate injection behavior safely.","Understand how server-side execution can occur."],
- "09":["Control begins with user input.","See the query shape.","Observe database behavior.","Validate impact through controlled responses."],
- "10":["The user is part of the attack surface.","A document or client artifact becomes the trigger.","The operating system processes the input.","A controlled callback or observable result confirms behavior."],
- "11":["Identify the product and version.","Research advisories and exploit references.","Inspect exploit code before execution.","Match assumptions to the target."],
- "12":["Read the exploit source.","Observe the failure or crash.","Debug the memory/control-flow problem.","Reach a reproducible controlled state."],
- "13":["A file or payload enters the test environment.","Static inspection can identify known patterns.","Behavioral analysis observes execution.","Defensive detection determines the result."],
- "14":["Identify the authentication surface.","Understand what credential material is available.","Apply an appropriate attack model.","Validate recovered credentials only against the authorized target."],
- "15":["Start from the compromised user.","Inspect services and configuration.","Understand token and privilege boundaries.","A valid escalation reaches a higher integrity context."],
- "16":["Start with the current Linux user.","Inspect files, permissions and processes.","Identify sudo/SUID/capability paths.","A controlled escalation reaches root."],
- "17":["The attacker has a foothold.","SSH becomes the transport.","Forwarding changes what can be reached.","An internal service becomes accessible through the tunnel."],
- "18":["Start at the client.","Choose an allowed transport.","The tunnel carries the connection through the boundary.","The internal network becomes reachable without direct routing."],
- "19":["Select the module for the target condition.","The exploit establishes controlled access.","A payload defines the session behavior.","A session enables post-exploitation actions."],
- "20":["Start with a domain identity.","Map computers and users.","Inspect group relationships.","SPNs and permissions reveal attack paths."],
- "21":["The client requests authentication.","The KDC issues a ticket-granting ticket.","A service ticket is requested.","Credential attacks target specific protocol material."],
- "22":["Begin with the existing foothold.","Obtain or use an authorized administrative context.","Use remote execution.","Reach the next host in the attack path."],
- "23":["Recon defines the attack surface.","Initial access establishes a foothold.","Privilege escalation increases control.","Pivoting expands reach and the final path is proven."],
- "24":["Enumerate without assumptions.","Build a hypothesis from evidence.","Test the hypothesis.","Chain only validated steps and document the route to completion."]
- };
- return (map[num]||map["01"])[i]||"Observe the relationship and explain why it matters.";
-}
-
-function selectSceneNode(num,i){
- const S=SCENES[num]; if(!S)return;
- document.querySelectorAll(".sceneNode").forEach((n,idx)=>{
-   n.classList.toggle("selected", idx===i);
- });
- const box=document.getElementById("sceneExplain-"+num);
- if(box) box.innerHTML="<b>"+S.nodes[i]+"</b><span>"+sceneExplanation(num,i)+"</span>";
-}
+const PEN200_UNITS = {
+  "01": [
+    ["Welcome to PWK", ["Take inventory over what's included in the course", "Set up an Attacking Kali VM", "Connect to and interact over the PWK VPN", "Understand how to complete Module Exercises"]],
+    ["How to Approach the Course", ["Conceptualize a learning model based on increasing uncertainty", "Understand the different learning components included in PEN-200"]],
+    ["Summary of PWK Learning Modules", ["Obtain a high level overview of what's covered in each PEN-200 Learning Module"]]
+  ],
+  "02": [
+    ["The Practice of Cybersecurity", ["Recognize the challenges unique to information security", "Understand how offensive and defensive security reflect each other", "Begin to build a mental model of useful mindsets applicable to information security"]],
+    ["Threats and Threat Actors", ["Understand how attackers and defenders learn from each other", "Understand the differences between risks, threats, vulnerabilities, and exploits"]],
+    ["The CIA Triad & Controls", ["Understand Confidentiality, Integrity, and Availability", "Map technical weaknesses to preventive, detective, and corrective controls", "Connect technical findings to business impact and governance standards"]]
+  ],
+  "03": [
+    ["The Science of Learning & Memory", ["Understand cognitive load, retrieval practice, and spaced repetition", "Analyze the challenges of acquiring hands-on technical skills"]],
+    ["Demonstrative & Active Methodologies", ["Study real-world technical case studies to build intuition", "Apply SQ3R, PQ4R, Leitner, and Feynman techniques to cybersecurity concepts"]],
+    ["Practical Study & Exam Preparation", ["Build structured lab journals and technical documentation", "Develop problem-solving frameworks for unfamiliar challenge environments"]]
+  ],
+  "04": [
+    ["Understanding Note-Taking", ["Review the deliverables for penetration testing engagements", "Understand the importance of note portability", "Identify the general structure of pentesting documentation", "Choose the right note-taking tool", "Understand the importance of taking screenshots", "Use tools to take screenshots"]],
+    ["Writing Effective Technical Penetration Testing Reports", ["Organize technical findings into clear, reproducible reports", "Communicate evidence, impact and remediation effectively"]]
+  ],
+  "05": [
+    ["Passive Information Gathering", ["Perform open-source intelligence (OSINT) and search engine reconnaissance", "Query Whois registration data, Netcraft, and DNS records passively", "Identify leaked credentials and exposed open-source code repositories"]],
+    ["Active Information Gathering", ["Perform DNS enumeration, forward lookups, and zone transfer queries", "Understand TCP and UDP port scanning theory", "Execute network and service port scans using Nmap", "Enumerate SMB, NetBIOS, SMTP, and SNMP services on live targets"]]
+  ],
+  "06": [
+    ["Vulnerability Scanning Theory & Operations", ["Understand how vulnerability scanners work", "Understand types of vulnerability scans", "Understand things to consider in a vulnerability scan", "Install Nessus & understand components", "Perform a vulnerability scan"]],
+    ["Vulnerability Analysis & Validation", ["Analyze scan results", "Perform an authenticated vulnerability scan", "Work with Nessus plugins", "Use NSE vulnerability scripts", "Manually validate candidate vulnerabilities to eliminate false positives"]]
+  ],
+  "07": [
+    ["Web Application Architecture & Protocols", ["Understand how web applications work", "Understand web application architecture", "Inspect HTTP methods, status codes, headers, and cookies"]],
+    ["Web Application Enumeration & Proxies", ["Identify technologies and attack surfaces", "Use Burp Suite as part of web application testing", "Perform directory and endpoint enumeration with ffuf and Gobuster"]]
+  ],
+  "08": [
+    ["Directory Traversal & File Inclusion", ["Identify and test directory traversal weaknesses", "Exploit Local File Inclusion (LFI) and PHP stream wrappers", "Understand Remote File Inclusion (RFI) concepts"]],
+    ["File Upload & Command Injection", ["Test and bypass file upload restrictions", "Identify and exploit OS command injection vulnerabilities", "Turn web weaknesses into controlled server-side access"]]
+  ],
+  "09": [
+    ["SQL Injection Fundamentals & Discovery", ["Understand database types and characteristics", "Understand SQL query logic and syntax", "Manually discover SQL injection points", "Exploit UNION-based and error-based SQL injection"]],
+    ["Advanced SQLi & Automation", ["Understand blind SQL injections (boolean and time-based)", "Execute database commands via database extensions", "Automate authorized SQL injection attacks using SQLmap"]]
+  ],
+  "10": [
+    ["Target Reconnaissance & Client Profiling", ["Perform information gathering and client fingerprinting", "Inspect browser environments and trust boundaries"]],
+    ["Client-Side Execution Vectors", ["Prepare a client-side attack", "Leverage Microsoft Word macros in training environments", "Obtain code execution via Windows Library Files and shortcut artifacts"]]
+  ],
+  "11": [
+    ["Exploit Research & Repositories", ["Understand the Exploit Database (Exploit-DB)", "Search offline exploit frameworks using SearchSploit", "Use Nmap NSE exploit-related scripts"]],
+    ["Exploit Selection & Verification", ["Evaluate exploit prerequisites: version, architecture, and configuration", "Safely inspect untrusted exploit source code before execution"]]
+  ],
+  "12": [
+    ["Exploit Adaptation & Memory Debugging", ["Understand memory corruption exploit fundamentals", "Cross-compile exploit code for Windows and Linux", "Modify buffer offsets and return addresses in exploit code"]],
+    ["Web Exploit Fixing & Troubleshooting", ["Select a vulnerability and fix the code", "Troubleshoot common exploit-development and socket errors"]]
+  ],
+  "13": [
+    ["Antivirus Detection Mechanisms", ["Understand signature-based, heuristic, and dynamic behavioral detection engines", "Differentiate between on-disk scanning and in-memory execution monitoring"]],
+    ["Controlled AV-Evasion Methodology", ["Practice in-memory evasion and custom payloads", "Understand thread injection and process migration", "Automate controlled AV-evasion workflows in test VMs"]]
+  ],
+  "14": [
+    ["Online Password Attacks", ["Understand SSH and RDP authentication mechanisms", "Test HTTP POST login forms using Hydra", "Account for account lockout policies and rate limiting"]],
+    ["Offline Password Cracking", ["Understand hashes and cracking methodology", "Mutate wordlists with custom rules", "Work with SSH private-key passphrases", "Crack NTLM and understand passing NTLM", "Crack Net-NTLMv2 and understand Net-NTLMv2 relaying"]]
+  ],
+  "15": [
+    ["Windows Situational Awareness & Enumeration", ["Understand Windows privileges and access-control mechanisms", "Perform situational awareness using PowerShell and CMD", "Find credentials and sensitive information hidden in plain view", "Perform automated enumeration using WinPEAS and Seatbelt"]],
+    ["Windows Local Privilege Escalation", ["Abuse service binary hijacking and DLL hijacking", "Identify and exploit unquoted service paths", "Abuse scheduled tasks and token privileges for privilege escalation"]]
+  ],
+  "16": [
+    ["Linux Enumeration & Discovery", ["Perform manual enumeration of users, groups, and files", "Inspect user trails and service footprints", "Perform automated enumeration with LinPEAS and pspy"]],
+    ["Linux Privilege Escalation Paths", ["Abuse cron jobs and insecure file permissions", "Abuse SUID binaries and Linux capabilities", "Abuse delegated sudo commands (sudo -l)", "Exploit kernel vulnerabilities safely in labs"]]
+  ],
+  "17": [
+    ["Port Forwarding Concepts & Socat", ["Understand network pivoting, port forwarding, and routing boundaries", "Use Socat for port forwarding"]],
+    ["SSH Tunneling & Port Redirection", ["Perform SSH local port forwarding", "Perform SSH dynamic port forwarding (SOCKS)", "Perform SSH remote port forwarding", "Perform SSH remote dynamic port forwarding", "Use sshuttle, Plink, and Netsh"]]
+  ],
+  "18": [
+    ["Advanced Encapsulation & Proxying", ["Tunnel through deep packet inspection barriers", "Deploy HTTP encapsulation tunnels using Chisel"]],
+    ["DNS Tunneling & Multi-Hop Pivots", ["Deploy DNS tunneling with dnscat", "Chain tunnels across segmented enterprise environments"]]
+  ],
+  "19": [
+    ["Metasploit Architecture & Setup", ["Understand Metasploit Framework setup and navigation", "Configure auxiliary and exploit modules", "Select staged and non-staged payloads"]],
+    ["Session Management & Post-Exploitation", ["Manage active sessions and Meterpreter commands", "Create executable payloads with msfvenom", "Execute post-exploitation and internal pivoting"]]
+  ],
+  "20": [
+    ["Active Directory Architecture & Enumeration", ["Understand Active Directory domain controllers, trees, and forests", "Enumerate Active Directory using legacy Windows tools and LDAP", "Enumerate Active Directory using PowerShell and .NET classes"]],
+    ["Advanced AD Graph Analysis", ["Enumerate SPNs, shares, and object permissions with PowerView", "Collect domain artifacts with SharpHound", "Analyze attack paths using BloodHound"]]
+  ],
+  "21": [
+    ["Active Directory Authentication Protocols", ["Understand NTLM and Kerberos authentication mechanisms (AS-REQ, TGT, TGS)", "Understand where Windows caches authentication objects and tickets"]],
+    ["Authentication Abuse & Attacks", ["Execute Kerberoasting against service accounts with SPNs", "Abuse account options (AS-REP Roasting)", "Execute Pass-the-Hash and delegation attacks"]]
+  ],
+  "22": [
+    ["Remote Administration & Lateral Movement", ["Execute lateral movement using WinRM / Evil-WinRM", "Perform remote execution with WMI and PsExec"]],
+    ["Credential Reuse & Domain Persistence", ["Execute Pass-the-Hash and Overpass-the-Hash", "Understand Golden Ticket, Silver Ticket, and Shadow Copy persistence concepts"]]
+  ],
+  "23": [
+    ["Integrated Penetration Test Execution", ["Combine public-network enumeration and web server exploitation", "Perform credential recovery, privilege escalation, and internal pivoting"]],
+    ["Full Domain Compromise & Reporting", ["Execute multi-stage Active Directory credential harvesting and DC access", "Assemble chronological evidence into a coherent client-ready narrative"]]
+  ],
+  "24": [
+    ["Methodology Under Uncertainty", ["Apply PEN-200 techniques to unfamiliar challenge networks", "Formulate, test, and adapt hypotheses independently based on observed evidence"]],
+    ["Exam Strategy & Deliverables", ["Manage exam time, note-taking rigor, and documentation under pressure", "Produce complete, reproducible proof deliverables for OSCP certification"]]
+  ]
+};
 
 const MODULE_DETAILS={"01": {"goal": "Prepare the Kali-based operator workstation, understand the course lab boundary, and verify safe connectivity before assessment.", "visual": [["Operator PC", "Your Windows/Linux host provides the virtualization layer."], ["Kali VM", "Kali is the controlled offensive workstation where assessment tools run."], ["VPN / Lab Network", "The lab connection places the operator inside the authorized training boundary."], ["Target", "The target is reachable only inside the approved scope."]], "concepts": [["Lab boundary", "Define exactly which hosts, networks and services are authorized."], ["Kali workflow", "Use the terminal, filesystem, networking and tool repositories as one working environment."], ["Connectivity", "Verify addressing, routes and reachability before troubleshooting tools."], ["Evidence workspace", "Create a repeatable place for notes, screenshots and command output."]], "tools": [["ip", "Inspect interfaces and addresses.", "ip addr"], ["ip route", "Inspect routing and the lab path.", "ip route"], ["ping", "Check basic reachability where ICMP is allowed.", "ping -c 3 <target>"], ["openvpn", "Connect to an authorized training VPN when required.", "sudo openvpn <lab-config.ovpn>"]], "lab": "Build the workstation-to-target path. Record your Kali IP, route, target scope and one successful connectivity test.", "evidence": ["Kali IP address", "Routing table", "Authorized target/scope", "Connectivity result"]}, "02": {"goal": "Build the security vocabulary needed to reason about a penetration test: assets, threats, vulnerabilities, risk, controls and business impact.", "visual": [["Asset", "What has value and needs protection?"], ["Threat", "What can cause harm or attempt compromise?"], ["Vulnerability", "What weakness makes the threat possible?"], ["Risk / Impact", "What is the consequence and likelihood?"]], "concepts": [["CIA triad", "Confidentiality, integrity and availability describe core security objectives."], ["Threat vs vulnerability", "A threat is a potential cause of harm; a vulnerability is a weakness that can be exploited."], ["Exploit", "A technique or code path that takes advantage of a vulnerability."], ["Risk", "A decision-oriented view combining likelihood and impact."]], "tools": [["Threat model", "Map assets, threats, weaknesses and controls.", "asset → threat → vulnerability → impact"], ["CIA mapping", "Classify the security property affected.", "confidentiality / integrity / availability"], ["Control mapping", "Connect a weakness to a preventive, detective or corrective control.", "finding → control → residual risk"]], "lab": "Given a small enterprise environment, classify its assets, identify threats and vulnerabilities, and explain the business impact of one finding.", "evidence": ["Asset inventory", "Threat/vulnerability relationship", "CIA classification", "Risk statement"]}, "03": {"goal": "Turn PEN-200 knowledge into durable practical skill using active recall, demonstration, deliberate practice and explanation.", "visual": [["SEE", "Observe a demonstrated technique."], ["RECALL", "Reconstruct the idea without notes."], ["PRACTICE", "Repeat it against a controlled target."], ["EXPLAIN", "Teach the reasoning and trade-offs."]], "concepts": [["Retrieval practice", "Recall the workflow instead of rereading it."], ["Demonstration", "Watch the complete technique before reproducing it."], ["Deliberate practice", "Repeat a focused skill and correct the exact failure."], ["Feynman method", "Explain the concept simply enough to expose gaps."]], "tools": [["Notes", "Capture decisions, not copied prose.", "What? Why? Result?"], ["Flashcards", "Recall commands, concepts and distinctions.", "prompt → answer → review"], ["Lab journal", "Record attempts and failure analysis.", "attempt → observation → correction"]], "lab": "Take one technical workflow and produce a one-page visual explanation, then reproduce it from memory in the lab.", "evidence": ["Self-explanation", "Attempt log", "Corrected workflow", "Recall check"]}, "04": {"goal": "Produce penetration-test evidence and reporting that another tester can reproduce and a client can understand.", "visual": [["Observation", "What did the tester actually see?"], ["Evidence", "What artifact proves it?"], ["Finding", "Why is it a security issue?"], ["Remediation", "What should the owner change?"]], "concepts": [["Finding structure", "Title, severity, affected asset, description, evidence, impact and remediation."], ["Evidence quality", "Evidence must be relevant, reproducible and tied to the claim."], ["Executive vs technical", "Business readers need impact; technical readers need reproduction detail."], ["Portable notes", "Capture useful information during testing rather than reconstructing it later."]], "tools": [["Markdown", "Create structured technical notes.", "# Finding\\n## Evidence"], ["Screenshot tool", "Capture the exact state that proves the result.", "select → capture → annotate"], ["Terminal logging", "Preserve command/output context.", "script -a session.log"], ["Obsidian/CherryTree", "Organize notes by host and finding.", "host → service → finding"]], "lab": "Create one complete finding from a controlled vulnerability: evidence, impact, reproduction and remediation.", "evidence": ["Finding title", "Affected asset", "Proof screenshot/output", "Impact", "Remediation"]}, "05": {"goal": "Turn an unknown target into an attack-surface map using passive research, DNS, host discovery, port scanning and service enumeration.", "visual": [["Scope", "Known domain/IP and authorization."], ["Discovery", "Find hosts and exposed services."], ["Enumeration", "Identify versions, protocols and metadata."], ["Attack Surface", "Prioritize what deserves deeper testing."]], "concepts": [["Passive vs active", "Passive research gathers information without directly probing the target; active enumeration interacts with it."], ["Host discovery", "Determine which systems are reachable."], ["Port/service enumeration", "Map listening services and identify versions."], ["Living off the land", "Use legitimate built-in services or commands when appropriate."]], "tools": [["Nmap", "Host, port, version and script scanning.", "nmap -sC -sV <target>"], ["Netcat", "Test TCP connectivity and interact with simple services.", "nc -nv <target> <port>"], ["dig", "Query DNS records.", "dig <domain>"], ["smbclient", "Enumerate accessible SMB shares.", "smbclient -L //<target> -N"], ["enum4linux", "Enumerate common Windows/SMB information.", "enum4linux -a <target>"]], "lab": "Starting with an authorized target, build a service inventory and identify three follow-up enumeration questions.", "evidence": ["Target scope", "Nmap result", "Service/version table", "Follow-up hypotheses"]}, "06": {"goal": "Understand vulnerability scanning as a pipeline from discovery to scanner output to manual validation.", "visual": [["Asset", "Identify what is being assessed."], ["Scanner", "Apply checks and plugins."], ["Finding", "Read the technical result."], ["Validation", "Confirm whether it is actually present and relevant."]], "concepts": [["Scanner vs proof", "A scanner identifies possible weaknesses; the tester validates the finding."], ["Plugin logic", "Understand what condition caused a scanner to report an issue."], ["Authenticated scanning", "Credentials can reveal configuration and local weaknesses unavailable to unauthenticated scans."], ["False positives", "A reported condition may not be exploitable or relevant in context."]], "tools": [["Nessus", "Run and interpret vulnerability assessments.", "nessus web console"], ["Nmap NSE", "Run targeted vulnerability scripts.", "nmap --script vuln <target>"], ["Nmap service detection", "Correlate versions with known exposure.", "nmap -sV <target>"]], "lab": "Run a controlled scan, choose one high-value result, explain why it triggered, then validate it manually.", "evidence": ["Scan configuration", "Finding ID/title", "Plugin evidence", "Manual validation result"]}, "07": {"goal": "Understand a web application as a request/response system and learn where enumeration and interception fit into assessment.", "visual": [["Browser", "User action creates a request."], ["HTTP", "Request/response carries method, headers, cookies and data."], ["Proxy", "Tester can observe and modify traffic."], ["Server/Data", "Application logic processes input and accesses backend resources."]], "concepts": [["HTTP methods", "GET, POST and other methods communicate intent and data."], ["Headers/cookies", "Metadata and state can affect application behavior."], ["Proxying", "Intercept requests to understand application behavior."], ["API testing", "Treat API endpoints as first-class attack surfaces."]], "tools": [["Burp Suite", "Intercept, modify and replay web traffic.", "Burp Proxy → HTTP history"], ["curl", "Make controlled HTTP requests from the terminal.", "curl -i http://<target>/"], ["DevTools", "Inspect DOM, network requests and client behavior.", "F12 → Network"], ["ffuf", "Discover paths and parameters in an authorized lab.", "ffuf -u http://<target>/FUZZ -w <wordlist>"]], "lab": "Map one web application from browser request to backend response and identify three attack-surface locations.", "evidence": ["Request/response", "Headers/cookies", "Endpoint inventory", "Attack-surface map"]}, "08": {"goal": "Recognize common web attack primitives and follow the path from controllable input to server-side impact.", "visual": [["Input", "Find attacker-controlled data."], ["File / Path", "Test how the application handles paths and files."], ["Interpreter", "Determine whether input reaches a dangerous interpreter."], ["Impact", "Validate the security consequence in a controlled way."]], "concepts": [["Directory traversal", "Manipulating path components to access unintended files."], ["File inclusion", "Applications may load attacker-influenced local or remote resources."], ["File upload", "Validation and storage controls determine whether uploaded content is dangerous."], ["Command injection", "Untrusted input reaches an operating-system command interpreter."]], "tools": [["Burp Suite", "Modify web parameters and replay requests.", "Repeater → modify → send"], ["curl", "Reproduce requests outside the browser.", "curl -i -X POST ..."], ["ffuf", "Discover files, directories and parameters.", "ffuf -u .../FUZZ -w ..."], ["Gobuster", "Enumerate directories or DNS in authorized scopes.", "gobuster dir -u http://<target> -w <wordlist>"]], "lab": "Assess a deliberately vulnerable web application and prove one file/path weakness and one input-to-command weakness without attacking anything outside the lab.", "evidence": ["Original request", "Modified request", "Observed response", "Impact proof"]}, "09": {"goal": "Understand how application input becomes SQL, identify injection behavior and validate SQLi safely.", "visual": [["Input", "User-controlled value enters the application."], ["Query", "Application builds a database statement."], ["Database", "The DBMS interprets the resulting query."], ["Result", "Errors, rows or blind behavior reveal the effect."]], "concepts": [["SQL structure", "Understand SELECT, WHERE, UNION and predicates before testing injection."], ["Manual discovery", "Change one input at a time and observe behavior."], ["UNION/error/blind", "Different SQLi classes expose different observable signals."], ["Automation", "SQLmap can automate testing after the manual hypothesis is understood."]], "tools": [["Burp Suite", "Edit the parameter and compare responses.", "Repeater → parameter mutation"], ["curl", "Repeat precise requests.", "curl 'http://<target>/item?id=1'"], ["SQLmap", "Automate authorized SQL injection testing.", "sqlmap -u 'http://<target>/item?id=1' --batch"]], "lab": "Identify an injectable parameter in a deliberately vulnerable application, classify the SQLi type and demonstrate controlled data retrieval.", "evidence": ["Original parameter", "Test payload", "Response comparison", "SQLi classification"]}, "10": {"goal": "Understand how client-side artifacts, user interaction and Windows application behavior can form an attack path.", "visual": [["Target", "Fingerprint the client and user environment."], ["Artifact", "Document, library or shortcut reaches the client."], ["Execution", "Windows processes the artifact."], ["Observable Result", "The controlled lab shows whether execution occurred."]], "concepts": [["Client fingerprinting", "Learn the operating system, applications and likely attack surface."], ["Office attack surface", "Documents can trigger application features and content processing."], ["Library files", "Windows search/loading behavior can create security-relevant paths."], ["Shortcut execution", "User-launched shortcuts can invoke programs and parameters."]], "tools": [["Office test VM", "Use a disposable Windows client for safe experimentation.", "isolated Windows VM"], ["Browser DevTools", "Inspect client-side behavior.", "F12 → Network/Console"], ["Client fingerprinting", "Identify application and OS details.", "authorized enumeration"]], "lab": "In an isolated Windows client, identify a client-side attack surface and document the exact user-to-process path.", "evidence": ["Client profile", "Artifact", "Process observation", "Impact/limitation"]}, "11": {"goal": "Find credible public exploit references, inspect them safely, and determine whether they match the target version and assumptions.", "visual": [["Version", "Identify the exact product/version."], ["Research", "Find advisories and exploit references."], ["Code Review", "Inspect prerequisites and assumptions."], ["Match", "Decide whether the exploit fits the authorized target."]], "concepts": [["Exploit provenance", "Prefer reputable references and understand where code came from."], ["Version matching", "An exploit for a nearby version may not work or may behave differently."], ["Prerequisites", "Architecture, configuration, authentication and network access can matter."], ["Safe handling", "Treat downloaded exploit code as untrusted."]], "tools": [["SearchSploit", "Search local Exploit-DB data.", "searchsploit <keyword>"], ["Nmap NSE", "Use relevant scripts for authorized validation.", "nmap --script <script> <target>"], ["Exploit-DB", "Research public exploit references in a controlled workflow.", "CVE → exploit reference"]], "lab": "Given a vulnerable service version, research two candidate exploits and reject at least one using evidence-based reasoning.", "evidence": ["Target version", "Research references", "Exploit assumptions", "Selection rationale"]}, "12": {"goal": "Adapt and troubleshoot exploit code in a controlled lab by understanding compilation, offsets, architecture and failure modes.", "visual": [["Source", "Read what the exploit actually does."], ["Build", "Compile for the target architecture."], ["Failure", "Observe crash or incorrect behavior."], ["Debug", "Identify the mismatch and correct it."]], "concepts": [["Architecture", "32/64-bit and ABI differences affect exploit behavior."], ["Offsets", "Memory-corruption exploits depend on precise control locations."], ["Cross-compilation", "Build code for a target operating system/architecture."], ["Debugging", "Use a debugger to replace guesswork with observed state."]], "tools": [["gcc", "Compile C exploit code for Linux.", "gcc exploit.c -o exploit"], ["mingw-w64", "Cross-compile Windows binaries from Linux.", "x86_64-w64-mingw32-gcc exploit.c -o exploit.exe"], ["gdb", "Inspect registers, memory and execution.", "gdb ./exploit"], ["Python", "Automate payload construction and test cases.", "python3 script.py"]], "lab": "Take a provided safe lab exploit that initially fails, identify the failure reason, adapt it and demonstrate the corrected behavior.", "evidence": ["Original source", "Build command", "Failure observation", "Debug finding", "Corrected result"]}, "13": {"goal": "Study how antivirus detection works and evaluate controlled evasion experiments without confusing simulation with real-world bypass claims.", "visual": [["Artifact", "A file or payload enters the test environment."], ["Static", "Signatures and file characteristics may be inspected."], ["Behavior", "Execution can reveal suspicious activity."], ["Detection", "The defensive control produces an observable verdict."]], "concepts": [["Known threats", "Known signatures and indicators can produce detections."], ["Static analysis", "Inspect characteristics without executing the artifact."], ["Dynamic analysis", "Observe behavior during controlled execution."], ["Evasion testing", "Change one variable and measure the defensive response."]], "tools": [["AV test VM", "Use an isolated defensive test environment.", "snapshot → test → revert"], ["Payload analysis", "Inspect file structure and indicators.", "strings / file / hashes"], ["Detection console", "Record the exact defensive verdict.", "event → rule → evidence"]], "lab": "Compare two controlled test artifacts and document which defensive signal changed and why.", "evidence": ["Artifact hashes", "Static observations", "Detection event", "Comparison"]}, "14": {"goal": "Understand password attack surfaces, credential material and appropriate offline/online attack models.", "visual": [["Account", "Identify the authentication surface."], ["Credential Material", "Password, hash, key or ticket may be available."], ["Attack Model", "Choose online or offline testing based on the material."], ["Validation", "Confirm access only on the authorized target."]], "concepts": [["Password vs hash", "A hash is not the plaintext password but can be attacked offline."], ["Wordlists", "Candidate generation influences attack coverage."], ["Brute force", "Systematically tests combinations and can become expensive."], ["Credential reuse", "A recovered credential may have impact across multiple authorized systems."]], "tools": [["Hydra", "Test online authentication in an authorized lab.", "hydra -l user -P <wordlist> <target> <service>"], ["John the Ripper", "Perform offline password hash recovery.", "john hashes.txt"], ["Hashcat", "Use hardware-accelerated offline recovery.", "hashcat -m <mode> hashes.txt <wordlist>"], ["ssh2john", "Convert SSH private-key material for offline analysis.", "ssh2john id_rsa > hash.txt"]], "lab": "Given an authorized credential artifact, select an attack model, recover a test credential and validate the result only inside the lab.", "evidence": ["Credential type", "Attack mode", "Recovered result", "Validation"]}, "15": {"goal": "Move from a low-privileged Windows foothold to a higher-integrity context by inspecting services, permissions, tokens and configuration.", "visual": [["User", "Start with the privileges of the compromised account."], ["Service / Config", "Look for weak permissions and executable paths."], ["Token / Privilege", "Understand what Windows security context allows."], ["SYSTEM", "Validate the resulting privilege boundary crossing."]], "concepts": [["Service misconfiguration", "Weak service permissions or paths can create escalation opportunities."], ["Token privileges", "Windows access tokens carry identities and privileges."], ["Unquoted paths", "Executable search behavior can become security-relevant when permissions are weak."], ["Credential exposure", "Stored secrets can provide another authorized escalation route."]], "tools": [["PowerShell", "Inspect services, users and configuration.", "Get-Service"], ["WinPEAS", "Automate common Windows privilege checks in a lab.", "winpeas.exe"], ["Seatbelt", "Enumerate Windows security-relevant configuration.", "Seatbelt.exe -group=all"]], "lab": "Enumerate a Windows foothold, identify one plausible privilege-escalation path, prove the prerequisite and document the boundary crossing.", "evidence": ["Current user/context", "Enumeration output", "Escalation prerequisite", "Result"]}, "16": {"goal": "Inspect Linux permissions and identify legitimate escalation paths from an unprivileged account to root.", "visual": [["User", "Establish the current identity and groups."], ["Filesystem", "Inspect writable files, ownership and permissions."], ["Sudo / SUID", "Identify privileged execution paths."], ["Root", "Validate the resulting privilege context."]], "concepts": [["Unix permissions", "Owner/group/other permissions define access."], ["Sudo", "Delegated commands can create escalation paths when configured unsafely."], ["SUID", "Programs may execute with the file owner's privileges."], ["Capabilities", "Fine-grained Linux privileges can also create escalation opportunities."]], "tools": [["sudo", "Inspect delegated privileges.", "sudo -l"], ["find", "Locate SUID files or writable paths.", "find / -perm -4000 -type f 2>/dev/null"], ["LinPEAS", "Automate common Linux privilege checks.", "./linpeas.sh"], ["getcap", "Inspect Linux capabilities.", "getcap -r / 2>/dev/null"]], "lab": "From a low-privileged Linux account, enumerate permissions, identify a valid escalation condition and prove root access in the isolated target.", "evidence": ["whoami/id", "Enumeration output", "Vulnerable condition", "Root proof"]}, "17": {"goal": "Understand how SSH port forwarding changes network reachability and allows an authorized tester to reach an internal service through a foothold.", "visual": [["Attacker", "The tester can reach the foothold."], ["SSH", "The encrypted transport carries a forwarded connection."], ["Forward", "A local or remote port maps to another endpoint."], ["Internal Service", "A previously unreachable service becomes reachable through the tunnel."]], "concepts": [["Local forwarding", "Expose a remote service through a local listener."], ["Remote forwarding", "Expose a local-side service through a remote listener."], ["Reachability", "Tunneling changes path, not the underlying service."], ["Pivot evidence", "Document both endpoints and the forwarding relationship."]], "tools": [["SSH", "Create authorized port forwards.", "ssh -L 8080:internal:80 user@pivot"], ["ss", "Inspect listening sockets.", "ss -lntp"], ["nc", "Test the forwarded endpoint.", "nc -nv 127.0.0.1 8080"]], "lab": "Use an isolated two-network lab to forward one internal HTTP service through an SSH foothold and prove the changed reachability.", "evidence": ["Network diagram", "SSH command", "Listening port", "Internal service response"]}, "18": {"goal": "Compare advanced tunneling approaches and understand how traffic can traverse restrictive network boundaries.", "visual": [["Client", "Application generates traffic."], ["Transport", "HTTP, DNS or another permitted channel carries it."], ["Tunnel", "A relay wraps or forwards the traffic."], ["Internal Network", "The destination service receives the reconstructed connection."]], "concepts": [["Tunneling vs routing", "A tunnel carries traffic through an existing path; it does not magically remove authorization boundaries."], ["HTTP tunneling", "Application-layer traffic can be transported through HTTP-compatible channels."], ["DNS tunneling", "DNS can carry encoded data, subject to protocol and defensive controls."], ["Detection", "Unusual volume, timing and query patterns can reveal tunneling."]], "tools": [["Chisel", "Create TCP tunnels over HTTP/WebSocket in authorized labs.", "chisel client <server> ..."], ["SSH", "Use encrypted forwarding when available.", "ssh -L ..."], ["Wireshark", "Observe tunnel traffic and protocol behavior.", "capture → filter → inspect"]], "lab": "Compare two tunneling paths in an isolated network and explain the visibility and reachability differences.", "evidence": ["Topology", "Tunnel setup", "Packet observation", "Reachability comparison"]}, "19": {"goal": "Use the Metasploit Framework as a structured exploitation workflow: module selection, options, payloads, sessions and controlled post-exploitation.", "visual": [["Module", "Select an exploit or auxiliary module."], ["Options", "Set target-specific parameters."], ["Payload", "Define the session behavior."], ["Session", "Interact with the controlled target."]], "concepts": [["Auxiliary vs exploit", "Auxiliary modules perform support tasks; exploit modules target vulnerabilities."], ["Payloads", "Payload choice determines what happens after exploitation."], ["Sessions", "A successful exploit may create an interactive session."], ["Post-exploitation", "Use sessions to validate impact without unnecessary actions."]], "tools": [["msfconsole", "Framework console and module workflow.", "msfconsole"], ["search", "Find relevant modules.", "search type:exploit name:<term>"], ["info", "Inspect module requirements.", "info <module>"], ["show options", "Review required settings.", "show options"]], "lab": "Against a deliberately vulnerable lab service, select the correct module, configure it, obtain a controlled session and document every decision.", "evidence": ["Module selection", "Options", "Payload", "Session proof", "Impact boundary"]}, "20": {"goal": "Enumerate an Active Directory environment by mapping identities, computers, groups, services and relationships.", "visual": [["Domain", "Identify the AD namespace and domain controllers."], ["Users / Groups", "Map identities and memberships."], ["Computers", "Map hosts and roles."], ["SPNs / Relationships", "Identify service accounts and trust/permission paths."]], "concepts": [["AD objects", "Users, groups, computers and services are connected objects."], ["LDAP enumeration", "Directory queries reveal identity and configuration information."], ["SPNs", "Service Principal Names identify services associated with accounts."], ["Attack-path thinking", "Permissions and relationships matter more than isolated objects."]], "tools": [["PowerShell", "Query Windows/AD information.", "Get-ADUser -Filter *"], ["PowerView", "Enumerate AD relationships in a lab.", "Get-DomainUser"], ["BloodHound", "Visualize relationships and attack paths.", "collect → ingest → graph"]], "lab": "Build a small AD relationship map and identify one permission or service relationship that deserves deeper investigation.", "evidence": ["Domain context", "User/group map", "Computer map", "Relationship graph"]}, "21": {"goal": "Understand Kerberos authentication and identify where authentication material can be exposed or attacked in an authorized AD lab.", "visual": [["Client", "Requests authentication."], ["KDC / AS", "Authentication Service validates identity and issues a TGT."], ["TGT / TGS", "Tickets are used to request access to services."], ["Service", "The service validates the ticket."]], "concepts": [["TGT", "Ticket Granting Ticket represents authenticated domain identity for subsequent service requests."], ["TGS", "Service tickets provide access to specific services."], ["Kerberoasting", "Service-account tickets can provide material for offline password attacks when conditions permit."], ["Authentication evidence", "Record the exact account, service and protocol state involved."]], "tools": [["Rubeus", "Inspect and test Kerberos workflows in a lab.", "Rubeus.exe"], ["PowerView", "Enumerate SPNs and domain context.", "Get-DomainUser -SPN"], ["Impacket", "Perform authorized protocol testing from Linux.", "GetUserSPNs.py ..."]], "lab": "Map a test account's Kerberos authentication flow and investigate a deliberately vulnerable service account configuration.", "evidence": ["Account/service", "SPN", "Ticket artifact", "Offline test result"]}, "22": {"goal": "Trace lateral movement across an authorized Windows domain after a foothold, using administrative relationships and remote execution paths.", "visual": [["Foothold", "Start from one compromised host."], ["Credential / Access", "Obtain an authorized administrative context."], ["Remote Execution", "Use a supported remote administration path."], ["Next Host", "Validate the movement and record the new context."]], "concepts": [["Lateral movement", "Moving between systems after initial access."], ["Administrative protocols", "Remote services can become movement mechanisms when credentials permit."], ["Credential scope", "Determine where an account has useful privileges."], ["Movement evidence", "Capture source, destination, account and protocol."]], "tools": [["WinRM", "Remote PowerShell management in authorized labs.", "evil-winrm -i <target> -u <user> -p '<password>'"], ["PsExec", "Remote service-based execution in controlled environments.", "psexec.py domain/user:pass@target"], ["PowerShell", "Native remote management and enumeration.", "Invoke-Command -ComputerName <target> ..."], ["BloodHound", "Identify movement paths based on permissions.", "graph → path → validation"]], "lab": "Starting from a test workstation, identify an authorized movement path to a second host and validate it without touching unrelated systems.", "evidence": ["Source host", "Credential/context", "Remote protocol", "Destination proof"]}, "23": {"goal": "Assemble reconnaissance, initial access, privilege escalation, pivoting and domain techniques into one coherent penetration-test storyline.", "visual": [["Recon", "Build the attack surface."], ["Initial Access", "Choose the strongest validated entry point."], ["Privilege / Pivot", "Increase control and reach."], ["Domain Impact", "Connect the final access path to business impact."]], "concepts": [["Attack-chain reasoning", "Each step should be justified by evidence from the previous step."], ["Decision points", "Do not execute techniques merely because they are available."], ["Chaining", "Combine multiple small findings into a meaningful path."], ["Reporting the path", "The final story must explain cause, consequence and remediation."]], "tools": [["Nmap", "Recon and service mapping.", "nmap -sC -sV <target>"], ["Burp Suite", "Web discovery and validation.", "Proxy → Repeater"], ["Metasploit", "Controlled exploitation where appropriate.", "msfconsole"], ["BloodHound", "AD path analysis.", "collect → graph → validate"]], "lab": "Complete a multi-stage authorized scenario from discovery through controlled impact and write the attack path as a sequence of evidence-backed decisions.", "evidence": ["Attack-surface map", "Initial access proof", "Privilege proof", "Pivot proof", "Final path", "Report finding"]}, "24": {"goal": "Practice unfamiliar environments by building hypotheses, testing them systematically, chaining only validated findings and documenting the complete route.", "visual": [["Enumerate", "Collect enough evidence to form hypotheses."], ["Hypothesize", "Rank likely attack paths."], ["Test", "Validate one hypothesis at a time."], ["Chain / Prove", "Combine confirmed steps and document the final route."]], "concepts": [["Methodology under uncertainty", "There is no recipe; the process must adapt to evidence."], ["Prioritization", "Choose the next action that most reduces uncertainty."], ["Dead ends", "A failed hypothesis is useful evidence when recorded properly."], ["Proof", "Completion means reproducible evidence, not merely obtaining access."]], "tools": [["Nmap", "Build the initial attack surface.", "nmap -sC -sV <target>"], ["Web tools", "Investigate HTTP attack surface.", "Burp / curl / ffuf"], ["Privilege tools", "Validate local escalation paths.", "LinPEAS / WinPEAS"], ["AD tools", "Map identity and movement paths.", "BloodHound / PowerView"]], "lab": "Enter a fresh isolated challenge environment with no recipe. Build an attack notebook, rank hypotheses, test them and produce a complete evidence-backed route.", "evidence": ["Hypothesis log", "Enumeration map", "Validated findings", "Attack chain", "Final report"]}};
 
@@ -394,6 +423,7 @@ const MODULES = [
 
 let currentModule = "01";
 let currentTab = "overview";
+let currentObjective = null;
 
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function getModule(n){return MODULES.find(m=>m.num===n)||MODULES[0]}
@@ -418,6 +448,7 @@ function renderSidebar(){
 function openModule(num, updateHash=true){
   const m=getModule(num);
   currentModule=m.num;
+  currentObjective=null;
   document.querySelectorAll(".sideNavLink").forEach(b=>b.classList.remove("active"));
   renderSidebar();
   renderModule(m);
@@ -427,7 +458,31 @@ function openModule(num, updateHash=true){
 
 function renderModule(m){
  const d=MODULE_DETAILS[m.num] || MODULE_DETAILS["01"];
+ const units=PEN200_UNITS[m.num] || [];
  document.getElementById("sideTitle").textContent=`Module ${m.num}`;
+ 
+ const unitsMarkup = units.length ? `
+ <div class="unit-section">
+   <div class="unit-head">
+     <div>
+       <div class="mini">OFFSEC PEN-200 CURRICULUM HIERARCHY</div>
+       <h3>Learning Units & Specific Objectives</h3>
+     </div>
+     <span class="pill">${units.length} LEARNING UNITS</span>
+   </div>
+   <div class="unit-grid">
+     ${units.map((u, ui) => `
+       <div class="unit-card">
+         <span class="unit-tag">UNIT ${String(ui+1).padStart(2,'0')}</span>
+         <strong>${esc(u[0])}</strong>
+         <ul>
+           ${u[1].map(obj => `<li onclick="selectObjective('${esc(obj)}')" title="Click to focus on this objective">✓ ${esc(obj)}</li>`).join("")}
+         </ul>
+       </div>
+     `).join("")}
+   </div>
+ </div>` : '';
+
  document.getElementById("app").innerHTML=`
  <div class="view">
   <section class="overviewHero">
@@ -436,12 +491,15 @@ function renderModule(m){
    <p class="lead">${esc(d.goal)}</p>
    <div class="meta">
      <span class="pill">PEN-200 ALIGNED</span>
-     <span class="pill">${m.topics.length} LEARNING AREAS</span>
-     <span class="pill">${m.tools.length} TOOL GROUPS</span>
+     <span class="pill">${units.length} LEARNING UNITS</span>
+     <span class="pill">${m.topics.length} SUBTOPICS</span>
+     <span class="pill">${d.tools.length} TOOL GROUPS</span>
      <span class="pill">PRACTICAL MODULE</span>
-     <a href="simulator.html" class="pill" style="color:var(--red);text-decoration:none;font-weight:700">🕹️ PRACTICE IN SIMULATOR →</a>
+     <a href="simulator.html" class="pill" style="color:var(--red);font-weight:700">🕹️ PRACTICE IN SIMULATOR →</a>
    </div>
   </section>
+
+  ${unitsMarkup}
 
   <div class="tabBar">
    <button class="tab ${currentTab==='overview'?'active':''}" data-tab="overview" onclick="setTab('overview')">WHAT YOU LEARN</button>
@@ -452,55 +510,57 @@ function renderModule(m){
   </div>
 
   <section class="panel ${currentTab==='overview'?'active':''}" id="panel-overview">
-   <div class="kicker">MODULE OBJECTIVE</div><h2>What this module actually teaches</h2>
-   <div class="detailGoal"><b>Goal</b><br>${esc(d.goal)}</div>
-   <div class="learningCards">${d.concepts.map((x,i)=>`<article class="learningCard"><div class="num">${String(i+1).padStart(2,"0")}</div><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></article>`).join("")}</div>
+   <div class="kicker">MODULE OBJECTIVE & CONCEPTS</div><h2>Core Concept Mastery</h2>
+   <div class="detailGoal"><b>Learning Goal:</b> ${esc(d.goal)}</div>
+   <div class="learningCards">${d.concepts.map((x,i)=>`<article class="learningCard"><div class="num">CONCEPT ${String(i+1).padStart(2,"0")}</div><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></article>`).join("")}</div>
   </section>
 
   <section class="panel ${currentTab==='visual'?'active':''}" id="panel-visual">
-   <div class="kicker">MODULE-SPECIFIC VISUAL</div><h2>Follow the actual ${esc(m.title)} workflow</h2>
+   <div class="kicker">MODULE-SPECIFIC VISUAL FLOW</div><h2>Follow the ${esc(m.title)} Attack & Verification Pathway</h2>
    <div class="visualPath">${d.visual.map((x,i)=>`<div class="visualStep"><div class="stepNo">STEP ${String(i+1).padStart(2,"0")}</div><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p></div>`).join("")}</div>
    ${sceneMarkup(m)}
-   <div class="detailGoal" style="margin-top:18px"><b>Student test:</b> Explain why each step exists and what evidence allows you to move to the next step.</div>
+   <div class="detailGoal" style="margin-top:18px"><b>Operator Verification:</b> Follow the transition from left to right. Confirm the observable artifact at each stage before executing the next tool.</div>
   </section>
 
   <section class="panel ${currentTab==='tools'?'active':''}" id="panel-tools">
-   <div class="kicker">REAL TOOL REASONING</div><h2>Tool → purpose → command → interpretation</h2>
-   <div class="learningCards">${d.tools.map((x,i)=>`<article class="toolReal"><div class="num">${String(i+1).padStart(2,"0")}</div><h3>${esc(x[0])}</h3><p>${esc(x[1])}</p><code>${esc(x[2])}</code></article>`).join("")}</div>
-   <div class="detailGoal" style="margin-top:18px"><b>Important:</b> Commands are examples for authorized training targets. Real execution should occur in the isolated Kali/Proxmox lab, not be faked by the browser.</div>
+   <div class="kicker">REAL TOOL REASONING & KALI COMMANDS</div><h2>Tool → Purpose → Syntax → Interpretation</h2>
+   <div class="learningCards">${d.tools.map((x,i)=>`<article class="toolReal"><div class="num">TOOL ${String(i+1).padStart(2,"0")} · ${esc(x[0])}</div><h3>${esc(x[1])}</h3><p>Authorized execution syntax for Kali Linux / training lab:</p><code>${esc(x[2])}</code></article>`).join("")}</div>
+   <div class="detailGoal" style="margin-top:18px"><b>Operational Scope:</b> Commands are intended strictly for authorized targets inside your isolated Kali / Proxmox lab environment.</div>
   </section>
 
   <section class="panel ${currentTab==='lab'?'active':''}" id="panel-lab">
-   <div class="kicker">PRACTICAL MISSION</div><h2>Mission ${m.num}: ${esc(m.title)}</h2>
+   <div class="kicker">PRACTICAL MISSION & VALIDATION</div><h2>Mission ${m.num}: ${esc(m.title)}</h2>
    <div class="labMission">
-    <h3>Scenario</h3><p>${esc(d.lab)}</p>
+    <h3>Scenario Description</h3><p>${esc(d.lab)}</p>
     <div class="missionSteps">
-      ${["Define the scope and success condition.","Choose the technique that answers the question.","Execute it against the authorized lab target.","Interpret the result and decide the next step.","Record reproducible evidence."].map((x,i)=>`<div class="missionStep"><b>${i+1} · ${x.split(". ")[0]}</b> — ${esc(x.split(". ").slice(1).join(". "))}</div>`).join("")}
+      ${["Define the scope and verify connectivity.","Form a testable technical hypothesis.","Execute the authorized assessment command.","Analyze the response to validate or refute the hypothesis.","Record reproducible evidence."].map((x,i)=>`<div class="missionStep"><b>${i+1} · ${x.split(". ")[0]}</b> — ${esc(x.split(". ").slice(1).join(". "))}</div>`).join("")}
     </div>
-    <button class="choice" onclick="labChoice(1)">START MISSION</button>
-    <div class="feedback" id="labFeedback">Mission ready. Start by defining the question.</div>
+    <button class="choice" onclick="labChoice(1)">START MISSION VALIDATION</button>
+    <div class="feedback" id="labFeedback">Mission ready. Begin by confirming the authorized scope.</div>
    </div>
   </section>
 
   <section class="panel ${currentTab==='evidence'?'active':''}" id="panel-evidence">
-   <div class="kicker">PROVE THE RESULT</div><h2>Evidence required for this module</h2>
-   <div class="evidenceChecklist">${d.evidence.map((x,i)=>`<div class="evidenceItem">□ <b>${esc(x)}</b></div>`).join("")}</div>
-   <div class="terminal" style="margin-top:16px">EVIDENCE RECORD
-────────────────────────
-Module: ${m.num} · ${esc(m.title)}
-Scope: AUTHORIZED TRAINING LAB
+   <div class="kicker">PROVE THE RESULT & DELIVERABLES</div><h2>Evidence Checklist for Module ${m.num}</h2>
+   <div class="evidenceChecklist">${d.evidence.map((x,i)=>`<div class="evidenceItem">☑ <b>${esc(x)}</b></div>`).join("")}</div>
+   <div class="terminal" style="margin-top:16px">========================================================
+SHADOWXLAB AUDIT EVIDENCE RECORD
+========================================================
+Module:     ${m.num} · ${esc(m.title)}
+Scope:      AUTHORIZED TRAINING ENVIRONMENT
 
-Observation:
-[what you observed]
+[+] Target / Context:
+    [document target host/IP and authorization]
 
-Interpretation:
-[what it means]
+[+] Observation:
+    [record the specific output or behavior observed]
 
-Decision:
-[why you chose the next step]
+[+] Technical Reasoning:
+    [explain the vulnerability, configuration or result]
 
-Evidence:
-[output / screenshot / artifact]</div>
+[+] Proof Artifacts:
+    [terminal log, packet capture, or screenshot reference]
+========================================================</div>
   </section>
  </div>`;
 }
@@ -513,9 +573,16 @@ function setTab(tab){
  history.replaceState({module:currentModule,tab},"",hash);
 }
 
+function selectObjective(objName){
+ currentObjective = objName;
+ const m = getModule(currentModule);
+ openMentor();
+ document.getElementById("mentorText").textContent = `Focused on Objective: "${objName}" in Module ${m.num} (${m.title}). Work through the Visual Model and Tools tabs to understand how this objective is tested and validated.`;
+}
+
 function labChoice(n){
  const f=document.getElementById("labFeedback"); if(!f)return;
- f.textContent=n===1?"✓ Correct. Start by identifying the information required by the objective. That decision drives the tool and the evidence.":"✕ Not the recommended first move. Follow the visual workflow: scope → question → technique → result → interpretation → evidence.";
+ f.textContent=n===1?"✓ Correct. Start by confirming the authorized scope and identifying the exact question you are investigating. That drives the tool choice and the evidence capture.":"✕ Not the recommended first move. Follow the visual workflow: scope → question → technique → result → interpretation → evidence.";
 }
 
 const SXL_PROGRESS_KEY="sxl_pen200_progress_v5";
@@ -608,7 +675,7 @@ function showDashboard(){
  <div style="padding:0 34px">
    <div class="simPromoCard">
      <div>
-       <span class="kicker">LIVE ENTERPRISE ENVIRONMENT</span>
+       <div class="mini">LIVE ENTERPRISE ENVIRONMENT</div>
        <h3>FinBank Connected Career Simulator</h3>
        <p>Put your skills into practice across one end-to-end enterprise workflow: Ethical Hacking → VAPT → Controlled Attack → SOC Investigation → GRC Risk Assessment.</p>
      </div>
@@ -620,7 +687,7 @@ function showDashboard(){
   <div class="sxlPanel">
    <h2>Next objective</h2>
    <p><b>Module ${next.num} · ${esc(next.title)}</b></p>
-   <p>${esc(next.objective||"Continue the practical VAPT learning path and validate your evidence in the authorized lab.")}</p>
+   <p>${esc(MODULE_DETAILS[next.num]?.goal||"Continue the practical VAPT learning path and validate your evidence in the authorized lab.")}</p>
    <div class="sxlQuickGrid">
     <button class="sxlQuick" onclick="openModule('${next.num}')"><b>LEARN</b><strong>Open module →</strong></button>
     <button class="sxlQuick" onclick="showCatalogue()"><b>EXPLORE</b><strong>View all 24 modules →</strong></button>
@@ -666,14 +733,14 @@ function showReadinessPage(){
   <div class="dashboardGrid">
    <div class="dashPanel">
     <div class="kicker">SELF-ASSESSMENT</div><h2>Are you ready?</h2>
-    <p style="color:#555;line-height:1.5">This tracker deliberately measures practical capability rather than time spent reading. Work through the checklist honestly, then revisit the corresponding modules when something is not yet demonstrable.</p>
+    <p style="color:var(--muted);line-height:1.55">This tracker deliberately measures practical capability rather than time spent reading. Work through the checklist honestly, then revisit the corresponding modules when something is not yet demonstrable.</p>
     <div id="readinessList" class="readinessList"></div>
    </div>
    <div class="dashPanel">
     <div class="kicker">READINESS SCORE</div>
     <h2 id="readinessPct">0%</h2>
     <div class="progressBar"><div id="readinessFill" class="progressFill"></div></div>
-    <div class="homeNote" style="margin-top:18px"><b>Target:</b> reach 100% only when you can demonstrate every capability, not merely recognize the terminology.</div>
+    <div class="detailGoal" style="margin-top:18px"><b>Target:</b> Reach 100% when you can demonstrate every capability with reproducible evidence.</div>
    </div>
   </div>
  </section>`;
@@ -713,7 +780,7 @@ function showHome(){
  <div style="padding:0 34px">
    <div class="simPromoCard">
      <div>
-       <span class="kicker">LIVE ENTERPRISE CASE • FINBANK</span>
+       <div class="mini">LIVE ENTERPRISE CASE • FINBANK</div>
        <h3>Experience the Connected Career Simulator</h3>
        <p>Demonstrate real capabilities across Ethical Hacking, VAPT (Burp/ZAP), Controlled Attack (Metasploit/Wireshark), SOC Correlation (Splunk/IOCs), and GRC Risk Management. Generates personalized career reports and resume bullets automatically.</p>
      </div>
@@ -761,20 +828,36 @@ function showCatalogue(){
  <div class="curriculumSection">
   <div class="kicker">THE FULL LEARNING PATH</div>
   <h2>Choose where you want to enter</h2>
-  <div class="moduleGrid">${MODULES.map(m=>`<button class="moduleCard" onclick="openModule('${m.num}')"><div class="moduleIcon">${m.icon}</div><div class="moduleNum">MODULE ${m.num}</div><div class="moduleTitle">${esc(m.title)}</div><div class="moduleTrack">${esc(m.track)}</div><div class="moduleTopics">${m.topics.length} concepts · ${m.tools.length} tool groups</div></button>`).join("")}</div>
+  <div class="moduleGrid">${MODULES.map(m=>`<button class="moduleCard" onclick="openModule('${m.num}')"><div class="moduleIcon">${m.icon}</div><div class="moduleNum">MODULE ${m.num}</div><div class="moduleTitle">${esc(m.title)}</div><div class="moduleTrack">${esc(m.track)}</div><div class="moduleTopics">${m.topics.length} subtopics · ${m.tools.length} tool groups</div></button>`).join("")}</div>
  </div>`;
  document.querySelectorAll(".moduleNav").forEach(b=>b.classList.remove("active"));
  history.pushState({catalogue:true},"","#modules");
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
-function openMentor(){document.getElementById("mentor").classList.add("open")}
+function openMentor(){
+  document.getElementById("mentor").classList.add("open");
+  const m = getModule(currentModule);
+  const d = MODULE_DETAILS[m.num] || MODULE_DETAILS["01"];
+  const objNote = currentObjective ? `<br><br><b>Active Objective:</b> ${esc(currentObjective)}` : '';
+  document.getElementById("mentorText").innerHTML = `You are currently reviewing <b>Module ${m.num}: ${esc(m.title)}</b> (${esc(m.track)}).<br>Goal: ${esc(d.goal)}${objNote}`;
+}
+
 function closeMentor(){document.getElementById("mentor").classList.remove("open")}
+
 function mentorExplain(k){
  const m=getModule(currentModule), d=MODULE_DETAILS[m.num]||MODULE_DETAILS["01"];
- const text=k==="goal"?`Module ${m.num}: ${m.title}. ${d.goal}`:
- k==="visual"?`Start with the visual model: ${d.visual.map(x=>x[0]).join(" → ")}. Each transition represents a decision, not just a decorative box.`:
- `Your mission is to ${d.lab}`;
+ const objText = currentObjective ? ` (Active Objective: ${currentObjective})` : '';
+ let text = '';
+ if(k==="goal") {
+   text = `Module ${m.num}: ${m.title}${objText}. ${d.goal}`;
+ } else if(k==="visual") {
+   text = `Start with the visual model: ${d.visual.map(x=>x[0]).join(" → ")}. Each transition represents a decision, not just a decorative box. Look for the observable artifact before moving forward.`;
+ } else if(k==="lab") {
+   text = `Your practical mission: ${d.lab}`;
+ } else if(k==="tools") {
+   text = `Tools in this module: ${d.tools.map(t=>t[0] + ' (' + t[2] + ')').join(', ')}. Run these only on authorized lab targets.`;
+ }
  document.getElementById("mentorText").textContent=text;
 }
 
@@ -813,7 +896,7 @@ openModule=function(num, updateHash=true){
     wrap.className="dashboardSection";
     wrap.innerHTML=`<div class="kicker">PRACTICAL MILESTONE</div>
       <h2>Module completion</h2>
-      <p style="color:#555">Mark this module complete only after you have worked through its concepts, tools, lab and evidence workflow.</p>
+      <p style="color:var(--muted)">Mark this module complete only after you have worked through its learning units, visual flow, tools, lab mission and evidence workflow.</p>
       <button class="dashBtn ${p.completed?.[num]?'light':'primary'} completeModuleBtn" onclick="setModuleComplete('${num}')">${p.completed?.[num]?'✓ MODULE COMPLETED':'MARK MODULE COMPLETE →'}</button>`;
     app.appendChild(wrap);
   },0);
@@ -837,14 +920,21 @@ function toggleSXLSidebar(){
  saveSXLUI(u);
  window.dispatchEvent(new Event("resize"));
 }
+
 function applySXLTheme(mode){
  const dark=mode==="dark";
+ document.documentElement.setAttribute("data-theme", dark?"dark":"light");
  document.body.classList.toggle("sxl-dark",dark);
  const b=document.getElementById("sxlThemeToggle");
  if(b){b.textContent=dark?"☾":"☀";b.setAttribute("title",dark?"Switch to light mode":"Switch to dark mode");}
  const u=getSXLUI();u.theme=dark?"dark":"light";saveSXLUI(u);
 }
-function toggleSXLTheme(){applySXLTheme(document.body.classList.contains("sxl-dark")?"light":"dark");}
+
+function toggleSXLTheme(){
+ const isDark = document.documentElement.getAttribute("data-theme")==="dark" || document.body.classList.contains("sxl-dark");
+ applySXLTheme(isDark?"light":"dark");
+}
+
 function initSXLUI(){
  const u=getSXLUI();
  const collapsed=u.sidebarCollapsed===true;
