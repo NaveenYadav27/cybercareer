@@ -559,6 +559,216 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
         </div>
       </div>
     </div>
+
+    <!-- HARDWARE DEFINITIONS & ENGINEERING EXPLANATIONS -->
+    <div style="margin-top:28px;border-top:1px solid #232d3b;padding-top:24px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
+        <div style="font:800 13px var(--mono);color:#fff;letter-spacing:.08em;display:flex;align-items:center;gap:8px">
+          <span style="color:var(--cyber-red)">■</span> HARDWARE REQUIREMENTS &amp; ARCHITECTURE DEEP DIVE
+        </div>
+        <span style="font:700 10.5px var(--mono);color:#8b949e">CORE CONCEPTS FOR HYPERVISOR WORKSTATIONS</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+        <!-- 1. CPU Virtualization -->
+        <div style="background:#141922;border:1px solid #26303d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font:800 10px var(--mono);color:var(--cyber-red);letter-spacing:.1em">CPU EXTENSION</span>
+              <span style="font:800 9.5px var(--mono);background:rgba(226,27,35,.2);color:#ff787e;padding:2px 6px;border-radius:4px">CRITICAL</span>
+            </div>
+            <h4 style="margin:0 0 8px;font-size:15px;color:#fff">Hardware Virtualization (VT-x / AMD-V)</h4>
+            <p style="font-size:12.5px;color:#94a3b8;line-height:1.6;margin:0 0 10px">
+              <b>What it is:</b> Dedicated hardware instructions built directly into CPU silicon (Intel VT-x / AMD SVM) providing <i>VMX root</i> and <i>non-root</i> operational modes (Ring -1).
+            </p>
+            <p style="font-size:12px;color:#cbd5e1;line-height:1.55;margin:0">
+              <b>Why it matters for VAPT:</b> Allows VirtualBox to execute guest kernel code directly on physical processor pipelines with hardware-assisted memory translation (SLAT/EPT). Without VT-x enabled in BIOS, 64-bit Kali Linux VMs cannot boot.
+            </p>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #283342;font:700 10.5px var(--mono);color:#7ee787">
+            ✓ Direct Ring 0 Execution · Zero Trap Overhead
+          </div>
+        </div>
+
+        <!-- 2. Physical Cores vs Threads -->
+        <div style="background:#141922;border:1px solid #26303d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font:800 10px var(--mono);color:#58a6ff;letter-spacing:.1em">COMPUTE UNITS</span>
+              <span style="font:800 9.5px var(--mono);background:rgba(88,166,255,.15);color:#79c0ff;padding:2px 6px;border-radius:4px">SCHEDULING</span>
+            </div>
+            <h4 style="margin:0 0 8px;font-size:15px;color:#fff">Physical Cores vs. Logical Threads (SMT)</h4>
+            <p style="font-size:12.5px;color:#94a3b8;line-height:1.6;margin:0 0 10px">
+              <b>Physical Cores:</b> Independent physical silicon execution units that execute machine instructions simultaneously.
+            </p>
+            <p style="font-size:12px;color:#cbd5e1;line-height:1.55;margin:0">
+              <b>Logical Threads (SMT/Hyper-Threading):</b> Duplicates processor architectural state so 1 physical core handles 2 instruction pipelines. Hypervisors schedule <b>vCPUs</b> onto these threads.
+            </p>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #283342;font:700 10.5px var(--mono);color:#58a6ff">
+            ★ Rule: Allocate max 2 vCPUs per VM to prevent host starvation
+          </div>
+        </div>
+
+        <!-- 3. RAM & Memory Paging -->
+        <div style="background:#141922;border:1px solid #26303d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font:800 10px var(--mono);color:#a78bfa;letter-spacing:.1em">VOLATILE MEMORY</span>
+              <span style="font:800 9.5px var(--mono);background:rgba(167,139,250,.15);color:#c4b5fd;padding:2px 6px;border-radius:4px">LATENCY</span>
+            </div>
+            <h4 style="margin:0 0 8px;font-size:15px;color:#fff">Physical RAM &amp; Swap Thrashing Risk</h4>
+            <p style="font-size:12.5px;color:#94a3b8;line-height:1.6;margin:0 0 10px">
+              <b>vRAM Allocation:</b> The physical memory locked by the hypervisor for guest OS page tables and running services.
+            </p>
+            <p style="font-size:12px;color:#cbd5e1;line-height:1.55;margin:0">
+              <b>Swap Paging Risk:</b> If total VM + host memory exceeds physical RAM, the OS pages memory blocks to storage. If this occurs during an Nmap scan or exploit compilation, the system suffers severe latency freezes.
+            </p>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #283342;font:700 10.5px var(--mono);color:#a78bfa">
+            ★ 16 GB Physical RAM ensures 100% in-memory execution
+          </div>
+        </div>
+
+        <!-- 4. Storage Architecture: NVMe PCIe -->
+        <div style="background:#141922;border:1px solid #26303d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font:800 10px var(--mono);color:#34d399;letter-spacing:.1em">STORAGE BUS</span>
+              <span style="font:800 9.5px var(--mono);background:rgba(52,211,153,.15);color:#6ee7b7;padding:2px 6px;border-radius:4px">RECOMMENDED ★</span>
+            </div>
+            <h4 style="margin:0 0 8px;font-size:15px;color:#fff">NVMe PCIe M.2 Storage</h4>
+            <p style="font-size:12.5px;color:#94a3b8;line-height:1.6;margin:0 0 10px">
+              <b>What it is:</b> Solid-state storage communicating directly over PCIe lanes with 64,000 parallel command queues (vs 1 queue in legacy AHCI SATA).
+            </p>
+            <p style="font-size:12px;color:#cbd5e1;line-height:1.55;margin:0">
+              <b>Performance:</b> 3,500–7,000+ MB/s sequential transfer with 500,000+ IOPS. Virtual machines boot in under 6 seconds with instant snapshot reversion.
+            </p>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #283342;font:700 10.5px var(--mono);color:#34d399">
+            ✓ Ultra-low latency (&lt;10µs) · Zero Parallel VM Disk Contention
+          </div>
+        </div>
+
+        <!-- 5. SATA SSD vs HDD Comparison -->
+        <div style="background:#141922;border:1px solid #26303d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font:800 10px var(--mono);color:#f59e0b;letter-spacing:.1em">IOPS BOTTLENECK</span>
+              <span style="font:800 9.5px var(--mono);background:rgba(245,158,11,.15);color:#fcd34d;padding:2px 6px;border-radius:4px">LEGACY</span>
+            </div>
+            <h4 style="margin:0 0 8px;font-size:15px;color:#fff">SATA SSD vs. Mechanical HDD</h4>
+            <p style="font-size:12.5px;color:#94a3b8;line-height:1.6;margin:0 0 10px">
+              <b>SATA SSD:</b> Capped at SATA 3.0 limits (~550 MB/s, ~80,000 IOPS). Sufficient for 1-2 VMs running sequentially.
+            </p>
+            <p style="font-size:12px;color:#ef4444;line-height:1.55;margin:0">
+              <b>Mechanical HDD (Caution):</b> 80–140 MB/s with only ~100 IOPS. Physical read/write heads thrash when multiple VMs perform random I/O, leading to complete desktop freezes.
+            </p>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #283342;font:700 10.5px var(--mono);color:#f59e0b">
+            ⚠ Avoid spinning HDDs for multi-VM penetration test ranges
+          </div>
+        </div>
+
+        <!-- 6. Dynamic VDI Storage -->
+        <div style="background:#141922;border:1px solid #26303d;border-radius:12px;padding:18px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+              <span style="font:800 10px var(--mono);color:#38bdf8;letter-spacing:.1em">VIRTUAL DISK FORMAT</span>
+              <span style="font:800 9.5px var(--mono);background:rgba(56,189,248,.15);color:#7dd3fc;padding:2px 6px;border-radius:4px">SPARSE VDI</span>
+            </div>
+            <h4 style="margin:0 0 8px;font-size:15px;color:#fff">Dynamically Allocated VDI Storage</h4>
+            <p style="font-size:12.5px;color:#94a3b8;line-height:1.6;margin:0 0 10px">
+              <b>How it works:</b> A sparse Virtual Disk Image (VDI) initially occupies minimal host storage (~2 MB) and expands dynamically only as the guest OS writes new blocks up to its configured ceiling.
+            </p>
+            <p style="font-size:12px;color:#cbd5e1;line-height:1.55;margin:0">
+              <b>Best Practice:</b> Configure a 40–80 GB dynamic VDI ceiling for Kali so tool installations (e.g. wordlists, Metasploit, Burp Suite) have room to expand without consuming unnecessary host storage upfront.
+            </p>
+          </div>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed #283342;font:700 10.5px var(--mono);color:#38bdf8">
+            ✓ Efficient disk footprint + Instant Snapshot copy-on-write
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Unified Machine Breakdown Table -->
+    <div style="margin-top:28px;border-top:1px solid #232d3b;padding-top:20px">
+      <div style="font:800 12px var(--mono);color:#fff;letter-spacing:.08em;margin-bottom:12px;display:flex;align-items:center;gap:8px">
+        <span style="color:var(--cyber-red)">■</span> CYBERCORE LAB APPLIANCES &amp; HARDWARE REQUIREMENTS BREAKDOWN
+      </div>
+      <div style="overflow-x:auto">
+        <table class="matrix-table" style="margin:0;width:100%;font-size:11.5px">
+          <thead>
+            <tr style="background:#141a23">
+              <th>Lab Machine Appliance</th>
+              <th>Role in VAPT / PEN-200</th>
+              <th>Minimum vRAM</th>
+              <th>Recommended vRAM</th>
+              <th>vCPUs</th>
+              <th>VDI Storage</th>
+              <th>Parallel Run Capability</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><b style="color:var(--cyber-red)">Kali Linux 2024.x</b></td>
+              <td>Attacker / Security Operator (Nmap, Burp, Metasploit, Wireshark)</td>
+              <td>2048 MB (2 GB)</td>
+              <td><b>4096 MB (4 GB)</b></td>
+              <td>2 Cores</td>
+              <td>20–40 GB VDI</td>
+              <td><span style="color:#7ee787;font-weight:700">Always Active (Base)</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:#58a6ff">Ubuntu Server 22.04 / Debian</b></td>
+              <td>Defensive Target / Web App / Docker Containers / LAMP Stack</td>
+              <td>1024 MB (1 GB)</td>
+              <td><b>2048 MB (2 GB)</b></td>
+              <td>1–2 Cores</td>
+              <td>15–25 GB VDI</td>
+              <td><span id="capUbuntu" style="color:#7ee787">✓ Parallel with Kali (16GB+)</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:#a78bfa">Metasploitable 2 / 3</b></td>
+              <td>Vulnerable Exploitation &amp; Vulnerability Assessment Target</td>
+              <td>512 MB (0.5 GB)</td>
+              <td><b>1024 MB (1 GB)</b></td>
+              <td>1 Core</td>
+              <td>8–15 GB VDI</td>
+              <td><span id="capMeta" style="color:#7ee787">✓ Parallel with Kali (8GB+)</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:#f59e0b">Windows 10 / 11 Enterprise</b></td>
+              <td>Endpoint Hardening / Malware Triage / AD Domain Member</td>
+              <td>4096 MB (4 GB)</td>
+              <td><b>8192 MB (8 GB)</b></td>
+              <td>2–4 Cores</td>
+              <td>50–80 GB VDI</td>
+              <td><span id="capWin" style="color:#f59e0b">⚠ Requires 24GB+ for Parallel</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:#ef4444">Windows Server 2022 (AD DC)</b></td>
+              <td>Active Directory Domain Controller / Kerberos / Group Policy</td>
+              <td>2048 MB (2 GB)</td>
+              <td><b>4096 MB (4 GB)</b></td>
+              <td>2 Cores</td>
+              <td>40–60 GB VDI</td>
+              <td><span id="capAd" style="color:#f59e0b">⚠ Requires 24GB–32GB RAM</span></td>
+            </tr>
+            <tr>
+              <td><b style="color:#34d399">Splunk / Security Onion (SIEM)</b></td>
+              <td>SOC Log Ingestion, Alerting &amp; Incident Triage Engine</td>
+              <td>4096 MB (4 GB)</td>
+              <td><b>8192 MB (8 GB)</b></td>
+              <td>4 Cores</td>
+              <td>40–100 GB VDI</td>
+              <td><span id="capSiem" style="color:#ef4444">⚠ Requires 32GB+ RAM</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </section>
 
