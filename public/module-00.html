@@ -560,6 +560,65 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
       </div>
     </div>
 
+    <!-- LIVE CONCURRENT VM CLUSTER FLOW VISUALIZER -->
+    <div style="margin-top:24px;background:#05070a;border:1px solid #1f2733;border-radius:14px;padding:20px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+        <div style="font:800 11.5px var(--mono);color:#7ee787;letter-spacing:.1em;display:flex;align-items:center;gap:6px">
+          <span>⚡ LIVE CONCURRENT VM EXECUTION RACK</span>
+          <span style="color:#8b949e;font-weight:400">(Dynamic state based on selected Host RAM + Cores + Storage)</span>
+        </div>
+        <div id="vmFlowSummary" style="font:800 11px var(--mono);color:#58a6ff">2–3 VMs CONCURRENTLY RUNNING</div>
+      </div>
+
+      <!-- 5 Parallel VM Slot Nodes -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px" id="vmFlowRack">
+        <!-- Slot 1: Host OS -->
+        <div class="vm-slot-node ok" id="slot-host" style="background:#0e131a;border:1px solid #3b82f6;border-radius:10px;padding:12px;text-align:center;position:relative">
+          <div style="font:800 9px var(--mono);color:#3b82f6;margin-bottom:2px">BASE LAYER</div>
+          <div style="font-size:12.5px;font-weight:800;color:#fff">Host OS</div>
+          <div style="font:700 9.5px var(--mono);color:#8b949e;margin:4px 0" id="slot-host-sub">8 GB RAM · Primary</div>
+          <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(59,130,246,.2);color:#93c5fd" id="slot-host-status">● ACTIVE BASE</span>
+        </div>
+
+        <!-- Slot 2: Kali Linux -->
+        <div class="vm-slot-node ok" id="slot-kali" style="background:#0e131a;border:1px solid var(--cyber-red);border-radius:10px;padding:12px;text-align:center;position:relative">
+          <div style="font:800 9px var(--mono);color:var(--cyber-red);margin-bottom:2px">OPERATOR VM</div>
+          <div style="font-size:12.5px;font-weight:800;color:#fff">Kali Linux 2024.x</div>
+          <div style="font:700 9.5px var(--mono);color:#8b949e;margin:4px 0" id="slot-kali-sub">4 GB vRAM · 2 vCPUs</div>
+          <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(226,27,35,.2);color:#ff9296" id="slot-kali-status">● ONLINE ✓</span>
+        </div>
+
+        <!-- Slot 3: Target Server -->
+        <div class="vm-slot-node ok" id="slot-target" style="background:#0e131a;border:1px solid var(--green);border-radius:10px;padding:12px;text-align:center;position:relative">
+          <div style="font:800 9px var(--mono);color:var(--green);margin-bottom:2px">TARGET VM 1</div>
+          <div style="font-size:12.5px;font-weight:800;color:#fff">Ubuntu / Web App</div>
+          <div style="font:700 9.5px var(--mono);color:#8b949e;margin:4px 0" id="slot-target-sub">2 GB vRAM · 1 vCPU</div>
+          <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(16,185,129,.2);color:#6ee7b7" id="slot-target-status">● ONLINE ✓</span>
+        </div>
+
+        <!-- Slot 4: Metasploitable -->
+        <div class="vm-slot-node ok" id="slot-meta" style="background:#0e131a;border:1px solid #a78bfa;border-radius:10px;padding:12px;text-align:center;position:relative">
+          <div style="font:800 9px var(--mono);color:#a78bfa;margin-bottom:2px">TARGET VM 2</div>
+          <div style="font-size:12.5px;font-weight:800;color:#fff">Metasploitable 2</div>
+          <div style="font:700 9.5px var(--mono);color:#8b949e;margin:4px 0" id="slot-meta-sub">1 GB vRAM · 1 vCPU</div>
+          <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(167,139,250,.2);color:#c4b5fd" id="slot-meta-status">● ONLINE ✓</span>
+        </div>
+
+        <!-- Slot 5: Enterprise AD DC / SIEM -->
+        <div class="vm-slot-node locked" id="slot-ent" style="background:#0e131a;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;position:relative;opacity:0.5">
+          <div style="font:800 9px var(--mono);color:#94a3b8;margin-bottom:2px">ENTERPRISE DC/SOC</div>
+          <div style="font-size:12.5px;font-weight:800;color:#94a3b8">Windows AD DC / SIEM</div>
+          <div style="font:700 9.5px var(--mono);color:#64748b;margin:4px 0" id="slot-ent-sub">Needs 24GB–32GB RAM</div>
+          <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:#1e293b;color:#94a3b8" id="slot-ent-status">✕ LOCKED (Needs 24GB+)</span>
+        </div>
+      </div>
+
+      <!-- Real-time Flow explanation banner -->
+      <div id="vmFlowDetailText" style="margin-top:12px;background:#0e141c;border-left:3px solid #58a6ff;padding:10px 14px;border-radius:0 6px 6px 0;font:11.5px/1.6 var(--mono);color:#c9d1d9">
+        <b>CURRENT LAB CAPABILITY:</b> 16 GB Physical RAM allows Kali Linux + Ubuntu Target Server + Metasploitable to run concurrently with zero host memory swapping.
+      </div>
+    </div>
+
     <!-- HARDWARE DEFINITIONS & ENGINEERING EXPLANATIONS -->
     <div style="margin-top:28px;border-top:1px solid #232d3b;padding-top:24px">
       <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:16px">
@@ -1223,8 +1282,8 @@ function updateHardwareCalculations(){
   const barTarget = document.getElementById('barTarget');
   const barFree = document.getElementById('barFree');
   
-  const hostGb = Math.max(4, Math.min(16, gb / 2));
-  const kaliGb = gb >= 16 ? 4 : 3;
+  const hostGb = Math.max(4, Math.min(16, Math.floor(gb / 2)));
+  const kaliGb = gb >= 16 ? 4 : (gb === 8 ? 3 : 4);
   const targetGb = gb === 8 ? 1 : (gb === 16 ? 4 : (gb === 24 ? 8 : (gb === 32 ? 14 : 28)));
   const freeGb = Math.max(0, gb - hostGb - kaliGb - targetGb);
 
@@ -1242,20 +1301,148 @@ function updateHardwareCalculations(){
   const title = document.getElementById('hwCapacityTitle');
   const desc = document.getElementById('hwCapacityDesc');
   const badgeVmCount = document.getElementById('badgeVmCount');
+  const flowSummary = document.getElementById('vmFlowSummary');
+  const flowDetail = document.getElementById('vmFlowDetailText');
+  const resPressure = document.getElementById('resPressure');
+  const swapRisk = document.getElementById('swapRisk');
+  const cpuOverSub = document.getElementById('cpuOverSub');
+  const diskIoStatus = document.getElementById('diskIoStatus');
 
+  // VM Slot Elements
+  const slotTarget = document.getElementById('slot-target');
+  const slotTargetStatus = document.getElementById('slot-target-status');
+  const slotMeta = document.getElementById('slot-meta');
+  const slotMetaStatus = document.getElementById('slot-meta-status');
+  const slotEnt = document.getElementById('slot-ent');
+  const slotEntSub = document.getElementById('slot-ent-sub');
+  const slotEntStatus = document.getElementById('slot-ent-status');
+
+  // Concurrency calculation based on RAM & CPU
   if(gb <= 8){
     if(badgeVmCount) badgeVmCount.textContent = '1 VM CONCURRENT';
+    if(flowSummary) flowSummary.textContent = '1 VM AT A TIME (Sequential)';
     if(title) title.textContent = '1 Active VM at a time (Sequential Execution)';
-    if(desc) desc.textContent = '8 GB RAM supports running Kali Linux alone while host OS uses 4 GB.';
+    if(desc) desc.textContent = '8 GB RAM supports running Kali Linux (3–4 GB) alone while host OS uses 4 GB. Target VMs must be run sequentially or configured with low RAM.';
+    if(flowDetail) flowDetail.innerHTML = '<b>8 GB RAM CONSTRAINED:</b> Only Kali Linux runs reliably. Target servers cannot run simultaneously without severe memory swapping. Close heavy browser tabs.';
+    
+    if(resPressure){ resPressure.textContent = 'HIGH PRESSURE (Close background apps)'; resPressure.style.color = '#f59e0b'; }
+    if(swapRisk){ swapRisk.textContent = 'MODERATE (Host RAM paging likely)'; swapRisk.style.color = '#f59e0b'; }
+
+    // Update slots
+    if(slotTarget){ slotTarget.style.opacity = '0.5'; slotTarget.style.borderColor = '#334155'; }
+    if(slotTargetStatus){ slotTargetStatus.textContent = '⚠ SEQUENTIAL ONLY'; slotTargetStatus.style.background = '#1e293b'; slotTargetStatus.style.color = '#f59e0b'; }
+    if(slotMeta){ slotMeta.style.opacity = '0.8'; slotMeta.style.borderColor = '#a78bfa'; }
+    if(slotMetaStatus){ slotMetaStatus.textContent = '● LOW RAM (512MB)'; slotMetaStatus.style.background = 'rgba(167,139,250,.2)'; slotMetaStatus.style.color = '#c4b5fd'; }
+    if(slotEnt){ slotEnt.style.opacity = '0.35'; slotEnt.style.borderColor = '#334155'; }
+    if(slotEntStatus){ slotEntStatus.textContent = '✕ LOCKED (Needs 24GB+)'; slotEntStatus.style.background = '#1e293b'; slotEntStatus.style.color = '#ef4444'; }
+    if(slotEntSub) slotEntSub.textContent = 'Memory Exceeded (Locked)';
+
+    window.labState.cockpitItems.ram = false;
   } else if(gb === 16){
     if(badgeVmCount) badgeVmCount.textContent = '2–3 VMs PARALLEL';
-    if(title) title.textContent = '2–3 Concurrent Virtual Machines (Standard)';
-    if(desc) desc.textContent = '16 GB RAM is the sweet spot: Run Kali Linux (4 GB) + Target Server (4 GB) + Host OS (8 GB) simultaneously with zero lag.';
-  } else if(gb >= 24){
-    if(badgeVmCount) badgeVmCount.textContent = '4+ VMs PARALLEL';
-    if(title) title.textContent = 'Full Enterprise & Active Directory Multi-Node Range';
-    if(desc) desc.textContent = gb + ' GB supports running multiple domain nodes with ' + cores + ' CPU cores simultaneously.';
+    if(flowSummary) flowSummary.textContent = '2–3 VMs CONCURRENT (Standard ★)';
+    if(title) title.textContent = '2–3 Concurrent Virtual Machines (Standard ★)';
+    if(desc) desc.textContent = '16 GB RAM with ' + cores + ' CPU cores provides the optimal baseline: 4 GB Kali Linux + 2–4 GB Target Server + 1 GB Metasploitable + 8 GB Host OS with zero memory contention.';
+    if(flowDetail) flowDetail.innerHTML = '<b>16 GB LAB READY:</b> Kali Linux (4GB) + Ubuntu Web Target (2GB) + Metasploitable (1GB) run concurrently in true parallel execution with zero host disk paging.';
+
+    if(resPressure){ resPressure.textContent = 'OPTIMAL (Zero Host Swapping)'; resPressure.style.color = '#7ee787'; }
+    if(swapRisk){ swapRisk.textContent = '0% (Clean Memory Headroom)'; swapRisk.style.color = '#7ee787'; }
+
+    // Update slots
+    if(slotTarget){ slotTarget.style.opacity = '1'; slotTarget.style.borderColor = 'var(--green)'; }
+    if(slotTargetStatus){ slotTargetStatus.textContent = '● ONLINE ✓'; slotTargetStatus.style.background = 'rgba(16,185,129,.2)'; slotTargetStatus.style.color = '#6ee7b7'; }
+    if(slotMeta){ slotMeta.style.opacity = '1'; slotMeta.style.borderColor = '#a78bfa'; }
+    if(slotMetaStatus){ slotMetaStatus.textContent = '● ONLINE ✓'; slotMetaStatus.style.background = 'rgba(167,139,250,.2)'; slotMetaStatus.style.color = '#c4b5fd'; }
+    if(slotEnt){ slotEnt.style.opacity = '0.45'; slotEnt.style.borderColor = '#334155'; }
+    if(slotEntStatus){ slotEntStatus.textContent = '✕ LOCKED (Needs 24GB+)'; slotEntStatus.style.background = '#1e293b'; slotEntStatus.style.color = '#94a3b8'; }
+    if(slotEntSub) slotEntSub.textContent = 'Needs 24GB+ for Windows AD';
+
+    window.labState.cockpitItems.ram = true;
+  } else if(gb === 24){
+    if(badgeVmCount) badgeVmCount.textContent = '3–4 VMs PARALLEL';
+    if(flowSummary) flowSummary.textContent = '3–4 VMs CONCURRENT (Advanced Range)';
+    if(title) title.textContent = '3–4 Concurrent Virtual Machines (Advanced Range)';
+    if(desc) desc.textContent = '24 GB RAM allows running Kali Linux + Ubuntu Server + Windows 10/11 Target simultaneously for realistic client-side and lateral movement attacks.';
+    if(flowDetail) flowDetail.innerHTML = '<b>24 GB ADVANCED RANGE:</b> Kali Linux + Ubuntu Web Target + Windows 10/11 Target execute simultaneously in parallel without memory paging.';
+
+    if(resPressure){ resPressure.textContent = 'EXCELLENT LAB HEADROOM'; resPressure.style.color = '#7ee787'; }
+    if(swapRisk){ swapRisk.textContent = '0% (Zero Swap Risk)'; swapRisk.style.color = '#7ee787'; }
+
+    // Update slots
+    if(slotTarget){ slotTarget.style.opacity = '1'; slotTarget.style.borderColor = 'var(--green)'; }
+    if(slotTargetStatus){ slotTargetStatus.textContent = '● ONLINE ✓'; slotTargetStatus.style.background = 'rgba(16,185,129,.2)'; slotTargetStatus.style.color = '#6ee7b7'; }
+    if(slotMeta){ slotMeta.style.opacity = '1'; slotMeta.style.borderColor = '#a78bfa'; }
+    if(slotMetaStatus){ slotMetaStatus.textContent = '● ONLINE ✓'; slotMetaStatus.style.background = 'rgba(167,139,250,.2)'; slotMetaStatus.style.color = '#c4b5fd'; }
+    if(slotEnt){ slotEnt.style.opacity = '0.9'; slotEnt.style.borderColor = '#f59e0b'; }
+    if(slotEntStatus){ slotEntStatus.textContent = '● WIN 10/11 ACTIVE ✓'; slotEntStatus.style.background = 'rgba(245,158,11,.2)'; slotEntStatus.style.color = '#fcd34d'; }
+    if(slotEntSub) slotEntSub.textContent = '4 GB vRAM · AD Member';
+
+    window.labState.cockpitItems.ram = true;
+  } else if(gb >= 32){
+    if(badgeVmCount) badgeVmCount.textContent = (gb >= 64 ? '6–8 VMs' : '5–6 VMs') + ' PARALLEL';
+    if(flowSummary) flowSummary.textContent = (gb >= 64 ? '6–8 VMs' : '5–6 VMs') + ' CONCURRENT (Enterprise SOC)';
+    if(title) title.textContent = 'Full Enterprise Active Directory & SOC Multi-Node Range';
+    if(desc) desc.textContent = gb + ' GB RAM supports running full domain environments (Domain Controller + Kali + Windows 11 Target + Splunk SIEM) with ' + cores + ' CPU cores simultaneously.';
+    if(flowDetail) flowDetail.innerHTML = '<b>' + gb + ' GB ENTERPRISE LAB:</b> Full Active Directory Domain Controller + Windows 11 Endpoint + Splunk SIEM + Kali + Web Target all active simultaneously with massive free headroom!';
+
+    if(resPressure){ resPressure.textContent = 'ENTERPRISE LAB HEADROOM'; resPressure.style.color = '#7ee787'; }
+    if(swapRisk){ swapRisk.textContent = '0% (Massive Free Physical RAM)'; swapRisk.style.color = '#7ee787'; }
+
+    // Update slots
+    if(slotTarget){ slotTarget.style.opacity = '1'; slotTarget.style.borderColor = 'var(--green)'; }
+    if(slotTargetStatus){ slotTargetStatus.textContent = '● ONLINE ✓'; slotTargetStatus.style.background = 'rgba(16,185,129,.2)'; slotTargetStatus.style.color = '#6ee7b7'; }
+    if(slotMeta){ slotMeta.style.opacity = '1'; slotMeta.style.borderColor = '#a78bfa'; }
+    if(slotMetaStatus){ slotMetaStatus.textContent = '● ONLINE ✓'; slotMetaStatus.style.background = 'rgba(167,139,250,.2)'; slotMetaStatus.style.color = '#c4b5fd'; }
+    if(slotEnt){ slotEnt.style.opacity = '1'; slotEnt.style.borderColor = '#10b981'; }
+    if(slotEntStatus){ slotEntStatus.textContent = '● AD DC & SIEM ACTIVE ✓'; slotEntStatus.style.background = 'rgba(16,185,129,.2)'; slotEntStatus.style.color = '#6ee7b7'; }
+    if(slotEntSub) slotEntSub.textContent = (gb >= 64 ? '16 GB' : '8 GB') + ' vRAM · Full SOC Active';
+
+    window.labState.cockpitItems.ram = true;
   }
+
+  // CPU oversubscription
+  if(cpuOverSub){
+    const vCpuCapacity = cores * 2;
+    if(cores < 6){
+      cpuOverSub.textContent = cores + ' Cores (' + vCpuCapacity + ' Th): Allocate max 1–2 vCPUs per VM';
+      cpuOverSub.style.color = '#f59e0b';
+    } else {
+      cpuOverSub.textContent = cores + ' Cores (' + vCpuCapacity + ' Th): Safe for 4–6 parallel vCPUs';
+      cpuOverSub.style.color = '#7ee787';
+    }
+  }
+
+  // Disk I/O Status
+  if(diskIoStatus){
+    if(disk === 'hdd'){
+      diskIoStatus.textContent = 'HDD 120 MB/s ⚠ SEVERE BOTTLENECK (Multiple VMs will freeze)';
+      diskIoStatus.style.color = '#ef4444';
+      window.labState.cockpitItems.disk = false;
+    } else if(disk === 'sata'){
+      diskIoStatus.textContent = 'SATA SSD 550 MB/s ✓ GOOD (2–3 VMs boot in ~25 sec)';
+      diskIoStatus.style.color = '#7ee787';
+      window.labState.cockpitItems.disk = true;
+    } else {
+      diskIoStatus.textContent = 'NVMe PCIe 3500+ MB/s ★ INSTANT (Parallel VM boot in ~6 sec)';
+      diskIoStatus.style.color = '#7ee787';
+      window.labState.cockpitItems.disk = true;
+    }
+  }
+
+  // Update table capabilities
+  const capUbuntu = document.getElementById('capUbuntu');
+  const capMeta = document.getElementById('capMeta');
+  const capWin = document.getElementById('capWin');
+  const capAd = document.getElementById('capAd');
+  const capSiem = document.getElementById('capSiem');
+
+  if(capUbuntu) capUbuntu.innerHTML = gb >= 12 ? '<span style="color:#7ee787;font-weight:700">✓ Parallel with Kali (Enabled)</span>' : '<span style="color:#f59e0b">⚠ Low RAM (Sequential Only)</span>';
+  if(capMeta) capMeta.innerHTML = '<span style="color:#7ee787;font-weight:700">✓ Parallel with Kali (512MB Footprint)</span>';
+  if(capWin) capWin.innerHTML = gb >= 24 ? '<span style="color:#7ee787;font-weight:700">✓ Parallel with Kali & Target (Enabled)</span>' : '<span style="color:#ef4444">✗ Requires 24 GB+ RAM</span>';
+  if(capAd) capAd.innerHTML = gb >= 24 ? '<span style="color:#7ee787;font-weight:700">✓ Parallel AD Domain (Enabled)</span>' : '<span style="color:#ef4444">✗ Requires 24 GB–32 GB RAM</span>';
+  if(capSiem) capSiem.innerHTML = gb >= 32 ? '<span style="color:#7ee787;font-weight:700">✓ Full Enterprise SOC Mode (Enabled)</span>' : '<span style="color:#ef4444">✗ Requires 32 GB+ RAM</span>';
+
+  renderCockpit();
 }
 
 function setVtx(enabled){
@@ -1476,6 +1663,7 @@ function passReadiness(){
   document.getElementById('cockpitPct').textContent = '100%';
 }
 
+updateHardwareCalculations();
 setNetworkTopology('natnet');
 renderCockpit();
 
