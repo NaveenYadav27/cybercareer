@@ -117,7 +117,7 @@ main{min-width:0}
 
 /* CONTENT SECTIONS */
 .content{padding:10px clamp(24px,5vw,72px) 80px;max-width:1420px;margin:0 auto}
-.section{padding:54px 0;border-bottom:1px solid var(--line)}
+.section{padding:54px 0;border-bottom:1px solid var(--line);scroll-margin-top:72px}
 .section-head{margin-bottom:28px}
 .section-head h2{font-size:clamp(26px,3.2vw,40px);letter-spacing:-.04em;margin:8px 0 8px;font-weight:800;line-height:1.1}
 .section-head p{color:var(--muted);font-size:15px;max-width:840px;margin:0}
@@ -285,7 +285,7 @@ main{min-width:0}
 }
 .tool-card:hover,.tool-card.active{border-color:var(--cyber-red);transform:translateY(-2px);box-shadow:var(--shadow)}
 
-/* CHECKPOINTS */
+/* 11. CHECKPOINTS */
 .cp-card{
   border:1px solid var(--line);border-radius:14px;background:#ffffff;padding:22px;margin:20px 0;
   box-shadow:var(--shadow);border-left:4px solid var(--cyber-red);
@@ -305,7 +305,7 @@ main{min-width:0}
 .cp-feedback.show{display:block}
 .cp-feedback.is-correct{border-left-color:var(--green);background:#f0fdf4}
 
-/* READINESS GATE */
+/* 13. READINESS GATE */
 .readiness-gate{
   background:#fff;border:1px solid var(--line);border-top:4px solid var(--cyber-red);border-radius:16px;
   padding:30px;box-shadow:var(--shadow);
@@ -545,7 +545,7 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
             <span style="font:800 11px var(--mono);color:#7ee787;letter-spacing:.1em">VM CAPACITY &amp; CONCURRENCY</span>
             <span id="badgeVmCount" style="font:800 11px var(--mono);background:var(--cyber-red);color:#fff;padding:2px 8px;border-radius:4px">2-3 VMs PARALLEL</span>
           </div>
-          <div style="font-size:19px;font-weight:900;margin:6px 0 10px;line-height:1.3" id="hwCapacityTitle">2–3 Concurrent Virtual Machines (Standard)</div>
+          <div style="font-size:19px;font-weight:900;margin:6px 0 10px;line-height:1.3" id="hwCapacityTitle">2–3 Concurrent Virtual Machines (Standard ★)</div>
           <p style="font-size:12.5px;color:#94a3b8;margin:0 0 14px;line-height:1.55" id="hwCapacityDesc">
             16 GB RAM with 8 CPU cores provides the optimal baseline: 4 GB Kali Linux + 4 GB Target Server + 8 GB Host OS with zero memory contention.
           </p>
@@ -567,12 +567,11 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
           <span>⚡ LIVE CONCURRENT VM EXECUTION RACK</span>
           <span style="color:#8b949e;font-weight:400">(Dynamic state based on selected Host RAM + Cores + Storage)</span>
         </div>
-        <div id="vmFlowSummary" style="font:800 11px var(--mono);color:#58a6ff">2–3 VMs CONCURRENTLY RUNNING</div>
+        <div id="vmFlowSummary" style="font:800 11px var(--mono);color:#58a6ff">2–3 VMs CONCURRENT (Standard ★)</div>
       </div>
 
       <!-- 5 Parallel VM Slot Nodes -->
       <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px" id="vmFlowRack">
-        <!-- Slot 1: Host OS -->
         <div class="vm-slot-node ok" id="slot-host" style="background:#0e131a;border:1px solid #3b82f6;border-radius:10px;padding:12px;text-align:center;position:relative">
           <div style="font:800 9px var(--mono);color:#3b82f6;margin-bottom:2px">BASE LAYER</div>
           <div style="font-size:12.5px;font-weight:800;color:#fff">Host OS</div>
@@ -580,7 +579,6 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
           <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(59,130,246,.2);color:#93c5fd" id="slot-host-status">● ACTIVE BASE</span>
         </div>
 
-        <!-- Slot 2: Kali Linux -->
         <div class="vm-slot-node ok" id="slot-kali" style="background:#0e131a;border:1px solid var(--cyber-red);border-radius:10px;padding:12px;text-align:center;position:relative">
           <div style="font:800 9px var(--mono);color:var(--cyber-red);margin-bottom:2px">OPERATOR VM</div>
           <div style="font-size:12.5px;font-weight:800;color:#fff">Kali Linux 2024.x</div>
@@ -588,7 +586,6 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
           <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(226,27,35,.2);color:#ff9296" id="slot-kali-status">● ONLINE ✓</span>
         </div>
 
-        <!-- Slot 3: Target Server -->
         <div class="vm-slot-node ok" id="slot-target" style="background:#0e131a;border:1px solid var(--green);border-radius:10px;padding:12px;text-align:center;position:relative">
           <div style="font:800 9px var(--mono);color:var(--green);margin-bottom:2px">TARGET VM 1</div>
           <div style="font-size:12.5px;font-weight:800;color:#fff">Ubuntu / Web App</div>
@@ -596,7 +593,6 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
           <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(16,185,129,.2);color:#6ee7b7" id="slot-target-status">● ONLINE ✓</span>
         </div>
 
-        <!-- Slot 4: Metasploitable -->
         <div class="vm-slot-node ok" id="slot-meta" style="background:#0e131a;border:1px solid #a78bfa;border-radius:10px;padding:12px;text-align:center;position:relative">
           <div style="font:800 9px var(--mono);color:#a78bfa;margin-bottom:2px">TARGET VM 2</div>
           <div style="font-size:12.5px;font-weight:800;color:#fff">Metasploitable 2</div>
@@ -604,18 +600,16 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
           <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:rgba(167,139,250,.2);color:#c4b5fd" id="slot-meta-status">● ONLINE ✓</span>
         </div>
 
-        <!-- Slot 5: Enterprise AD DC / SIEM -->
-        <div class="vm-slot-node locked" id="slot-ent" style="background:#0e131a;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;position:relative;opacity:0.5">
+        <div class="vm-slot-node locked" id="slot-ent" style="background:#0e131a;border:1px solid #334155;border-radius:10px;padding:12px;text-align:center;position:relative;opacity:0.45">
           <div style="font:800 9px var(--mono);color:#94a3b8;margin-bottom:2px">ENTERPRISE DC/SOC</div>
           <div style="font-size:12.5px;font-weight:800;color:#94a3b8">Windows AD DC / SIEM</div>
-          <div style="font:700 9.5px var(--mono);color:#64748b;margin:4px 0" id="slot-ent-sub">Needs 24GB–32GB RAM</div>
+          <div style="font:700 9.5px var(--mono);color:#64748b;margin:4px 0" id="slot-ent-sub">Needs 24GB+ for Windows AD</div>
           <span style="font:800 9px var(--mono);padding:2px 6px;border-radius:4px;background:#1e293b;color:#94a3b8" id="slot-ent-status">✕ LOCKED (Needs 24GB+)</span>
         </div>
       </div>
 
-      <!-- Real-time Flow explanation banner -->
       <div id="vmFlowDetailText" style="margin-top:12px;background:#0e141c;border-left:3px solid #58a6ff;padding:10px 14px;border-radius:0 6px 6px 0;font:11.5px/1.6 var(--mono);color:#c9d1d9">
-        <b>CURRENT LAB CAPABILITY:</b> 16 GB Physical RAM allows Kali Linux + Ubuntu Target Server + Metasploitable to run concurrently with zero host memory swapping.
+        <b>16 GB LAB READY:</b> Kali Linux (4GB) + Ubuntu Web Target (2GB) + Metasploitable (1GB) run concurrently in true parallel execution with zero host disk paging.
       </div>
     </div>
 
@@ -1055,10 +1049,43 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
   </div>
 </section>
 
-<!-- 7. SNAPSHOT STATE MACHINE -->
+<!-- 7. WIRESHARK PACKET DISSECTOR SIMULATION -->
+<section class="section" id="sec-wireshark">
+  <div class="section-head">
+    <div class="kicker">07 · PACKET CAPTURE &amp; INSPECTION</div>
+    <h2>Wireshark Protocol Dissector Simulator</h2>
+    <p>Click any packet in the captured trace below to dissect its Layer 2 (Ethernet), Layer 3 (IP), and Layer 4 (TCP/UDP/ICMP) headers.</p>
+  </div>
+
+  <div class="wireshark-box">
+    <!-- Packet Table -->
+    <table class="pcap-table">
+      <thead>
+        <tr><th>No.</th><th>Time</th><th>Source</th><th>Destination</th><th>Protocol</th><th>Length</th><th>Info</th></tr>
+      </thead>
+      <tbody id="pcapBody">
+        <tr class="selected" onclick="selectPcap(0,this)"><td>1</td><td>0.000000</td><td>192.168.1.10</td><td>192.168.1.1</td><td>ARP</td><td>42</td><td>Who has 192.168.1.1? Tell 192.168.1.10</td></tr>
+        <tr onclick="selectPcap(1,this)"><td>2</td><td>0.001420</td><td>192.168.1.1</td><td>192.168.1.10</td><td>ARP</td><td>42</td><td>192.168.1.1 is at 08:00:27:5a:32:bc</td></tr>
+        <tr onclick="selectPcap(2,this)"><td>3</td><td>0.002810</td><td>192.168.1.10</td><td>10.10.14.1</td><td>ICMP</td><td>74</td><td>Echo (ping) request  id=0x0001, seq=1/256, ttl=64</td></tr>
+        <tr onclick="selectPcap(3,this)"><td>4</td><td>0.024190</td><td>10.10.14.1</td><td>192.168.1.10</td><td>ICMP</td><td>74</td><td>Echo (ping) reply    id=0x0001, seq=1/256, ttl=63</td></tr>
+        <tr onclick="selectPcap(4,this)"><td>5</td><td>0.035120</td><td>192.168.1.10</td><td>10.10.14.1</td><td>TCP</td><td>66</td><td>49152 → 80 [SYN] Seq=0 Win=64240 Len=0 MSS=1460</td></tr>
+      </tbody>
+    </table>
+
+    <!-- Dissected Protocol Tree -->
+    <div class="dissect-tree" id="dissectTree">
+      <div class="dissect-layer"><b>Frame 1:</b> 42 bytes on wire (336 bits), 42 bytes captured</div>
+      <div class="dissect-layer"><b>Ethernet II:</b> Src: 08:00:27:11:22:33, Dst: ff:ff:ff:ff:ff:ff (Broadcast)</div>
+      <div class="dissect-layer"><b>Address Resolution Protocol (request):</b> Who has 192.168.1.1? Tell 192.168.1.10</div>
+      <div class="dissect-layer"><b>Protocol Payload:</b> Hardware type: Ethernet (1), Protocol: IPv4 (0x0800)</div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. SNAPSHOT STATE MACHINE -->
 <section class="section" id="sec-snapshots">
   <div class="section-head">
-    <div class="kicker">07 · RECOVERY &amp; LAB HYGIENE</div>
+    <div class="kicker">08 · RECOVERY &amp; LAB HYGIENE</div>
     <h2>VM Snapshot State Machine</h2>
     <p>Interact with the snapshot engine below. Simulate breaking the VM during an exploit lab, then restore to the clean baseline snapshot.</p>
   </div>
@@ -1094,10 +1121,198 @@ html[data-theme="dark"] .cp-btn { background: #161c24; border-color: #303a48; co
   </div>
 </section>
 
-<!-- 8. READINESS GATE -->
+<!-- 9. DEPENDENCY-DRIVEN READINESS ENGINE -->
+<section class="section" id="sec-depgraph">
+  <div class="section-head">
+    <div class="kicker">09 · UNIFIED DEPENDENCY GRAPH</div>
+    <h2>Workstation Dependency &amp; Propagation Model</h2>
+    <p>ShadowXLab CyberCore enforces strict prerequisites. If an upstream foundation fails (e.g. CPU virtualization), downstream virtual appliances automatically block.</p>
+  </div>
+
+  <div class="dep-tree-card">
+    <div style="font:800 11.5px var(--mono);color:#58a6ff;letter-spacing:.1em;margin-bottom:12px">PROPAGATION PIPELINE STATE</div>
+    
+    <div class="dep-nodes-row">
+      <div class="dep-node ok" id="dep-hw">
+        <div style="font:800 10px var(--mono)">STEP 01</div>
+        <div style="font-weight:800;font-size:13px">Host Hardware</div>
+        <div style="font:700 10px var(--mono);color:#7ee787" id="dep-hw-status">16 GB RAM ✓</div>
+      </div>
+      <div class="dep-node ok" id="dep-vtx">
+        <div style="font:800 10px var(--mono)">STEP 02</div>
+        <div style="font-weight:800;font-size:13px">Virtualization</div>
+        <div style="font:700 10px var(--mono);color:#7ee787" id="dep-vtx-status">VT-x Active ✓</div>
+      </div>
+      <div class="dep-node ok" id="dep-vbox">
+        <div style="font:800 10px var(--mono)">STEP 03</div>
+        <div style="font-weight:800;font-size:13px">VirtualBox 7.x</div>
+        <div style="font:700 10px var(--mono);color:#7ee787" id="dep-vbox-status">Ext Pack OK ✓</div>
+      </div>
+      <div class="dep-node ok" id="dep-lab">
+        <div style="font:800 10px var(--mono)">STEP 04</div>
+        <div style="font-weight:800;font-size:13px">Module 01 Gate</div>
+        <div style="font:700 10px var(--mono);color:#7ee787" id="dep-lab-status">UNLOCKED ✓</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 10. TOOLCHAIN MAP -->
+<section class="section" id="sec-toolchain">
+  <div class="section-head">
+    <div class="kicker">10 · CONNECTED HOST TOOLCHAIN</div>
+    <h2>Integrated Software Toolchain</h2>
+    <p>Click any tool in the pipeline to see where it fits into your workflow and why ShadowXLab CyberCore utilizes it.</p>
+  </div>
+
+  <div class="toolchain-grid">
+    <div class="tool-card active" onclick="showToolInfo('vbox',this)">
+      <div class="kicker" style="color:var(--cyber-red)">VIRTUALIZATION</div>
+      <h3 style="margin:4px 0">Oracle VirtualBox 7.x</h3>
+      <p style="font-size:12.5px;color:var(--muted)">Cross-platform Type-2 hypervisor for guest OS isolation.</p>
+    </div>
+
+    <div class="tool-card" onclick="showToolInfo('pt',this)">
+      <div class="kicker" style="color:var(--blue)">NETWORK SIMULATION</div>
+      <h3 style="margin:4px 0">Cisco Packet Tracer</h3>
+      <p style="font-size:12.5px;color:var(--muted)">Layer 2-4 enterprise topology simulation and protocol analysis.</p>
+    </div>
+
+    <div class="tool-card" onclick="showToolInfo('kali',this)">
+      <div class="kicker" style="color:var(--cyber-red-2)">OPERATOR WORKSTATION</div>
+      <h3 style="margin:4px 0">Kali Linux 2024.x</h3>
+      <p style="font-size:12.5px;color:var(--muted)">Pre-packaged security appliance with hundreds of testing utilities.</p>
+    </div>
+
+    <div class="tool-card" onclick="showToolInfo('wireshark',this)">
+      <div class="kicker" style="color:var(--green)">PACKET TELEMETRY</div>
+      <h3 style="margin:4px 0">Wireshark</h3>
+      <p style="font-size:12.5px;color:var(--muted)">Deep packet inspection and pcap capture analysis.</p>
+    </div>
+
+    <div class="tool-card" onclick="showToolInfo('vscode',this)">
+      <div class="kicker" style="color:var(--purple)">CODE &amp; CONFIG</div>
+      <h3 style="margin:4px 0">VS Code</h3>
+      <p style="font-size:12.5px;color:var(--muted)">Configuration editor for Python scripts, Bash, and JSON telemetry.</p>
+    </div>
+
+    <div class="tool-card" onclick="showToolInfo('sevenzip',this)">
+      <div class="kicker" style="color:#f59e0b">ARCHIVE UTILITY</div>
+      <h3 style="margin:4px 0">7-Zip 64-bit</h3>
+      <p style="font-size:12.5px;color:var(--muted)">Multi-part OVA and 7z appliance decompression engine.</p>
+    </div>
+  </div>
+
+  <div class="step-callout" id="toolInfoBox" style="margin-top:20px">
+    <b>Oracle VirtualBox 7.x:</b> The core foundation of your local testing lab. Runs isolated Kali Linux and Target virtual machines without modifying host system files or registry.
+  </div>
+</section>
+
+<!-- 11. KNOWLEDGE CHECKPOINTS -->
+<section class="section" id="sec-checkpoints">
+  <div class="section-head">
+    <div class="kicker">11 · PREREQUISITE ASSESSMENTS</div>
+    <h2>Knowledge Checkpoints: Prerequisite Validation</h2>
+    <p>Confirm your understanding of the lab architecture before advancing.</p>
+  </div>
+
+  <div class="cp-card" data-ans="b">
+    <div class="cp-kicker">CHECKPOINT 01 · VIRTUALIZATION</div>
+    <div class="cp-question">When attempting to start a 64-bit Kali VM in VirtualBox, you receive an error: <i>"VT-x/AMD-V hardware acceleration is not available"</i>. What is the required resolution?</div>
+    <div class="cp-options">
+      <button class="cp-btn" onclick="evalQuiz(this,'a')">A) Re-install Windows 11</button>
+      <button class="cp-btn" onclick="evalQuiz(this,'b')">B) Enter BIOS/UEFI settings and enable Intel Virtualization Technology (VT-x) or SVM Mode (AMD-V)</button>
+      <button class="cp-btn" onclick="evalQuiz(this,'c')">C) Allocate more hard disk space</button>
+      <button class="cp-btn" onclick="evalQuiz(this,'d')">D) Disable WiFi</button>
+    </div>
+    <div class="cp-feedback">
+      <b>Explanation:</b> 64-bit guest operating systems require CPU hardware virtualization extensions (VT-x/AMD-V) to be toggled to <b>Enabled</b> in the motherboard BIOS/UEFI.
+    </div>
+  </div>
+
+  <div class="cp-card" data-ans="c">
+    <div class="cp-kicker">CHECKPOINT 02 · NETWORK ISOLATION</div>
+    <div class="cp-question">Which VirtualBox network mode creates an isolated virtual subnet where guest VMs can communicate with each other AND reach the Internet, without exposing ports to your physical home WiFi network?</div>
+    <div class="cp-options">
+      <button class="cp-btn" onclick="evalQuiz(this,'a')">A) Bridged Adapter</button>
+      <button class="cp-btn" onclick="evalQuiz(this,'b')">B) Internal Network</button>
+      <button class="cp-btn" onclick="evalQuiz(this,'c')">C) NAT Network</button>
+      <button class="cp-btn" onclick="evalQuiz(this,'d')">D) Generic Driver</button>
+    </div>
+    <div class="cp-feedback">
+      <b>Explanation:</b> <b>NAT Network</b> provides an isolated virtual router that lets VMs talk to each other on a private subnet while sharing outbound NAT internet access without exposing VMs to the physical LAN.
+    </div>
+  </div>
+</section>
+
+<!-- 12. OFFICIAL REFERENCES -->
+<section class="section" id="sec-references">
+  <div class="section-head">
+    <div class="kicker">12 · VERIFIED OFFICIAL RESOURCES</div>
+    <h2>Official Download Links &amp; Documentation Directory</h2>
+    <p>Always verify download URLs to prevent downloading trojanized hypervisors or malicious ISO images from third-party sites.</p>
+  </div>
+
+  <table class="matrix-table">
+    <thead>
+      <tr>
+        <th>Resource</th>
+        <th>Publisher</th>
+        <th>Official Verified Link</th>
+        <th>License</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><b>Cisco Networking Academy</b></td>
+        <td>Cisco Systems</td>
+        <td><a href="https://www.netacad.com" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">netacad.com ↗</a></td>
+        <td>Free Educational Account</td>
+      </tr>
+      <tr>
+        <td><b>Cisco Packet Tracer 8.2+</b></td>
+        <td>Cisco Systems</td>
+        <td><a href="https://www.netacad.com/portal/resources/packet-tracer" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">netacad.com/.../packet-tracer ↗</a></td>
+        <td>Free Student License</td>
+      </tr>
+      <tr>
+        <td><b>Oracle VM VirtualBox 7.x</b></td>
+        <td>Oracle Corporation</td>
+        <td><a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">virtualbox.org/wiki/Downloads ↗</a></td>
+        <td>GPLv2 / Free PUEL</td>
+      </tr>
+      <tr>
+        <td><b>Kali Linux (VirtualBox Image)</b></td>
+        <td>OffSec (Offensive Security)</td>
+        <td><a href="https://www.kali.org/get-kali/#kali-virtual-machines" target="_blank" rel="noopener" style="color:var(--cyber-red);font-weight:700">kali.org/get-kali ↗</a></td>
+        <td>Open Source (GPL)</td>
+      </tr>
+      <tr>
+        <td><b>Visual Studio Code</b></td>
+        <td>Microsoft</td>
+        <td><a href="https://code.visualstudio.com" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">code.visualstudio.com ↗</a></td>
+        <td>MIT License</td>
+      </tr>
+      <tr>
+        <td><b>Wireshark Network Analyzer</b></td>
+        <td>Wireshark Foundation</td>
+        <td><a href="https://www.wireshark.org" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">wireshark.org ↗</a></td>
+        <td>GPLv2</td>
+      </tr>
+      <tr>
+        <td><b>7-Zip 64-bit</b></td>
+        <td>Igor Pavlov</td>
+        <td><a href="https://www.7-zip.org" target="_blank" rel="noopener" style="color:var(--blue);font-weight:700">7-zip.org ↗</a></td>
+        <td>GNU LGPL</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- 13. READINESS GATE -->
 <section class="section" id="sec-readiness">
   <div class="section-head">
-    <div class="kicker">08 · ONBOARDING COMPLETION</div>
+    <div class="kicker">13 · ONBOARDING COMPLETION</div>
     <h2>Module 00 Readiness Gate</h2>
     <p>Complete the prerequisite readiness check to verify your workstation is primed for Module 01.</p>
   </div>
@@ -1173,6 +1388,7 @@ window.labState = {
 function toggleCockpitItem(k){
   window.labState.cockpitItems[k] = !window.labState.cockpitItems[k];
   renderCockpit();
+  syncDepGraph();
 }
 
 function renderCockpit(){
@@ -1443,6 +1659,7 @@ function updateHardwareCalculations(){
   if(capSiem) capSiem.innerHTML = gb >= 32 ? '<span style="color:#7ee787;font-weight:700">✓ Full Enterprise SOC Mode (Enabled)</span>' : '<span style="color:#ef4444">✗ Requires 32 GB+ RAM</span>';
 
   renderCockpit();
+  syncDepGraph();
 }
 
 function setVtx(enabled){
@@ -1473,6 +1690,7 @@ function setVtx(enabled){
     exp.innerHTML = '<b>WITHOUT VIRTUALIZATION:</b> 64-bit guest operating systems cannot execute Ring 0 privileged instructions. VirtualBox will throw hardware acceleration errors.';
   }
   renderCockpit();
+  syncDepGraph();
 }
 
 function setVmBuilder(field, val, btn){
@@ -1626,6 +1844,55 @@ function openPacketDissector(){
   alert("[PACKET TRACER DISSECTOR]\nProtocol: ICMP Echo Request\nSource: 192.168.1.10 (PC-01)\nDestination: 10.10.14.1 (Lab Server)\nTTL: 64 | Packet Size: 74 Bytes\nStatus: Successfully Routed across Layer 2 Switch & Layer 3 Gateway.");
 }
 
+/* Wireshark Dissector */
+const PCAP_DATA = [
+  {
+    f: "Frame 1: 42 bytes on wire, 42 bytes captured",
+    eth: "Ethernet II, Src: 08:00:27:11:22:33, Dst: ff:ff:ff:ff:ff:ff (Broadcast)",
+    l3: "Address Resolution Protocol (request): Who has 192.168.1.1? Tell 192.168.1.10",
+    l4: "Hardware type: Ethernet (1), Protocol type: IPv4 (0x0800)"
+  },
+  {
+    f: "Frame 2: 42 bytes on wire, 42 bytes captured",
+    eth: "Ethernet II, Src: 08:00:27:5a:32:bc, Dst: 08:00:27:11:22:33",
+    l3: "Address Resolution Protocol (reply): 192.168.1.1 is at 08:00:27:5a:32:bc",
+    l4: "Sender IP: 192.168.1.1, Target IP: 192.168.1.10"
+  },
+  {
+    f: "Frame 3: 74 bytes on wire, 74 bytes captured",
+    eth: "Ethernet II, Src: 08:00:27:11:22:33, Dst: 08:00:27:5a:32:bc",
+    l3: "Internet Protocol Version 4, Src: 192.168.1.10, Dst: 10.10.14.1, TTL: 64",
+    l4: "Internet Control Message Protocol: Echo (ping) request, id 0x0001, seq 1"
+  },
+  {
+    f: "Frame 4: 74 bytes on wire, 74 bytes captured",
+    eth: "Ethernet II, Src: 08:00:27:5a:32:bc, Dst: 08:00:27:11:22:33",
+    l3: "Internet Protocol Version 4, Src: 10.10.14.1, Dst: 192.168.1.10, TTL: 63",
+    l4: "Internet Control Message Protocol: Echo (ping) reply, id 0x0001, seq 1"
+  },
+  {
+    f: "Frame 5: 66 bytes on wire, 66 bytes captured",
+    eth: "Ethernet II, Src: 08:00:27:11:22:33, Dst: 08:00:27:5a:32:bc",
+    l3: "Internet Protocol Version 4, Src: 192.168.1.10, Dst: 10.10.14.1",
+    l4: "Transmission Control Protocol, Src Port: 49152, Dst Port: 80, [SYN] Seq=0"
+  }
+];
+
+function selectPcap(idx, tr){
+  const rows = document.querySelectorAll('#pcapBody tr');
+  rows.forEach(r => r.classList.remove('selected'));
+  tr.classList.add('selected');
+
+  const d = PCAP_DATA[idx];
+  const tree = document.getElementById('dissectTree');
+  tree.innerHTML = `
+    <div class="dissect-layer"><b>${d.f}</b></div>
+    <div class="dissect-layer"><b>${d.eth}</b></div>
+    <div class="dissect-layer"><b>${d.l3}</b></div>
+    <div class="dissect-layer"><b>${d.l4}</b></div>
+  `;
+}
+
 function simulateCorruptVm(){
   window.labState.snapshotState = 'corrupted';
   const b3 = document.getElementById('sb-3');
@@ -1644,6 +1911,89 @@ function simulateRestoreVm(){
   document.getElementById('sb3-title').style.color = 'var(--green)';
   document.getElementById('sb3-state').textContent = '00-Clean-Base-State';
   document.getElementById('sb3-desc').textContent = 'VM 100% healthy, clean & ready for next lab';
+}
+
+/* Dependency Engine Sync */
+function syncDepGraph(){
+  const vtxNode = document.getElementById('dep-vtx');
+  const vboxNode = document.getElementById('dep-vbox');
+  const labNode = document.getElementById('dep-lab');
+  const hwNode = document.getElementById('dep-hw');
+
+  if(hwNode){
+    const gb = window.labState.ram || 16;
+    document.getElementById('dep-hw-status').textContent = gb + ' GB RAM ✓';
+  }
+
+  if(!window.labState.vtxEnabled){
+    if(vtxNode){
+      vtxNode.className = 'dep-node err';
+      document.getElementById('dep-vtx-status').textContent = 'VT-x Blocked ✕';
+      document.getElementById('dep-vtx-status').style.color = '#ef4444';
+    }
+    if(vboxNode){
+      vboxNode.className = 'dep-node err';
+      document.getElementById('dep-vbox-status').textContent = 'Hypervisor Blocked ✕';
+      document.getElementById('dep-vbox-status').style.color = '#ef4444';
+    }
+    if(labNode){
+      labNode.className = 'dep-node err';
+      document.getElementById('dep-lab-status').textContent = 'LOCKED ✕';
+      document.getElementById('dep-lab-status').style.color = '#ef4444';
+    }
+  } else {
+    if(vtxNode){
+      vtxNode.className = 'dep-node ok';
+      document.getElementById('dep-vtx-status').textContent = 'VT-x Active ✓';
+      document.getElementById('dep-vtx-status').style.color = '#7ee787';
+    }
+    if(vboxNode){
+      vboxNode.className = 'dep-node ok';
+      document.getElementById('dep-vbox-status').textContent = 'Ext Pack OK ✓';
+      document.getElementById('dep-vbox-status').style.color = '#7ee787';
+    }
+    if(labNode){
+      labNode.className = 'dep-node ok';
+      document.getElementById('dep-lab-status').textContent = 'UNLOCKED ✓';
+      document.getElementById('dep-lab-status').style.color = '#7ee787';
+    }
+  }
+}
+
+/* Toolchain Info */
+const TOOL_INFO = {
+  vbox: '<b>Oracle VirtualBox 7.x:</b> Type-2 Hypervisor foundation. Allocates isolated virtual CPUs, virtual disks, and host-only network subnets for testing without modifying your physical machine.',
+  pt: '<b>Cisco Packet Tracer 8.2+:</b> Official network simulator. Recreates real-world enterprise topologies (routers, firewalls, switches) with packet-level inspection and simulation modes.',
+  kali: '<b>Kali Linux 2024.x:</b> The industry-standard Linux security distribution. Comes pre-equipped with Nmap, Wireshark, Burp Suite, Metasploit, and Python for all ShadowXLab CyberCore labs.',
+  wireshark: '<b>Wireshark:</b> Deep packet inspection engine. Captures raw network frames to analyze TCP 3-way handshakes, DNS queries, and TLS handshakes.',
+  vscode: '<b>Visual Studio Code:</b> Clean text and code editor for writing Python automation scripts, parsing log files, and modifying configuration parameters.',
+  sevenzip: '<b>7-Zip 64-bit:</b> High-performance decompression utility. Extracts large multi-part `.ova` and `.7z` virtual machine archives without corrupting file hashes.'
+};
+
+function showToolInfo(tool, el){
+  document.querySelectorAll('.tool-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('toolInfoBox').innerHTML = TOOL_INFO[tool];
+}
+
+/* Quiz Evaluation */
+function evalQuiz(btn, choice){
+  const card = btn.closest('.cp-card');
+  const correctAns = card.dataset.ans;
+  const allBtns = card.querySelectorAll('.cp-btn');
+  allBtns.forEach(b => b.disabled = true);
+  
+  const fb = card.querySelector('.cp-feedback');
+  fb.classList.add('show');
+  
+  if(choice === correctAns){
+    btn.classList.add('correct');
+    fb.classList.add('is-correct');
+  } else {
+    btn.classList.add('incorrect');
+    const rightBtn = card.querySelector(`.cp-btn[onclick*="'${correctAns}'"]`);
+    if(rightBtn) rightBtn.classList.add('correct');
+  }
 }
 
 function passReadiness(){
@@ -1666,6 +2016,22 @@ function passReadiness(){
 updateHardwareCalculations();
 setNetworkTopology('natnet');
 renderCockpit();
+syncDepGraph();
+
+/* Scroll spy */
+(function(){
+  const sections = document.querySelectorAll('main section[id]');
+  const links = document.querySelectorAll('#moduleNav a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if(window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id');
+    });
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  });
+})();
 
 function toggleTheme(){
   const cur = document.documentElement.getAttribute('data-theme') || 'light';
